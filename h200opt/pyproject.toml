@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "h200opt"
+version = "0.1.0"
+description = "H200 (SM90) serving optimizations for DeepSeek-V4.1-Flash, as a vLLM plugin"
+requires-python = ">=3.10"
+dependencies = []   # torch and vllm come from the serving image
+
+[project.entry-points."vllm.general_plugins"]
+h200opt = "h200opt.vllm_plugin:register"
+
+[tool.setuptools.packages.find]
+include = ["h200opt*"]

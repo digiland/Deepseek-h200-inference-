@@ -45,6 +45,43 @@ def load(run_dir: Path) -> dict[tuple[str, int], dict]:
     return rows
 
 
+def server_counters(run_dir: Path) -> str:
+    """Prefix-cache hit rate and spec-decode acceptance from the scraped /metrics
+    (cumulative over the whole server lifetime, so warmups are included)."""
+    f = run_dir / "server_metrics.prom"
+    if not f.exists():
+        return ""
+    tot: dict[str, float] = {}
+    for line in f.read_text().splitlines():
+        if line.startswith("#") or " " not in line:
+            continue
+        name_labels, _, val = line.rpartition(" ")
+        name = name_labels.split("{", 1)[0]
+        if name.endswith("_created"):
+            continue
+        try:
+            tot[name] = tot.get(name, 0.0) + float(val)
+        except ValueError:
+            pass
+    out = []
+    q = tot.get("vllm:prefix_cache_queries_total", tot.get("vllm:prefix_cache_queries"))
+    h = tot.get("vllm:prefix_cache_hits_total", tot.get("vllm:prefix_cache_hits"))
+    if q:
+        out.append(f"prefix-cache hit rate {100 * (h or 0) / q:.1f}% ({h:,.0f}/{q:,.0f} tokens)")
+    drafts = tot.get("vllm:spec_decode_num_drafts_total", tot.get("vllm:spec_decode_num_drafts"))
+    acc = tot.get("vllm:spec_decode_num_accepted_tokens_total",
+                  tot.get("vllm:spec_decode_num_accepted_tokens"))
+    dtok = tot.get("vllm:spec_decode_num_draft_tokens_total",
+                   tot.get("vllm:spec_decode_num_draft_tokens"))
+    if drafts:
+        out.append(f"DSpark mean acceptance length {1 + (acc or 0) / drafts:.2f} tokens/step"
+                   + (f", draft acceptance {100 * acc / dtok:.1f}%" if dtok else ""))
+    for k in ("sglang:spec_accept_length", "sglang:cache_hit_rate"):
+        if k in tot:
+            out.append(f"{k} = {tot[k]:.3f}")
+    return ("\n\nServer counters: " + "; ".join(out)) if out else ""
+
+
 def fmt(v, nd=1):
     return "-" if v is None else f"{v:,.{nd}f}"
 
@@ -64,7 +101,7 @@ def table_single(run_dir: Path) -> str:
             )
             + " |"
         )
-    return f"### {run_dir.name}\n\n" + "\n".join(lines)
+    return f"### {run_dir.name}\n\n" + "\n".join(lines) + server_counters(run_dir)
 
 
 def table_compare(base_dir: Path, new_dir: Path) -> str:

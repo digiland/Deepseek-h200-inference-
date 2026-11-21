@@ -1,0 +1,21 @@
+# vLLM serving image for DeepSeek-V4.1-Flash on H200 + the h200opt plugin.
+#
+# Base: an official vLLM image recent enough to carry the SM90 MXFP4 MegaMoE
+# kernel (vllm-project/DeepGEMM#44) and DeepSeek-V4.1 support. `nightly` tracks
+# main; once a run looks good, pin the digest (docker inspect --format '{{index .RepoDigests 0}}').
+ARG VLLM_IMAGE=vllm/vllm-openai:nightly
+FROM ${VLLM_IMAGE}
+
+COPY h200opt /opt/h200/h200opt
+RUN (command -v uv >/dev/null && uv pip install --system --no-deps /opt/h200/h200opt) \
+ || python3 -m pip install --no-deps --no-build-isolation /opt/h200/h200opt
+# Fail the build if the plugin is not discoverable by vLLM.
+RUN python3 -c "from importlib.metadata import entry_points as e; \
+assert any(p.name=='h200opt' for p in e(group='vllm.general_plugins')), 'plugin not registered'"
+
+COPY serve /opt/h200/serve
+COPY bench /opt/h200/bench
+COPY tools /opt/h200/tools
+WORKDIR /opt/h200
+ENTRYPOINT ["/opt/h200/serve/vllm/launch.sh"]
+CMD ["max"]

@@ -1,0 +1,9 @@
+# SGLang serving image for DeepSeek-V4.1-Flash on H200.
+# The DeepSeek-V4.1 dev image tracks the branch with --engram-config / DSpark.
+ARG SGLANG_IMAGE=lmsysorg/sglang:dev-dsv41
+FROM ${SGLANG_IMAGE}
+COPY serve /opt/h200/serve
+COPY bench /opt/h200/bench
+WORKDIR /opt/h200
+ENTRYPOINT ["/opt/h200/serve/sglang/launch.sh"]
+CMD ["dpa4"]
