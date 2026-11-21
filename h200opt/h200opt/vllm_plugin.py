@@ -1,9 +1,12 @@
 """vLLM general plugin: H200 (SM90) optimizations for DeepSeek-V4.1-Flash.
 
 vLLM loads this in every process (API server, engine core, workers) through
-the `vllm.general_plugins` entry point. Every patch is fail-soft. If a target
-moved in a newer vLLM, the patch logs a warning and is skipped, so a
-mismatched image still runs stock vLLM.
+the `vllm.general_plugins` entry point. A patch whose target moved in a newer
+vLLM logs a warning and is skipped. That is NOT the same as "stock vLLM still
+runs": if the MXFP8 kernel failed to register and the deep_gemm backend is
+requested, V4.1's grouped wo_a layer has no SM90 kernel left and startup fails.
+The Docker build runs the registration (`python -m h200opt.check`), so a drifted
+base image fails at build time instead.
 
 Patches (each opt-in, so the defaults equal stock vLLM):
 
@@ -141,7 +144,29 @@ def _patch_mhc_all_reduce_tp(mhc, tp: int) -> None:
 
     supports_mhc_all_reduce._h200opt = True  # type: ignore[attr-defined]
     mhc.supports_mhc_all_reduce = supports_mhc_all_reduce
-    _log().info("h200opt: fused all-reduce + mHC enabled for TP%d on SM90", tp)
+    # Importing ops.mhc runs the deepseek_v41 package __init__, which already imported
+    # nvidia/model.py and specialized_decode with `from .ops.mhc import
+    # supports_mhc_all_reduce`. Rebind those names too, or the patch is dead.
+    import sys
+
+    rebound = []
+    for modname in (
+        "vllm.models.deepseek_v41.nvidia.model",
+        "vllm.models.deepseek_v41.nvidia.specialized_decode",
+    ):
+        mod = sys.modules.get(modname)
+        if mod is None:
+            try:
+                import importlib
+
+                mod = importlib.import_module(modname)
+            except Exception:  # noqa: BLE001
+                continue
+        if getattr(mod, "supports_mhc_all_reduce", None) is orig:
+            mod.supports_mhc_all_reduce = supports_mhc_all_reduce
+            rebound.append(modname.rsplit(".", 1)[-1])
+    _log().info("h200opt: fused all-reduce + mHC enabled for TP%d on SM90 (rebound in %s)",
+                tp, ", ".join(rebound) or "nothing")
 
 
 def register() -> None:

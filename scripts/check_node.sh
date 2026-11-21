@@ -27,6 +27,12 @@ lscpu | grep -E 'Model name|Socket|NUMA node|Thread|Core'
 free -g
 command -v numactl >/dev/null && numactl -H | head -20
 
+section "Host memory for the Engram tables (~190 GiB pinned, shared across DP ranks)"
+echo "memlock limit: $(ulimit -l)  (want: unlimited)"
+df -h /dev/shm   # used if vLLM falls back to /dev/shm sharing: needs ~190 GiB free
+grep -E 'MemTotal|MemAvailable|HugePages_Total|Hugepagesize' /proc/meminfo
+cat /sys/kernel/mm/transparent_hugepage/enabled 2>/dev/null
+
 section "Clocks currently applied (throttling?)"
 nvidia-smi -q -d PERFORMANCE | grep -E 'GPU [0-9]|Idle|Thermal|Power|HW Slowdown' | head -40
 

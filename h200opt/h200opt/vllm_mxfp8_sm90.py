@@ -11,15 +11,26 @@ on Hopper.
   * half the resident bytes of the BF16 copy, which matters most with DP
     attention, where every GPU holds a full replica of the dense weights
 
+Not lossless. Weight re-blocking is exact except for values pushed into FP8
+subnormals, but activations also become FP8 (1x128 groups, power-of-two scales)
+where stock SM90 keeps them in BF16. Expect ~2-3% relative error per GEMM, and
+gate the `max` profile on bench/quality_gate.py before quoting its numbers.
+
 Selected only when the user asks for it:
     --kernel-config '{"linear_backend_per_quant":{"mxfp8":"deep_gemm"}}'
-(or H200OPT_MXFP8_DEEPGEMM=1). Layers whose re-blocking error exceeds
-H200OPT_MXFP8_MAX_REL_ERR (default 5e-3) keep a BF16 copy instead.
+(or H200OPT_MXFP8_DEEPGEMM=1). Knobs:
+  H200OPT_MXFP8_EXCLUDE        regex on the layer prefix that keeps BF16
+                               (default "indexer|compressor": they drive top-k selection)
+  H200OPT_MXFP8_MAX_REL_ERR    whole-matrix re-block error that forces BF16 (5e-3)
+  H200OPT_MXFP8_MAX_GROUP_ERR  worst single 1x32 group error that forces BF16 (0.1)
+  H200OPT_MXFP8_STRICT         1 (default): fail startup instead of silently running BF16
+                               when the backend is requested but cannot be used
 """
 
 from __future__ import annotations
 
 import os
+import re
 
 import torch
 
@@ -54,10 +65,20 @@ from .reblock import BLOCK, MX_GROUP, reblock_mxfp8_to_block128
 logger = init_logger(__name__)
 
 _MAX_REL_ERR = float(os.environ.get("H200OPT_MXFP8_MAX_REL_ERR", "5e-3"))
+_MAX_GROUP_ERR = float(os.environ.get("H200OPT_MXFP8_MAX_GROUP_ERR", "0.1"))
+_EXCLUDE = os.environ.get("H200OPT_MXFP8_EXCLUDE", "indexer|compressor")
+_EXCLUDE_RE = re.compile(_EXCLUDE) if _EXCLUDE else None
 _FORCE = os.environ.get("H200OPT_MXFP8_DEEPGEMM", "0") == "1"
+_STRICT = os.environ.get("H200OPT_MXFP8_STRICT", "1") == "1"
 
 # Load-time summary across layers (logged once per process from the last layer).
-_SUMMARY = {"layers": 0, "fp8": 0, "bf16_fallback": 0, "worst_rel_err": 0.0, "max_shift": 0}
+_SUMMARY = {"layers": 0, "fp8": 0, "bf16_fallback": 0, "excluded": 0,
+            "worst_rel_err": 0.0, "worst_group_err": 0.0, "max_shift": 0}
+
+
+def conversion_summary() -> dict:
+    """Load-time counters, e.g. for tests or a startup assertion."""
+    return dict(_SUMMARY)
 
 
 def _requested() -> bool:
@@ -107,23 +128,35 @@ class H200ReblockMxfp8LinearKernel(Mxfp8LinearKernel):
     def is_supported(
         cls, compute_capability: int | None = None
     ) -> tuple[bool, str | None]:
-        if not current_platform.is_cuda():
-            return False, "CUDA only"
-        if not current_platform.is_device_capability(90):
-            return False, "H200 re-blocked MXFP8 kernel targets SM90 only"
-        if not is_deep_gemm_supported():
-            return False, "DeepGEMM is not available"
         if not _requested():
             return False, "not requested (set linear_backend_per_quant.mxfp8=deep_gemm)"
-        return True, None
+        reason = None
+        if not current_platform.is_cuda():
+            reason = "CUDA only"
+        elif not current_platform.is_device_capability(90):
+            reason = "H200 re-blocked MXFP8 kernel targets SM90 only"
+        elif not is_deep_gemm_supported():
+            reason = "DeepGEMM is not available (deep_gemm import / JIT toolchain)"
+        if reason is None:
+            return True, None
+        if _STRICT:
+            # Without this the filtered kernel list falls through to BF16 emulation and
+            # a "max" run would silently measure stock BF16 (and lose the FP8 GEMV).
+            raise RuntimeError(
+                f"h200opt: mxfp8=deep_gemm was requested but cannot run: {reason}. "
+                "Fix the environment, drop the kernel-config override, or set "
+                "H200OPT_MXFP8_STRICT=0 to accept BF16."
+            )
+        return False, reason
 
     @classmethod
     def can_implement(cls, c: Mxfp8LinearLayerConfig) -> tuple[bool, str | None]:
         if c.bmm_batch_size is not None:
             return False, "grouped BMM layers keep their own path"
         n, k = c.weight_shape
-        if k % BLOCK or n % 64:
-            return False, f"DeepGEMM needs N%64==0 and K%128==0, got N={n} K={k}"
+        # N%128 too: the re-block builds whole 128-row tiles (DeepGEMM itself needs N%64).
+        if k % BLOCK or n % BLOCK:
+            return False, f"needs N%128==0 and K%128==0, got N={n} K={k}"
         return True, None
 
     def process_weights_after_loading(self, layer: torch.nn.Module) -> None:
@@ -131,23 +164,33 @@ class H200ReblockMxfp8LinearKernel(Mxfp8LinearKernel):
         assert weight.dtype == torch.float8_e4m3fn and weight.dim() == 2, weight.dtype
         n, k = weight.shape
         scale = layer.weight_scale.data[:n, : k // MX_GROUP].contiguous()
+        prefix = getattr(layer, "prefix", "") or f"[{n}x{k}]"
+        _SUMMARY["layers"] += 1
+
+        if _EXCLUDE_RE is not None and _EXCLUDE_RE.search(prefix):
+            self.bf16_fallback = True
+            _SUMMARY["excluded"] += 1
+            replace_parameter(layer, "weight", dequant_mxfp8_to_bf16(weight.contiguous(), scale))
+            replace_parameter(layer, "weight_scale", scale)
+            self._log_progress()
+            return
 
         q, s, stats = reblock_mxfp8_to_block128(weight, scale)
         assert stats is not None
-        _SUMMARY["layers"] += 1
         _SUMMARY["worst_rel_err"] = max(_SUMMARY["worst_rel_err"], stats.rel_err)
+        _SUMMARY["worst_group_err"] = max(_SUMMARY["worst_group_err"], stats.max_group_rel_err)
         _SUMMARY["max_shift"] = max(_SUMMARY["max_shift"], stats.max_shift)
 
-        if stats.rel_err > _MAX_REL_ERR:
+        if stats.rel_err > _MAX_REL_ERR or stats.max_group_rel_err > _MAX_GROUP_ERR:
             # Keep accuracy: this layer's 32x32 scales spread too far apart to share one
             # 128x128 scale. Fall back to the stock BF16 behaviour for it.
             self.bf16_fallback = True
             _SUMMARY["bf16_fallback"] += 1
             logger.warning(
-                "h200opt: MXFP8 layer %s re-block rel_err=%.2e > %.1e (max shift %d); "
-                "keeping BF16 weights for it.",
-                getattr(layer, "prefix", f"[{n}x{k}]"), stats.rel_err, _MAX_REL_ERR,
-                stats.max_shift,
+                "h200opt: MXFP8 layer %s re-block rel_err=%.2e (limit %.1e), worst 1x32 "
+                "group err=%.2e (limit %.2f), max shift %d; keeping BF16 weights for it.",
+                prefix, stats.rel_err, _MAX_REL_ERR, stats.max_group_rel_err,
+                _MAX_GROUP_ERR, stats.max_shift,
             )
             replace_parameter(layer, "weight", dequant_mxfp8_to_bf16(weight.contiguous(), scale))
             replace_parameter(layer, "weight_scale", scale)
@@ -166,12 +209,18 @@ class H200ReblockMxfp8LinearKernel(Mxfp8LinearKernel):
             # (see vllm_plugin._patch_deep_gemm_warmup).
             layer.deep_gemm_warmup_provider = self
 
+        self._log_progress()
+
+    @staticmethod
+    def _log_progress() -> None:
         if _SUMMARY["layers"] % 64 == 1:
             logger.info(
-                "h200opt: MXFP8->FP8 re-block so far: %d layers (%d FP8, %d BF16 fallback), "
-                "worst rel_err=%.2e, max shift=%d",
+                "h200opt: MXFP8 dense layers so far: %d (%d FP8, %d BF16 by error, %d BF16 "
+                "excluded by H200OPT_MXFP8_EXCLUDE=%r); worst rel_err=%.2e, worst group "
+                "err=%.2e, max shift=%d",
                 _SUMMARY["layers"], _SUMMARY["fp8"], _SUMMARY["bf16_fallback"],
-                _SUMMARY["worst_rel_err"], _SUMMARY["max_shift"],
+                _SUMMARY["excluded"], _EXCLUDE, _SUMMARY["worst_rel_err"],
+                _SUMMARY["worst_group_err"], _SUMMARY["max_shift"],
             )
 
     def get_deep_gemm_warmup_weights(

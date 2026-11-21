@@ -69,6 +69,14 @@ def test_large_spread_reports_error():
     _, _, st = reblock_mxfp8_to_block128(w, codes)
     assert st.max_shift >= 10
     assert st.frac_changed > 0
+    # the whole-matrix ratio stays small while the worst 1x32 group is badly hurt
+    assert st.max_group_rel_err > 10 * st.rel_err
+
+
+def test_group_error_zero_when_exact():
+    w, codes = _make_mxfp8(256, 512, 121, 121)
+    _, _, st = reblock_mxfp8_to_block128(w, codes)
+    assert st.max_group_rel_err == 0.0
 
 
 def test_e8m0_dtype_accepted():

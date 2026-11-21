@@ -34,6 +34,9 @@ class ReblockStats:
     max_shift: int          # largest exponent shift applied to any 1x32 group
     frac_changed: float     # fraction of non-zero FP8 codes whose value changed
     numel: int
+    # Worst relative error of any single 1x32 group with a non-zero reference.
+    # The whole-matrix ratio can hide a low-norm group crushed to zero; this can't.
+    max_group_rel_err: float = 0.0
 
 
 def _codes_to_int(scale: torch.Tensor) -> torch.Tensor:
@@ -103,6 +106,7 @@ def reblock_mxfp8_to_block128(
     changed = 0
     nonzero = 0
     max_shift = 0
+    max_group = 0.0
     for r0 in range(0, n, row_chunk):
         r1 = min(n, r0 + row_chunk)
         rows = r1 - r0
@@ -122,8 +126,13 @@ def reblock_mxfp8_to_block128(
             orig_scale = torch.exp2((c - E8M0_BIAS).to(torch.float32))
             ref = w * orig_scale.unsqueeze(-1)
             new = q.to(torch.float32).view(rows, kg, MX_GROUP) * tile_scale.unsqueeze(-1)
-            err_sq += float(((new - ref) ** 2).sum())
-            ref_sq += float((ref ** 2).sum())
+            g_err = ((new - ref) ** 2).sum(-1)                         # [rows, kg]
+            g_ref = (ref ** 2).sum(-1)
+            err_sq += float(g_err.sum())
+            ref_sq += float(g_ref.sum())
+            live = g_ref > 0
+            if bool(live.any()):
+                max_group = max(max_group, float((g_err[live] / g_ref[live]).max().sqrt()))
             nz = w != 0
             nonzero += int(nz.sum())
             changed += int(((new != ref) & nz).sum())
@@ -135,5 +144,6 @@ def reblock_mxfp8_to_block128(
             max_shift=max_shift,
             frac_changed=changed / nonzero if nonzero else 0.0,
             numel=n * k,
+            max_group_rel_err=max_group,
         )
     return new_weight, new_scale, stats

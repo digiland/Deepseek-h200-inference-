@@ -43,7 +43,8 @@ def main() -> None:
     ap.add_argument("model_dir")
     ap.add_argument("--out", default=None, help="CSV with one row per tensor")
     ap.add_argument("--limit", type=int, default=0, help="stop after N tensors (0 = all)")
-    ap.add_argument("--threshold", type=float, default=5e-3)
+    ap.add_argument("--threshold", type=float, default=5e-3, help="whole-matrix limit")
+    ap.add_argument("--group-threshold", type=float, default=0.1, help="worst 1x32 group limit")
     args = ap.parse_args()
 
     from safetensors import safe_open
@@ -81,11 +82,14 @@ def main() -> None:
                     continue
                 _, _, st = reblock_mxfp8_to_block128(w, s)
                 rows.append({"tensor": name, "N": w.shape[0], "K": w.shape[1],
-                             "rel_err": st.rel_err, "max_shift": st.max_shift,
+                             "rel_err": st.rel_err, "max_group_rel_err": st.max_group_rel_err,
+                             "max_shift": st.max_shift,
                              "frac_changed": st.frac_changed})
                 done += 1
-                flag = "  <-- above threshold, would fall back to BF16" if st.rel_err > args.threshold else ""
+                bad = st.rel_err > args.threshold or st.max_group_rel_err > args.group_threshold
+                flag = "  <-- would stay BF16" if bad else ""
                 print(f"{name:70s} {tuple(w.shape)!s:>14} rel_err={st.rel_err:.2e} "
+                      f"group<={st.max_group_rel_err:.2e} "
                       f"shift<={st.max_shift:2d} changed={st.frac_changed:.2%}{flag}", flush=True)
                 if args.limit and done >= args.limit:
                     break
@@ -95,10 +99,13 @@ def main() -> None:
     if not rows:
         sys.exit("no MXFP8 dense tensors found; check the checkpoint path / naming")
     worst = max(rows, key=lambda r: r["rel_err"])
-    over = sum(r["rel_err"] > args.threshold for r in rows)
+    over = sum(r["rel_err"] > args.threshold or r["max_group_rel_err"] > args.group_threshold
+               for r in rows)
     params = sum(r["N"] * r["K"] for r in rows)
     print(f"\n{len(rows)} tensors, {params/1e9:.2f}B params; worst rel_err {worst['rel_err']:.2e} "
-          f"({worst['tensor']}); {over} above {args.threshold:g} (those stay BF16)")
+          f"({worst['tensor']}); {over} over the limits (those stay BF16).\n"
+          "Note: this measures weight re-blocking only. The FP8 path also quantizes "
+          "activations, so check output quality with bench/quality_gate.py.")
     if args.out:
         Path(args.out).parent.mkdir(parents=True, exist_ok=True)
         with open(args.out, "w", newline="") as f:

@@ -5,8 +5,12 @@
 #   DRY_RUN=1 serve/sglang/launch.sh <profile>
 #
 #   baseline      InferenceX's H200 TP4 recipe: TP4, Marlin W4A16, DSpark 5, graph bs<=64
-#   dpa4          DP4 attention (no 4x head padding) + EP4 + FlashInfer MXFP4 MoE with
-#                 FP8 activations (Humming W4A8) + DSpark, graphs to bs 256
+#   dpa4          attention DP4 (--attn-dp-size 4; SGLang pads TP-sharded heads to 64, DP avoids it)
+#                 + EP4 + FlashInfer MXFP4 MoE with FP8 activations (Humming W4A8) + DSpark,
+#                 graphs to bs 256. NOTE: bounded replay with attention DP requires
+#                 moe_a2a_backend none|megamoe; with "none" the MoE runs EP over all-gather.
+#                 Validate with DRY_RUN inside the image first:
+#                   docker run --rm --entrypoint python3 h200/sglang:latest -m sglang.launch_server --help
 #   dpa4-nospec   dpa4 without DSpark (the SGLang docs say spec decode stops paying off at high batch)
 #   dpa4-hicache  dpa4 + hierarchical (host-memory) prefix cache, as in InferenceX AgentX DEP4
 #
@@ -46,7 +50,9 @@ COMMON=(
 DSPARK=(--speculative-algorithm DSPARK --speculative-dspark-block-size "$DSPARK_BLOCK")
 
 DPA=(
-  --tp-size 4 --dp-size 4 --enable-dp-attention --ep-size 4
+  # SGLang 1.0: attention DP inside the TP group is --attn-dp-size; --dp-size now means
+  # whole-model replicas (4 x TP4 = 16 GPUs) and --enable-dp-attention is a removed flag.
+  --tp-size 4 --attn-dp-size 4 --ep-size 4
   --moe-runner-backend flashinfer_mxfp4 --flashinfer-mxfp4-moe-precision "$MOE_PRECISION"
   --enable-dp-lm-head
   --enable-decoder-swa-bounded-replay
@@ -62,13 +68,13 @@ case "$PROFILE" in
   baseline)
     # inferencex-e2e/.../dsv41flash/sglang/h200-fp4-mtp/agentic.yaml (TP4), with the
     # Engram host-table env vars replaced by --engram-config (current main rejects the env vars).
-    ARGS=(--tp-size 4 --dp-size 1 --ep-size 1
+    ARGS=(--tp-size 4 --ep-size 1
           --moe-runner-backend marlin
           --mem-fraction-static 0.70 --chunked-prefill-size 4096
           --prefill-decode-interval 16
           --enable-decoder-swa-bounded-replay --swa-prefix-tails 1024
           "${DSPARK[@]}" --cuda-graph-max-bs-decode 64
-          --max-running-requests 32)
+          --max-running-requests 64)   # recipe rule: admission <= decode graph batch (64)
     ;;
   dpa4)          ARGS=("${DPA[@]}" "${DSPARK[@]}") ;;
   dpa4-nospec)   ARGS=("${DPA[@]}") ;;

@@ -1,17 +1,27 @@
 # vLLM serving image for DeepSeek-V4.1-Flash on H200 + the h200opt plugin.
 #
 # Base: an official vLLM image recent enough to carry the SM90 MXFP4 MegaMoE
-# kernel (vllm-project/DeepGEMM#44) and DeepSeek-V4.1 support. `nightly` tracks
-# main; once a run looks good, pin the digest (docker inspect --format '{{index .RepoDigests 0}}').
+# kernel (vllm-project/DeepGEMM#44) and DeepSeek-V4.1 support.
+# Pin it. The plugin and launch flags were written against vLLM main @ bafe5cc
+# (third_party/vllm). vLLM publishes per-commit post-merge images; if this tag exists,
+# it is the exact match:
+#   VLLM_IMAGE=public.ecr.aws/q9t5s3a7/vllm-ci-postmerge-repo:bafe5cc3e803601b490ea6090c52b9b1e4e53497
+# otherwise use `nightly` and record the digest the first run used
+# (docker inspect --format '{{index .RepoDigests 0}}' vllm/vllm-openai:nightly).
 ARG VLLM_IMAGE=vllm/vllm-openai:nightly
 FROM ${VLLM_IMAGE}
 
 COPY h200opt /opt/h200/h200opt
 RUN (command -v uv >/dev/null && uv pip install --system --no-deps /opt/h200/h200opt) \
  || python3 -m pip install --no-deps --no-build-isolation /opt/h200/h200opt
-# Fail the build if the plugin is not discoverable by vLLM.
+# Fail the build if the plugin is not discoverable, or if any patch target moved in this
+# vLLM (a drifted base image must fail here, not at serving time).
 RUN python3 -c "from importlib.metadata import entry_points as e; \
-assert any(p.name=='h200opt' for p in e(group='vllm.general_plugins')), 'plugin not registered'"
+assert any(p.name=='h200opt' for p in e(group='vllm.general_plugins')), 'plugin not registered'" \
+ && python3 -m h200opt.check
+# Client-side deps: vLLM's multi-turn benchmark, the GPU tests.
+RUN (command -v uv >/dev/null && uv pip install --system pandas xlsxwriter pytest) \
+ || python3 -m pip install pandas xlsxwriter pytest
 
 COPY serve /opt/h200/serve
 COPY bench /opt/h200/bench

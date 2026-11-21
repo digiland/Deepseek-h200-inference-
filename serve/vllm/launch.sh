@@ -4,30 +4,39 @@
 #   serve/vllm/launch.sh <profile>           # runs `vllm serve` in the foreground
 #   DRY_RUN=1 serve/vllm/launch.sh <profile> # print the command only
 #
-# Profiles form a ladder. Each one adds one lever, so an A/B run tells you
-# what each lever is worth:
+# Baselines. Claim the 2x against the strongest of these, not the verbatim recipe:
+#   baseline         vLLM recipe for H200, verbatim: TP4 + Engram on host, model-default
+#                    context (1M) and scheduler defaults (128 seqs). No spec decode.
+#   baseline-spec    the recipe plus its own `spec_decoding` feature (DSpark 5, adaptive)
+#   tp4-tuned        TP4 with the same scheduler budget as the tuned DP profiles
+#                    (128K context, NODE_SEQS sequences, graphs sized to match). No spec.
+#   tp4-tuned-spec   tp4-tuned + DSpark
+# The ladder. Each step adds one lever on top of the previous one:
+#   dep4             DP4 attention + EP4 experts (MoE: Humming W4A8; all2all: auto =
+#                    allgather_reducescatter on H200; try EXTRA_ARGS="--all2all-backend alltoall_batched")
+#   dep4-mega        + DeepGEMM SM90 MegaMoE (fused EP dispatch/GEMM/combine)
+#   dep4-mega-spec   + DSpark
+#   max              + native FP8 dense GEMMs (h200opt plugin; strict; gate with bench/quality_gate.py)
+#   max-nospec       max without DSpark (very high concurrency; raise NODE_SEQS to 2048-4096)
 #
-#   baseline        vLLM recipe default for H200: TP4 + Engram on host. No spec decode.
-#   tp4-spec        + DSpark (5 drafts, adaptive verification) + 128K context + bigger batch
-#   dep4            DP4 attention + EP4 experts (default SM90 MoE: Humming W4A8)
-#   dep4-mega       + DeepGEMM SM90 MegaMoE (fused EP dispatch/GEMM/combine)
-#   dep4-mega-spec  + DSpark
-#   max             + native FP8 dense GEMMs (h200opt plugin)       <- expected best
-#   max-nospec      max without DSpark (for very high concurrency, where verify compute dominates)
-#
-# Common env:
-#   MODEL_PATH       local checkpoint dir (default: deepseek-ai/DeepSeek-V4.1-Flash-1017)
+# Env:
+#   MODEL_PATH       checkpoint dir (default: deepseek-ai/DeepSeek-V4.1-Flash-1017)
 #   PORT             8000
-#   MAX_MODEL_LEN    131072 (baseline keeps the model default unless set explicitly)
-#   MAX_NUM_SEQS     per engine; default 256 (DP: per DP rank)
-#   MAX_BATCHED      max-num-batched-tokens per engine, default 8192
+#   NODE_SEQS        max concurrent sequences for the whole node (default 1024). DP profiles
+#                    give each of the 4 ranks NODE_SEQS/4, TP4 profiles get all of it, so
+#                    TP4 and DP4 rungs have the same batch budget.
+#   MAX_MODEL_LEN    131072 for tuned profiles (baseline/baseline-spec keep the model default
+#                    unless set)
+#   MAX_BATCHED      max-num-batched-tokens per engine (default 8192)
 #   GPU_UTIL         0.92
-#   SPEC_K           DSpark drafts, default 5
-#   SPEC_SCHEDULE    JSON list for num_speculative_tokens_per_batch_size, e.g. '[[1,64,5],[65,160,3],[161,1024,1]]'
-#   ADAPTIVE         1 (adaptive verification on) / 0
+#   SPEC_K           DSpark drafts (default 5)
+#   SPEC_SCHEDULE    num_speculative_tokens_per_batch_size, e.g. '[[1,64,5],[65,192,3],[193,1024,1]]'
+#   ADAPTIVE         1 (adaptive verification) / 0
+#   ENGRAM_CFG       engram config JSON (default {"cpu_offload":true})
 #   TEXT_ONLY        1 -> --language-model-only (drops the vision tower)
-#   INDEXER_BF16     1 -> BF16 indexer logits (halves the [tokens x max_len] logits buffer)
-#   EXTRA_ARGS       appended verbatim
+#   INDEXER_BF16     1 -> BF16 indexer logits
+#   EPLB             1 -> --enable-eplb (DP profiles)
+#   EXTRA_ARGS       appended verbatim, e.g. --attention-config '{"backend":"FLASHMLA_SPARSE_DSV41"}'
 set -euo pipefail
 
 PROFILE=${1:?usage: launch.sh <profile>}
@@ -35,10 +44,11 @@ MODEL_PATH=${MODEL_PATH:-deepseek-ai/DeepSeek-V4.1-Flash-1017}
 SERVED_NAME=${SERVED_NAME:-deepseek-ai/DeepSeek-V4.1-Flash}
 PORT=${PORT:-8000}
 GPU_UTIL=${GPU_UTIL:-0.92}
-MAX_NUM_SEQS=${MAX_NUM_SEQS:-256}
+NODE_SEQS=${NODE_SEQS:-1024}
 MAX_BATCHED=${MAX_BATCHED:-8192}
 SPEC_K=${SPEC_K:-5}
 ADAPTIVE=${ADAPTIVE:-1}
+ENGRAM_CFG=${ENGRAM_CFG:-'{"cpu_offload":true}'}
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 
 export VLLM_ENGINE_READY_TIMEOUT_S=${VLLM_ENGINE_READY_TIMEOUT_S:-7200}
@@ -80,18 +90,22 @@ spec_cfg() {
   echo "$cfg"
 }
 
-# Batch / graph sizing shared by the tuned profiles.
-# CUDA graphs must cover the largest decode step: seqs * (1 + drafts).
-tuned_sizing() {
-  local tokens_per_seq=$1
-  local cap=$(( MAX_NUM_SEQS * tokens_per_seq ))
+# Scheduler budget + CUDA graph coverage for one engine with `seqs` sequences.
+# Graphs must cover the largest decode step: seqs * (1 + drafts).
+sizing() {  # seqs tokens_per_seq
+  local cap=$(( $1 * $2 ))
   (( cap > 8192 )) && cap=8192
   echo --max-model-len "${MAX_MODEL_LEN:-131072}" \
-       --max-num-seqs "$MAX_NUM_SEQS" \
+       --max-num-seqs "$1" \
        --max-num-batched-tokens "$MAX_BATCHED" \
        --max-cudagraph-capture-size "$cap" \
        --gpu-memory-utilization "$GPU_UTIL"
 }
+TP4_SEQS=$NODE_SEQS
+DP_SEQS=$(( NODE_SEQS / 4 ))
+TP4=(--tensor-parallel-size 4 --engram-config "$ENGRAM_CFG")
+DEP4=(--tensor-parallel-size 1 --data-parallel-size 4 --enable-expert-parallel --engram-config "$ENGRAM_CFG")
+[[ "${EPLB:-0}" == 1 ]] && DEP4+=(--enable-eplb)
 
 KERNEL_CFG=""
 ATTN_CFG=""
@@ -101,57 +115,39 @@ FP8LIN='{"linear_backend_per_quant":{"mxfp8":"deep_gemm"}}'
 
 case "$PROFILE" in
   baseline)
-    # Verbatim vLLM recipe for H200 (single_node_tp, TP4, Engram CPU offload).
     ARGS=(--tensor-parallel-size 4 --engram-config '{"cpu_offload":true}')
     [[ -n "${MAX_MODEL_LEN:-}" ]] && ARGS+=(--max-model-len "$MAX_MODEL_LEN")
     ;;
-  tp4-spec)
-    ARGS=(--tensor-parallel-size 4 --engram-config '{"cpu_offload":true,"use_thp":true}'
-          $(tuned_sizing $((SPEC_K + 1))) --speculative-config "$(spec_cfg)")
+  baseline-spec)
+    # recipe yaml `features.spec_decoding` (NVIDIA row), verbatim
+    ARGS=(--tensor-parallel-size 4 --engram-config '{"cpu_offload":true}'
+          --speculative-config '{"method":"dspark","num_speculative_tokens":5,"draft_sample_method":"probabilistic","rejection_sample_method":"block","enable_adaptive_verification":true}')
+    [[ -n "${MAX_MODEL_LEN:-}" ]] && ARGS+=(--max-model-len "$MAX_MODEL_LEN")
     ;;
-  dep4)
-    ARGS=(--tensor-parallel-size 1 --data-parallel-size 4 --enable-expert-parallel
-          --engram-config '{"cpu_offload":true}'
-          $(tuned_sizing 1))
-    ;;
-  dep4-mega)
-    ARGS=(--tensor-parallel-size 1 --data-parallel-size 4 --enable-expert-parallel
-          --engram-config '{"cpu_offload":true}'
-          $(tuned_sizing 1))
-    KERNEL_CFG=$MEGA
-    ;;
-  dep4-mega-spec)
-    ARGS=(--tensor-parallel-size 1 --data-parallel-size 4 --enable-expert-parallel
-          --engram-config '{"cpu_offload":true}'
-          $(tuned_sizing $((SPEC_K + 1))) --speculative-config "$(spec_cfg)")
-    KERNEL_CFG=$MEGA
-    ;;
-  max)
-    ARGS=(--tensor-parallel-size 1 --data-parallel-size 4 --enable-expert-parallel
-          --engram-config '{"cpu_offload":true}'
-          $(tuned_sizing $((SPEC_K + 1))) --speculative-config "$(spec_cfg)")
-    KERNEL_CFG=$(json_merge "$MEGA" "$FP8LIN")
-    ;;
-  max-nospec)
-    ARGS=(--tensor-parallel-size 1 --data-parallel-size 4 --enable-expert-parallel
-          --engram-config '{"cpu_offload":true}'
-          $(tuned_sizing 1))
-    KERNEL_CFG=$(json_merge "$MEGA" "$FP8LIN")
-    ;;
-  *)
-    echo "unknown profile: $PROFILE" >&2; exit 2 ;;
+  tp4-tuned)       ARGS=("${TP4[@]}" $(sizing "$TP4_SEQS" 1)) ;;
+  tp4-tuned-spec)  ARGS=("${TP4[@]}" $(sizing "$TP4_SEQS" $((SPEC_K + 1))) --speculative-config "$(spec_cfg)") ;;
+  dep4)            ARGS=("${DEP4[@]}" $(sizing "$DP_SEQS" 1)) ;;
+  dep4-mega)       ARGS=("${DEP4[@]}" $(sizing "$DP_SEQS" 1)); KERNEL_CFG=$MEGA ;;
+  dep4-mega-spec)  ARGS=("${DEP4[@]}" $(sizing "$DP_SEQS" $((SPEC_K + 1))) --speculative-config "$(spec_cfg)")
+                   KERNEL_CFG=$MEGA ;;
+  max)             ARGS=("${DEP4[@]}" $(sizing "$DP_SEQS" $((SPEC_K + 1))) --speculative-config "$(spec_cfg)")
+                   KERNEL_CFG=$(json_merge "$MEGA" "$FP8LIN") ;;
+  max-nospec)      ARGS=("${DEP4[@]}" $(sizing "$DP_SEQS" 1))
+                   KERNEL_CFG=$(json_merge "$MEGA" "$FP8LIN") ;;
+  *) echo "unknown profile: $PROFILE" >&2; exit 2 ;;
 esac
 
 [[ -n "$KERNEL_CFG" ]] && ARGS+=(--kernel-config "$KERNEL_CFG")
 [[ -n "$ATTN_CFG" ]] && ARGS+=(--attention-config "$ATTN_CFG")
-# shellcheck disable=SC2206
-[[ -n "${EXTRA_ARGS:-}" ]] && ARGS+=($EXTRA_ARGS)
+# EXTRA_ARGS may contain quoted JSON: let bash parse it.
+if [[ -n "${EXTRA_ARGS:-}" ]]; then eval "EXTRA=($EXTRA_ARGS)"; ARGS+=("${EXTRA[@]}"); fi
 
 CMD=(vllm serve "${COMMON[@]}" "${ARGS[@]}")
 mkdir -p "$ROOT/results"
 {
   printf 'profile=%s\n' "$PROFILE"
-  env | grep -E '^(VLLM_|H200OPT_|CUDA_VISIBLE|PYTORCH_CUDA|DG_)' | sort
+  python3 -c 'import vllm,sys; print("vllm", vllm.__version__)' 2>/dev/null || true
+  env | grep -E '^(VLLM_|H200OPT_|CUDA_VISIBLE|PYTORCH_CUDA|DG_|NODE_SEQS|SPEC_|EPLB)' | sort
   printf '%q ' "${CMD[@]}"; echo
 } > "$ROOT/results/.last_server_cmd"
 
