@@ -15,10 +15,10 @@ and rebuilt by the scripts.
 | `reports` | Two-page PDF reports: DeepSeek V4.1 TR-01, GLM 5.3 TR-01, DFly2 TR-01 |
 | `notes-inference.md` | Working notes for every run, section by section |
 
-Results at a glance (2 x TP4, thinking on, 80 users per node):
+Results at a glance (2 x TP4, thinking on, 80 users per node, held-out ShareGPT prompts):
 
 | Drafter | Speed per user, tok/s | Source |
 |---|---:|---|
-| DSpark, 3 drafts (production) | 81.3 | DFly2 TR-01, setup M1 |
-| DFly2 released, 3 drafts | 71.9 | DFly2 TR-01, setup M2 |
-| DFly2 fine-tuned, 3 drafts | FT_RESULT | `dfly2/finetune/REPLICATE.md` section 3 |
+| DSpark, 3 drafts (production) | 81.5 | DFly2 TR-02, setup E1 |
+| DFly2 released, 3 drafts | 72.7 | DFly2 TR-02, setup E2 |
+| DFly2 fine-tuned on V4.1 thinking replies, 3 drafts | 78.6 | DFly2 TR-02, setup E3 |

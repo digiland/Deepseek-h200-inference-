@@ -139,6 +139,19 @@ Training metrics per step: `../results/train_ft_v1_metrics.csv`. Averages over 5
 
 Held-out benchmark, speed per user in tok/s (2 x TP4, thinking on):
 
-RESULTS_TABLE
+| Users per node | DSpark 3 (production) | DFly2 3, released | DFly2 3, fine-tuned | DFly2 4, fine-tuned |
+|---:|---:|---:|---:|---:|
+| 40 | 109.4 | 97.2 | 103.8 | 102.2 |
+| 80 | 81.5 | 72.7 | 78.6 | 77.8 |
+| 160 | 56.4 | 50.7 | 55.1 | 53.0 |
+| 200 | 51.0 | 46.0 | 49.7 | 47.2 |
+| Tokens per step, acceptance probe | 2.519 | 2.356 | 2.513 | 2.711 |
+| First draft accepted, acceptance probe | 0.730 | 0.666 | 0.709 | 0.702 |
+| Quality probe | 49 of 50 | 49 of 50 | 49 of 50 | 48 of 50 |
+
+Fine-tuning made DFly2 (3 drafts) 6.7 to 8.7% faster per user and closed 96% of its acceptance gap to
+DSpark; DSpark with 3 drafts stays 2.2 to 5.1% faster because a DFly2 decode step is longer (24.0 ms
+against 22.6 ms at 40 users per node). 4 drafts are 1.1 to 4.9% slower than 3. Report: DFly2 Inference
+TR-02 in `../../reports`.
 
 Raw rows: `../results/data/bench/results.csv` (tags `E1_` to `E4_`); log: `../results/logs/eval.log`.

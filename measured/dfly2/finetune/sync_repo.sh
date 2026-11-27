@@ -27,7 +27,7 @@ ls $F/pydeps | grep -E "\.dist-info$" | grep -v angelspec | sed 's/\.dist-info$/
 mkdir -p $R/dfly2/results/logs
 rsync -a --delete $D/results/ $R/dfly2/results/data/
 rsync -a $D/logs/ $R/dfly2/results/logs/serving/
-for f in gen.log chain.log eval.log capture_smoke.log; do [ -f $F/logs/$f ] && grep -a -v CUDACachingAllocator $F/logs/$f > $R/dfly2/results/logs/$f; done
+for f in gen.log chain.log eval.log capture_smoke.log convert_check.log roundtrip_check.log; do [ -f $F/logs/$f ] && grep -a -v CUDACachingAllocator $F/logs/$f > $R/dfly2/results/logs/$f; done
 for f in train_ft_v1.log train_smoke.log; do [ -f $F/logs/$f ] && tr '\r' '\n' < $F/logs/$f | grep -a -v -E "CUDACachingAllocator|Loading safetensors checkpoint shards|Prefetching checkpoint" > $R/dfly2/results/logs/$f; done
 # per-step training metrics
 tr '\r' '\n' < $F/logs/train_ft_v1.log | grep -a -o "| *[0-9]*/364 .*epoch=[0-9]/2" \
@@ -38,4 +38,5 @@ tr '\r' '\n' < $F/logs/train_ft_v1.log | grep -a -o "| *[0-9]*/364 .*epoch=[0-9]
 ( cd $F/data && wc -l *.jsonl ) > $R/dfly2/finetune/data_line_counts.txt
 # reports
 mkdir -p $R/reports; cp $N/inference/report/*.pdf $R/reports/
+cp $N/lab/report/build_dfly2_inference_tr0*.py $R/reports/
 echo "synced $(date -Is)"

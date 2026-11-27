@@ -1,0 +1,3 @@
+replies 20000, kept 20000 (1746 cut at the token cap, closed by the template), dropped empty 0
+exact token match 19183 of 20000 (mismatches in cut replies 605)
+first mismatch: ('92tAHOS_0', 836, 891, 890, ' to remember.\n- **Medsy** —', ' to remember.\n- **Medsy** — short')

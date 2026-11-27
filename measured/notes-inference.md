@@ -320,3 +320,30 @@ Protocol: vLLM 0.32.0, F1 flags (W4A8 + Humming 2 CTAs/SM + prompts every 8th st
 Findings: DFly2 loses in every cell. Thinking on: -9 to -12% per user (drafter p0 0.66 vs 0.72 on V4.1 reasoning text; DFly2 released drafter trained on public chat, not V4.1 outputs). Thinking off: acceptance equal (2.53 vs 2.55) but -4 to -6% per user, from a longer step (DFly2 9.8 ms vs DSpark 9.1 ms at 20 users per copy; the drafter also reads target KV and indexer top-k). N=4 raises acceptance but costs more than it gains. Production choice stays 2 x TP4 + DSpark-3.
 
 Issue fixed in this matrix: `vllm bench serve --chat-template-kwargs` only affects client-side prompt rendering and is never sent to the server; thinking-off needs `--extra-body '{"chat_template_kwargs":{...}}'`. First M4 rows at 20/40 users ran thinking on; moved to results/bench/invalid and M4 re-run in full (M4r).
+
+### 16.2 DFly2 fine-tuned on V4.1 thinking-mode replies (27 Nov 2026, 13:00 to 18:57 UTC)
+
+Goal: close DFly2's acceptance gap with thinking on by training it on V4.1's own replies.
+Workspace `/data/nvme3/dfly2/ft`; runbook `REPLICATE.md` in github.com/digiland/Deepseek-h200-inference-,
+branch `measured-runs`, folder `measured/dfly2/finetune`. Report: DFly2 Inference TR-02.
+
+- Data: ShareGPT split by conversation id (14,178 held out for benchmarks; 37,456 unique training
+  prompts). 20,000 replies from the production servers, thinking on, T=0.6, up to 8,192 tokens:
+  53.4 M reply tokens in 52 min, 0 errors, 8.7% cut at the cap. Reasoning and answer cut from V4.1's
+  own decoded tokens; AngelSpec's dsv41 template rebuilds the exact tokens for 18,042 of 18,254
+  complete replies.
+- Training: AngelSpec e02ea36, online on one node (V4.1 TP4 W4A8 on GPUs 4 to 7 feeding hidden states
+  through Mooncake to DFly2 FSDP on GPUs 0 to 3), muon, LR 1e-4 to 1e-5, 2 epochs, 364 steps of 32
+  rows x 12,288 tokens, 2.7 h. Starts from the released weights (94 tensors, 0 ignored).
+- Training-data acceptance (52-step windows): first draft 0.663 -> 0.686, loss 1.431 -> 1.287.
+- Held-out benchmark (2 x TP4, thinking on), tok/s per user at 40/80/160/200 users per node:
+  DSpark 3 109.4/81.5/56.4/51.0; DFly2 3 released 97.2/72.7/50.7/46.0; DFly2 3 fine-tuned
+  103.8/78.6/55.1/49.7; DFly2 4 fine-tuned 102.2/77.8/53.0/47.2. Probe tokens per step: 2.519 /
+  2.356 / 2.513 / 2.711. Quality 48 to 49 of 50.
+- Result: fine-tune +6.7 to +8.7% over the released DFly2, 96% of the acceptance gap closed, but still
+  2.2 to 5.1% slower than DSpark 3: a DFly2 decode step costs 24.0 ms against 22.6 ms (reads target KV
+  and indexer top-k at layers 28, 32, 36). Production stays DSpark 3.
+- Fixes needed: draft config matching the release (shipped config loads 0 of 2,392 release tensors);
+  release <-> training layout converters (MXFP4 requantization exact in value, 1,240 of 1,240);
+  AngelSpec vLLM plugin registered through a dist-info folder; offline dump blocked by HF-name
+  exporter (V4.1 uses native names), so online training; Ray socket path; wandb stand-in.
