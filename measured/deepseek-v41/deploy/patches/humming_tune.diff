@@ -1,0 +1,24 @@
+--- /data/nvme3/shona-cpt/enroot/data/vllm/usr/local/lib/python3.12/dist-packages/vllm/model_executor/layers/fused_moe/experts/fused_humming_moe.py	2026-10-18 03:08:32.000000000 +0000
++++ /data/nvme3/lab/teachers/patches/humming_tune/fused_humming_moe.py	2026-11-24 00:43:06.342045493 +0000
+@@ -174,6 +174,21 @@
+             use_batch_invariant=envs.VLLM_BATCH_INVARIANT,
+             gemm_type=self.humming_gemm_type(),
+         )
++        # patched (teachers/patches/humming_tune): log the heuristic tile configs once and
++        # merge JSON overrides from V41_HUMMING_W13_OVERRIDE / V41_HUMMING_W2_OVERRIDE into
++        # every (min_m, max_m, config) bucket, to sweep tile shapes without editing code.
++        import os as _os
++        for _name, _attr in (("W13", "w13_tuning_config"), ("W2", "w2_tuning_config")):
++            _ov = _os.environ.get(f"V41_HUMMING_{_name}_OVERRIDE")
++            _cfg = getattr(self, _attr)
++            if _ov:
++                _d = json.loads(_ov)
++                _maxm = float(_os.environ.get("V41_HUMMING_OVERRIDE_MAX_M", "inf"))
++                _cfg = [(lo, hi, {**c, **{k: (tuple(v) if isinstance(v, list) else v) for k, v in _d.items()}}) if lo < _maxm else (lo, hi, c) for lo, hi, c in _cfg]
++                setattr(self, _attr, _cfg)
++            if not getattr(type(self), f"_v41_logged_{_name}", False):
++                setattr(type(self), f"_v41_logged_{_name}", True)
++                logger.info("V41 humming %s tuning config (override=%s): %s", _name, _ov, _cfg)
+         self.compute_config_str = json.dumps(self.compute_config)
+         self.w13_tuning_config_str = json.dumps(self.w13_tuning_config)
+         self.w2_tuning_config_str = json.dumps(self.w2_tuning_config)

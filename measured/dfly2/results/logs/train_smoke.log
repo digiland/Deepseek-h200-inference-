@@ -1,0 +1,966 @@
+[2026-11-27 14:38:12,668] train_config.py:888 INFO Saved resolved config to /data/nvme3/dfly2/ft/runs/smoke_train/dfly2_dsv41_flash/config.yaml
+[2026-11-27 14:38:12,671] train_entry.py:141 INFO Resolved config:
+dataset:
+  chat_template: dsv41
+  defer_tokenization: false
+  data_format: null
+  bin_data_list: null
+  megatron_max_bins: -1
+  megatron_bin_start: 0
+  megatron_sample_size: -1
+  megatron_sample_seed: 0
+  megatron_loss_offset: 300000
+  megatron_doc_sep_id: 120026
+  megatron_pad_id: 120002
+  megatron_image_start_token_id: 120118
+  megatron_image_end_token_id: 120119
+  megatron_video_start_token_id: 120122
+  megatron_video_end_token_id: 120123
+  megatron_image_mask_token_ids:
+  - 120118
+  - 120119
+  - 120120
+  - 120121
+  - 120122
+  - 120123
+  - 120124
+  megatron_image_path_replacements: ''
+  megatron_image_newline_as_placeholder: null
+  megatron_blend_unit: tokens
+  megatron_num_proc: 16
+  drop_overlength: false
+  min_seq_length: 0
+  eval_data_path: null
+  eval_datasets: null
+  eval_max_seq_length: null
+  eval_interval: 50
+  eval_micro_batch_size: null
+  eval_prompt_key: null
+  eval_seed: 42
+  eval_idle_timeout_s: 300.0
+  cache_eval_hidden_states: true
+  last_turn_loss_only: auto
+  min_loss_tokens: 32
+  num_proc: 16
+  prompt_key: conversations
+  shuffle_dataset: true
+  train_data_path: ${oc.env:DSV41_TRAIN_DATA}
+  stream_dataset_loading: false
+  stream_buffer_size: 4096
+debug:
+  debug_inference_only: false
+  debug_train_only: false
+  enable_perf_metrics: true
+  max_dump_steps: 5
+  memory_recorder: torch
+  memory_snapshot_dir: .
+  memory_snapshot_num_steps: null
+  memory_snapshot_path: ''
+  profile_dir_name: /tmp/angelspec_profiles
+  profile_step_end: 0
+  profile_step_start: 0
+  profile_target:
+  - train_overall
+  record_memory_history: false
+  save_debug_train_data: null
+  use_pytorch_profiler: false
+decode:
+  cuda_graph_max_bs: null
+  max_new_tokens: 512
+  min_new_tokens: 2
+  stop_token_ids: null
+  max_running_requests: null
+  speculative_algorithm: null
+  speculative_draft_model_path: null
+  speculative_eagle_topk: null
+  speculative_num_draft_tokens: null
+  speculative_num_steps: null
+  temperature: 1.0
+  top_k: -1
+  top_p: 1.0
+  weight_sync_enabled: false
+  weight_sync_interval: 500
+online_eval:
+  enabled: false
+  interval: 500
+  dataset: null
+  prompt_key: conversations
+  limit: 64
+  num_spec_tokens: 3
+  max_new_tokens: 256
+  engine_mode: shared
+  engine_gpus: null
+  gpus: null
+  port: 8130
+  gpu_util: 0.85
+  mtp_scaffold: null
+  mtp_spec_layer: 0
+  num_gpus: 0
+  num_gpus_per_engine: 1
+  num_gpus_per_node: 8
+  node_ips: null
+  node_selectors: null
+  speculative_method: mtp
+  reasoning_parser: null
+  sampling_mode: argmax
+  temperature: 1.0
+  top_p: 1.0
+  top_k: -1
+  seed: null
+  datasets: null
+  per_dataset_limit: null
+  dataset_sample_size: 1000
+  dataset_seed: 42
+  eval_prompts_dir: null
+  reasoning_effort: no_think
+online_dump:
+  enabled: false
+  dump_only: false
+  dump_path: null
+  frozen_target_path: null
+  validation_fraction: 0.05
+  capture_epochs: 1
+  max_pending_bytes: 34359738368
+  writers: null
+  writer_threads: 16
+  reader_threads: 8
+  max_inflight_batches: null
+  verify_on_publish: false
+  writer_node_ip: null
+  writer_env_vars: {}
+  strict: true
+inference:
+  aux_hidden_states_layers: null
+  inference_batch_size: 4
+  inference_eval_batch_size: null
+  inference_buffer_threshold: 32
+  inference_engine_type: vllm
+  inference_fetch_batch: 1
+  inference_ft_enabled: true
+  inference_generate_timeout_s: 0.0
+  inference_quarantine_max_consec_failures: 3
+  inference_min_active_engines: 1
+  inference_num_gpus: 4
+  inference_num_gpus_per_engine: 4
+  inference_num_gpus_per_node: 4
+  inference_node_ips: null
+  inference_node_selectors: null
+  last_hidden_states_prenorm: null
+  max_sample_pool_size: 128
+  max_sample_pool_bytes: 256GB
+  prefill_warmup_tokens: 0
+  store_last_hidden_states: true
+  sglang:
+    tp_size: 8
+    pp_size: 1
+    pp_layer_partition: null
+    nnodes: 1
+    mem_fraction_static: 0.8
+    enable_metrics: false
+    enable_multimodal: false
+    dist_init_addr: null
+    dist_timeout: 60
+    init_timeout: 300
+    extra_args: {}
+  vllm:
+    tp_size: 4
+    pp_size: 1
+    pp_layer_partition: null
+    data_parallel_size: 1
+    nnodes: 1
+    distributed_executor_backend: null
+    mem_fraction_static: 0.85
+    disable_custom_all_reduce: true
+    block_size: 64
+    enable_metrics: false
+    enable_multimodal: false
+    mm_processor_kwargs: {}
+    limit_mm_per_prompt:
+      image: 10
+    dist_init_addr: null
+    dist_timeout: 60
+    init_timeout: 3600
+    max_model_len: null
+    extra_args:
+      max_model_len: 12288
+      enable_chunked_prefill: true
+      max_num_batched_tokens: 16384
+      enforce_eager: true
+      tokenizer_mode: deepseek_v41
+      swa_bounded_replay: false
+      engram_config:
+        cpu_offload: true
+      safetensors_load_strategy: prefetch
+    env_vars: {}
+logging:
+  report_to: none
+  use_tensorboard: false
+  use_wandb: false
+  wandb_dir: null
+  wandb_group: null
+  wandb_host: null
+  wandb_key: null
+  wandb_mode: null
+  wandb_project: null
+  wandb_random_suffix: true
+  wandb_run_id: null
+  wandb_team: null
+  use_swanlab: false
+  swanlab_dir: null
+  swanlab_group: null
+  swanlab_host: null
+  swanlab_key: null
+  swanlab_mode: null
+  swanlab_project: null
+  swanlab_exp_name: null
+  swanlab_random_suffix: true
+  swanlab_run_id: null
+  swanlab_workspace: null
+model:
+  draft_model_config: /data/nvme3/dfly2/ft/init/draft_config_ft.json
+  embedding_key: embed.weight
+  lm_head_key: head.weight
+  norm_key: norm.weight
+  target_model_backend: null
+  target_model_path: ${oc.env:DSV41_TARGET_MODEL}
+  trust_remote_code: true
+offline:
+  manifest_path: null
+  tokenized_path: null
+  frozen_target_path: null
+  format: auto
+  verify_hashes: true
+  eval_samples: 4
+  row_plan_path: null
+mooncake:
+  master_server_address: null
+  metadata_server: null
+  protocol: tcp
+  global_segment_size: 256GB
+  local_buffer_size: 16GB
+  enable_hard_pin: true
+training:
+  attention_backend: flex_attention
+  colocate: false
+  continual_training: false
+  data_switch_step: null
+  eval_only: false
+  distributed_backend: nccl
+  distributed_timeout_minutes: 30
+  draft_accumulation_steps: 1
+  fsdp_reduce_dtype: float32
+  fsdp_strategy: FULL_SHARD
+  fsdp_backward_prefetch: true
+  hsdp_shard_size: null
+  hsdp_shard_dp: null
+  hsdp_shard_sp: null
+  placement_strategy: training_first
+  training_node_ips: null
+  training_node_selectors: null
+  compile_model: false
+  sp_ring_size: 1
+  sp_ulysses_size: 1
+  usp_local_shard: null
+  sp_leader_mooncake_fetch: null
+  gradient_checkpointing: true
+  learning_rate: 0.0005
+  load_path: null
+  lr_decay_style: cosine
+  lr_wsd_decay_ratio: 0.2
+  lr_wsd_decay_style: cosine
+  lr_total_steps: null
+  max_concurrent_batches: 1
+  max_grad_norm: 1.0
+  max_seq_length: 12288
+  min_lr: 5.0e-05
+  weight_decay: 0.01
+  muon_weight_decay: 0.1
+  adam_beta1: 0.9
+  adam_beta2: 0.95
+  optimizer_type: muon
+  muon_momentum: 0.95
+  muon_nesterov: true
+  muon_ns_steps: 5
+  muon_matched_adamw_rms: 0.2
+  muon_per_expert: true
+  muon_per_head: true
+  moe_lr_scale: 1.0
+  moe_router_lr_scale: null
+  num_epochs: 3
+  num_train_steps: 3
+  micro_batch_size: 1
+  prefetch_depth: 2
+  predispatch_next_step: true
+  fail_on_unavailable_mooncake: false
+  save_interval: 3
+  save_per_epoch: false
+  max_checkpoints: 2
+  keep_epoch_checkpoints: false
+  seed: 42
+  train_backend: fsdp
+  train_env_vars: '{"PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"}'
+  train_with_decode: false
+  training_num_gpus_per_node: 4
+  training_num_nodes: 1
+  ttt_length: 7
+  ploss_weights: null
+  mtp_draft_input_postnorm: false
+  mtp_ttt_on_policy: false
+  mtp_draft_opd: false
+  mtp_opd_init_model: null
+  mtp_opd_loss: lk_alpha
+  mtp_opd_temperature: 1.0
+  mtp_opd_prefix_chunk_size: 2048
+  mtp_opd_fp8_indexer: true
+  mtp_opd_verify_max_num_seqs: 1024
+  mtp_opd_verify_max_num_batched_tokens: 65536
+  mtp_opd_tree_forward: false
+  mtp_opd_block_size: 8
+  mtp_opd_max_anchors: null
+  warmup_ratio: 0.04
+  wsd_decay_ratio: 0.2
+  wsd_decay_style: null
+  draft_init_path: /data/nvme3/dfly2/ft/init/release_train_layout
+  dflash_block_size: 6
+  dflash_loss_decay_gamma: 7.0
+  dflash_num_anchors: 512
+  dflash_num_target_layers: null
+  dflash_final_layer_from_last_hidden: false
+  dflash_causal_attn: false
+  dflash_fp32_lm_head: true
+  dflash_loss_objective: dpace
+  dflash_dpace_alpha: 0.5
+  dflash_loss_checkpoint_chunks: false
+  dflash_attn_diag_blocks: 0
+  dflash_attn_oracle: ''
+  dflash_attn_oracle_layers: null
+  dflash_acorr_eval_off: false
+  dflash_hc_topk_diag: null
+  dflash_eval_accept_temperature: null
+  dfly_context_chunk_size: 0
+  dfly_context_checkpoint: false
+  mtp_alignment_chunk_size: 0
+  dflash_ce_loss_alpha: 0.0
+  dflash_l1_loss_alpha: 0.0
+  dflash_kl_loss_weight: 0.0
+  dflash_kl_topk: 10
+  dflash_lk_loss_weight: 1.0
+  dflash_lk_loss_type: hybrid
+  dflash_lk_eta: 3.0
+  dflash_e2e_tv_loss_weight: 0.0
+  dflash_e2e_tv_vocab_chunk: 0
+  dflash_path_selector_loss_alpha: 1.0
+  dflash_path_selector_teacher_labels: true
+  dflash_path_selector_objective_weighting: true
+  dflash_gate_entropy_weight: 0.0
+  dflash_opd_enabled: false
+  dflash_opd_backend: packed_tree
+  dflash_opd_loss: two_stream_k3
+  dflash_opd_vocab_chunk: 64
+  dflash_opd_accept_temperature: 0.9
+  dflash_opd_accept_top_k: 0
+  dflash_opd_accept_top_p: 1.0
+  dflash_opd_relax_temperature: 1.0
+  dflash_opd_on_policy_prev: false
+  dflash_opd_verify_max_num_seqs: 1024
+  dflash_opd_verify_max_num_batched_tokens: 65536
+  dflash_opd_gt_shortcut: true
+  dflash_opd_teacher_parity_steps: 0
+  dflash_opd_teacher_parity_branches: 8
+  dflash_opd_teacher_parity_tol: 0.001
+  dflash_opd_weight: 1.0
+  dflash_opd_max_anchors: null
+  dflash_opd_response_stream_weight: 1.0
+  dflash_opd_rejected_stream_weight: 1.0
+  dflash_opd_position_decay: 0.8
+  dflash_opd_position_decay_enabled: true
+  dflash_opd_loss_max_clamp: 10.0
+  dflash_opd_logprob_min_clamp: -10.0
+  enable_opd_score_engine: false
+  opd_score_engine_num_gpus: 1
+  dflash_packing: true
+  dflash_packing_token_weighted_loss: false
+  mtp_packing: false
+  mtp_source_metrics: false
+  mtp_metric_sources: null
+  mtp_argmax_chunk_size: 0
+  mtp_loss_checkpoint_chunks: false
+  packing_balance_dp: false
+  packing_min_fill_ratio: 0.0
+  packing_max_wait_seconds: 0.0
+  dspark_num_anchors: null
+  dspark_num_target_layers: null
+  dspark_loss_decay_gamma: null
+  dspark_ce_loss_alpha: null
+  dspark_l1_loss_alpha: null
+  dspark_confidence_head_alpha: 1.0
+  dspark_confidence_detach: true
+cache_dir: ${oc.env:ANGELSPEC_RUN_DIR}/cache
+cache_key: null
+model_download_dir: null
+output_dir: ${oc.env:ANGELSPEC_RUN_DIR}/dfly2_dsv41_flash
+
+[2026-11-27 14:38:12,675] auto.py:128 INFO Set draft model tie_word_embeddings to False
+2026-11-27 14:38:12,757	WARNING authentication_token_setup.py:88 -- Token authentication is enabled for this Ray cluster. Set RAY_AUTH_MODE=disabled to opt out. For more information, see https://docs.ray.io/en/latest/ray-security/token-auth.html
+2026-11-27 14:38:15,800	INFO worker.py:2038 -- Started a local Ray instance.
+[2026-11-27 14:38:16,984] auto.py:128 INFO Set draft model tie_word_embeddings to False
+[2026-11-27 14:38:16,986] train_entry.py:417 INFO DFlash: set aux_hidden_states_layers = [19, 27, 31, 35]
+[2026-11-27 14:38:16,986] train_entry.py:819 INFO DFlash: set training.dflash_num_target_layers = 4 from the draft config
+[2026-11-27 14:38:16,990] train_entry.py:742 INFO DFlash: DeepSeek-V4.1 target reuse reads the attention inputs of target layers [20, 28, 32, 36]
+[2026-11-27 14:38:16,990] train_entry.py:491 INFO DFlash: context = target layers [28, 32, 36]' indexer top-512 at anchor-1 + context_local_window=128, read as target layers [28, 32, 36]' window latents + their KV source's global latents
+[2026-11-27 14:38:16,990] train_entry.py:542 INFO DFlash: draft attention starts from target layers [28, 32, 36]
+[2026-11-27 14:38:16,991] train_entry.py:578 INFO DFlash: draft post-attention norms and trainable MoEs start from target layers [28, 32, 36] with 128 routed experts (random)
+[2026-11-27 14:38:16,991] train_entry.py:599 INFO DFlash: 4-copy mHC residual, mixes start from target layers [28, 32, 36]
+[2026-11-27 14:38:16,991] train_entry.py:685 INFO DFlash: MTP fusion adds the target's final hidden at anchor-1, fused with the anchor embedding, to the anchor slot's input; the fusion starts from random init
+[2026-11-27 14:38:16,998] placement_group.py:354 INFO Ray cluster has 8 GPUs (need 8)
+[2026-11-27 14:38:16,998] placement_group.py:714 INFO Creating unified placement group with 8 GPUs (4 training + 4 inference + 0 eval + 0 score)...
+[2026-11-27 14:38:17,198] placement_group.py:304 INFO   bundle    0, actual_bundle_index:    0, node: 100.70.87.9, gpu: 0
+[2026-11-27 14:38:17,198] placement_group.py:304 INFO   bundle    1, actual_bundle_index:    1, node: 100.70.87.9, gpu: 1
+[2026-11-27 14:38:17,198] placement_group.py:304 INFO   bundle    2, actual_bundle_index:    2, node: 100.70.87.9, gpu: 2
+[2026-11-27 14:38:17,198] placement_group.py:304 INFO   bundle    3, actual_bundle_index:    3, node: 100.70.87.9, gpu: 3
+[2026-11-27 14:38:17,198] placement_group.py:304 INFO   bundle    4, actual_bundle_index:    4, node: 100.70.87.9, gpu: 4
+[2026-11-27 14:38:17,198] placement_group.py:304 INFO   bundle    5, actual_bundle_index:    5, node: 100.70.87.9, gpu: 5
+[2026-11-27 14:38:17,198] placement_group.py:304 INFO   bundle    6, actual_bundle_index:    6, node: 100.70.87.9, gpu: 6
+[2026-11-27 14:38:17,198] placement_group.py:304 INFO   bundle    7, actual_bundle_index:    7, node: 100.70.87.9, gpu: 7
+[2026-11-27 14:38:17,200] placement_group.py:747 INFO Placement (strategy=training_first): training bundles=[0, 1, 2, 3], inference bundles=[4, 5, 6, 7]
+[2026-11-27 14:38:17,201] utils.py:321 INFO Auto-resolved mooncake master_server_address: 100.70.87.9:51172
+[2026-11-27 14:38:17,203] ray_actor.py:49 INFO Pinning mooncake_master actor to node 100.70.87.9 (id=86265be3...)
+[2026-11-27 14:38:17,203] utils.py:339 INFO Auto-resolved mooncake metadata_port: 8347
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:23,223] utils.py:117 INFO Starting mooncake master on port 51172
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:23,224] utils.py:118 INFO LD_LIBRARY_PATH=/usr/local/nvidia/lib64:/usr/local/cuda/lib64:/usr/local/cuda/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64, LD_PRELOAD=NOT SET
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:38:23,334] dataset.py:381 INFO Max sequence length allowed for training: 12287
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:38:23,345] dataset.py:450 INFO Tokenizing dataset (cache will be saved to /data/nvme3/dfly2/ft/runs/smoke_train/cache/tokenized_dataset/25cfd3f2bc7be4ee62976eb8b8d3b7b5.pt)
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:23,297] utils.py:209 INFO [mooncake_master stderr] WARNING: Logging before InitGoogleLogging() is written to STDERR
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:23,297] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:23.297267 2468754 master.cpp:1522] Master service started on port 51172, max_threads=16, enable_metric_reporting=1, metrics_port=9003, metrics_host=0.0.0.0, default_kv_lease_ttl=5000, default_kv_soft_pin_ttl=1800000, max_kv_soft_pin_ttl=86400000, allow_evict_soft_pinned_objects=1, eviction_ratio=0.05, eviction_high_watermark_ratio=0.9, enable_ha=0, enable_oplog=0, enable_offload=0, enable_kv_events=0, kv_events_bind_endpoint=, kv_events_backend_id=, offload_on_evict=0, offload_force_evict=0, offloading_queue_limit=50000, offload_cap_ratio=0.5, ha_backend_type=etcd, ha_backend_connstring=, etcd_endpoints=, client_ttl=10, rpc_thread_num=16, rpc_port=51172, rpc_address=0.0.0.0, rpc_interface=, rpc_conn_timeout_seconds=0, rpc_enable_tcp_no_delay=1, rpc protocol=tcp, cluster_id=mooncake_cluster, root_fs_dir=, global_file_segment_size=9223372036854775807, memory_allocator=offset, enable_http_metadata_server=1, http_metadata_server_port=8347, http_metadata_server_host=0.0.0.0, enable_metadata_cleanup_on_timeout=0, put_start_discard_timeout_sec=30, put_start_release_timeout_sec=600, max_total_finished_tasks=10000, max_total_pending_tasks=10000, max_total_processing_tasks=10000, pending_task_timeout_sec=300, processing_task_timeout_sec=300, enable_snapshot=0, enable_snapshot_restore=0, snapshot_interval_seconds=600, snapshot_backup_dir=, snapshot_object_store_type=, snapshot_catalog_store_type=, snapshot_retention_count=2, max_retry_attempts=10, enable_cxl=0, cxl_path=/dev/dax0.0, cxl_size=8589934592
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:23,297] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:23.297343 2468754 master.cpp:1374] Starting C++ HTTP metadata server on 0.0.0.0:8347
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:23,297] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:23.297645 2468754 http_metadata_server.cpp:126] HTTP metadata server started on 0.0.0.0:8347
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:23,297] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:23.297650 2468754 master.cpp:1383] C++ HTTP metadata server started successfully
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:38:23,355] dataset.py:467 INFO last_turn_loss_only=auto: loss mask will only cover the last assistant turn
+[36m(AsyncTrainingController pid=2468360)[0m 
+Loading samples:   0%|          | 0/40 [00:00<?, ?it/s]
+Loading samples: 100%|██████████| 40/40 [00:00<00:00, 25803.16it/s]
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:38:23,357] dataset.py:578 INFO Loaded 40 samples, tokenizing with 16 workers...
+[36m(AsyncTrainingController pid=2468360)[0m 
+Processing dataset:   0%|          | 0/40 [00:00<?, ?it/s]
+[36m(AsyncTrainingController pid=2468360)[0m 
+Processing dataset:   2%|▎         | 1/40 [00:00<00:32,  1.18it/s]
+Processing dataset: 100%|██████████| 40/40 [00:00<00:00, 47.31it/s]
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:24,316] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:24.316236 2469508 master_service.cpp:2596] Task cleanup thread started
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:24,316] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:24.316560 2468754 master_admin_service.cpp:310] Master admin server started on port 9003
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:24,318] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:24.318017 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:38:24,407] dataset.py:530 INFO Saved 40 samples to cache: /data/nvme3/dfly2/ft/runs/smoke_train/cache/tokenized_dataset/25cfd3f2bc7be4ee62976eb8b8d3b7b5.pt
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:38:24,407] training_controller.py:467 INFO Controller loaded dataset: 40 samples
+[2026-11-27 14:38:25,259] utils.py:363 INFO mooncake master actor started: {'master_addr': '100.70.87.9:51172', 'metadata_port': 8347}
+[2026-11-27 14:38:25,260] train_entry.py:1201 INFO Dataset loaded on controller: 40 train, 0 eval
+[2026-11-27 14:38:25,264] setup.py:243 INFO Packing estimate (full sim): 40 packed (0 overlength dropped) → 10 rows, avg 4.0 samples/row, estimated 2 steps/epoch (vs 10 without packing)
+[2026-11-27 14:38:25,264] setup.py:290 INFO Setting num_epochs to 2 based on num_train_steps=3!
+[2026-11-27 14:38:25,264] setup.py:305 INFO Training steps (optimizer steps): num_train_steps=3, lr_total_steps=3 (dataset_size=40, global_batch_size=4, per_dp_rank_batch_size=1, accumulation_steps=1, steps_per_epoch=2, num_epochs=2)
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:25,256] utils.py:186 INFO mooncake master started (PID: 2468754)
+[2026-11-27 14:38:32,072] factory.py:114 INFO Preparing vllm inference engines...
+[2026-11-27 14:38:32,072] factory.py:617 INFO Initializing 1 vLLM engines (4 GPU(s) each, tp=4, pp=1, nnodes=1, replicas=1, backend=mp)
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:34,318] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:34.318600 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[2026-11-27 14:38:38,812] factory.py:707 INFO vLLM Engine 0: pre-allocated ports 10000, 10001
+[2026-11-27 14:38:38,813] train_entry.py:1264 INFO Waiting for 4 training actors and 1 inference engines to initialize in parallel...
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:39,058] vllm_engine.py:224 INFO VllmEngine rank 0: base_gpu_id=4, using local GPU 4
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:39,058] utils.py:290 INFO Mooncake services reachable: master=100.70.87.9:51172, metadata=http://100.70.87.9:8347/metadata
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:39,067] memory.py:165 WARNING VllmEngine rank 0 (Engram tables): 0 free 4 MiB host blocks, too few to pin 384 GiB, and freeing them failed ([Errno 13] Permission denied: '/proc/sys/vm/compact_memory'); run `echo 1 > /proc/sys/vm/drop_caches; echo 1 > /proc/sys/vm/compact_memory` as root
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:39,068] vllm_engine.py:325 INFO Shifted aux layer ids +1 for vllm (post-layer → pre-next-layer): [20, 28, 32, 36]
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:39,068] vllm_engine.py:337 INFO Appended final layer 40 for last_hidden_states: [20, 28, 32, 36, 40]
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:39,068] vllm_engine.py:353 INFO DeepSeek-V4.1: aux ids [20, 28, 32, 36] capture the attention input
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:39,068] vllm_engine.py:370 INFO VllmEngine rank 0: BEFORE init - base_gpu_id=4, num_gpus=4, tp_size=4, pp_size=1, nnodes=1, node_rank=0, aux_hidden_state_layer_ids=[20, 28, 32, 36, 40]
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:39,068] vllm_engine.py:473 INFO VllmEngine rank 0: set CUDA_VISIBLE_DEVICES=4,5,6,7
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:41,282] vllm_engine.py:480 INFO VllmEngine rank 0: vLLM 0.32.0 from /usr/local/lib/python3.12/dist-packages/vllm/__init__.py
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:41,282] vllm_engine.py:603 INFO VllmEngine rank 0: defaulting max_num_seqs=4 from inference_batch_size
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:41,298] vllm_runtime_patch.py:561 INFO apply_speculative_model_type_whitelist: patched SpeculativeConfig._verify_args for ['glm_moe_dsa', 'hy_v3', 'hy_v4', 'hy_v4_flash', 'qwen3_omni_moe_text'].
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:38:41,673] trainer.py:214 INFO [Rank 0] Device mesh (DP): world_size=4, dp_size=4, fsdp_strategy=FULL_SHARD, fsdp_mesh=(4,)
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:38:42,189] processing.py:66 INFO Assistant loss mask token IDs: header=[128804], end=[1], skip_after_header=0
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:42,589] vllm_runtime_patch.py:970 INFO apply_vit_rotary_emb_fix: routed ApplyRotaryEmb.forward_cuda -> forward_native
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:42,660] vllm_runtime_patch.py:1043 INFO apply_qwen3_omni_thinker_aux: patched Qwen3MoeLLMModel.forward with aux capture
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:42,661] vllm_runtime_patch.py:942 INFO apply_qwen3_mtp: registered Qwen3MTPForCausalLM + spec detection + mtp-skip Qwen3 target loader.
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:38:42,627] dflash_trainer.py:778 INFO DFlash gradient checkpointing on: 3 decoder layers, non-reentrant
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:42,803] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV3ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:42,803] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.model'] present in this vLLM build; skipping HYV4FlashForCausalLM.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:42,803] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.vl_model'] present in this vLLM build; skipping HYV4FlashVLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:42,804] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV4ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:42,804] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4.nvidia.vl_model'] present in this vLLM build; skipping HYV4VLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:42,804] vllm_runtime_patch.py:822 INFO apply_eagle3_mixin: Qwen3OmniMoeForConditionalGeneration already supports EAGLE3, skipping.
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:44,319] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:44.319020 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469661)[0m [2026-11-27 14:38:42,513] utils.py:290 INFO Mooncake services reachable: master=100.70.87.9:51172, metadata=http://100.70.87.9:8347/metadata[32m [repeated 4x across cluster] (Ray deduplicates logs by default. Set RAY_DEDUP_LOGS=0 to disable log deduplication, or see https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#log-deduplication for more options.)[0m
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:38:49,736] dflash_trainer.py:392 INFO [Rank 0] draft attention initialized from target layers [28, 32, 36]
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:38:41,673] trainer.py:214 INFO [Rank 3] Device mesh (DP): world_size=4, dp_size=4, fsdp_strategy=FULL_SHARD, fsdp_mesh=(4,)[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469661)[0m [2026-11-27 14:38:42,494] processing.py:66 INFO Assistant loss mask token IDs: header=[128804], end=[1], skip_after_header=0[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469661)[0m [2026-11-27 14:38:43,299] dflash_trainer.py:778 INFO DFlash gradient checkpointing on: 3 decoder layers, non-reentrant[32m [repeated 2x across cluster][0m
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:52,698] vllm_runtime_patch.py:555 INFO apply_speculative_model_type_whitelist: worker process — deferring VllmConfig rebuild until VL text-config construction.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:52,698] vllm_runtime_patch.py:561 INFO apply_speculative_model_type_whitelist: patched SpeculativeConfig._verify_args for ['glm_moe_dsa', 'hy_v3', 'hy_v4', 'hy_v4_flash', 'qwen3_omni_moe_text'].
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:52,794] vllm_runtime_patch.py:970 INFO apply_vit_rotary_emb_fix: routed ApplyRotaryEmb.forward_cuda -> forward_native
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:53,187] vllm_runtime_patch.py:1043 INFO apply_qwen3_omni_thinker_aux: patched Qwen3MoeLLMModel.forward with aux capture
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:53,188] vllm_runtime_patch.py:942 INFO apply_qwen3_mtp: registered Qwen3MTPForCausalLM + spec detection + mtp-skip Qwen3 target loader.
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:42 [api_utils.py:286] non-default args: {'tokenizer_mode': 'deepseek_v41', 'trust_remote_code': True, 'safetensors_load_strategy': 'prefetch', 'max_model_len': 12288, 'distributed_executor_backend': 'mp', 'master_port': 10000, 'distributed_timeout_seconds': 1800, 'tensor_parallel_size': 4, 'block_size': 64, 'enable_prefix_caching': False, 'gpu_memory_utilization': 0.85, 'max_num_batched_tokens': 16384, 'max_num_seqs': 4, 'disable_log_stats': True, 'enforce_eager': True, 'disable_custom_all_reduce': True, 'enable_chunked_prefill': True, 'speculative_config': {'method': 'extract_hidden_states', 'num_speculative_tokens': 1, 'draft_model_config': {'hf_config': {'eagle_aux_hidden_state_layer_ids': [20, 28, 32, 36, 40]}}}, 'compilation_config': {'mode': None, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': [], 'ir_enable_torch_wrap': None, 'splitting_ops': None, 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'cudagraph_decoder_replay': True, 'decoder_replay_cudagraph_capture_sizes': [], 'decoder_replay_trim_threshold': 768, 'compile_sizes': None, 'compile_ranges_endpoints': None, 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': None, 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': None, 'pass_config': {}, 'max_cudagraph_capture_size': None, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': None, 'static_all_moe_layers': []}, 'engram_config': EngramConfig(cpu_offload=True, embedding_across_dp=False, dp_shared_memory=None, use_thp=False), 'kv_transfer_config': KVTransferConfig(kv_connector='MooncakeHiddenStatesConnector', engine_id='c07ed937-e973-49d1-ad43-70f043156907', kv_buffer_device='cuda', kv_role='kv_producer', kv_port=14579, kv_connector_extra_config={}, kv_connector_module_path='angelspec.inference.engine.mooncake_hidden_states_connector', enable_permute_local_kv=False, kv_load_failure_policy='fail'), 'swa_bounded_replay': False, 'model': '/data/nvme3/lab/teachers/deepseek-v4.1-flash-1017'}
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:42 [config.py:908] Detected quantization_config.scale_fmt=ue8m0; enabling UE8M0 for DeepGEMM.
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:42 [model.py:733] Resolved architecture: DeepseekV41ForCausalLM
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:42 [model.py:2152] Using max model len 12288
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) WARNING 11-27 14:38:42 [model.py:1103] Model does not support mm_device_do_normalize, forcing mm_device_do_normalize = False.
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:43 [arg_utils.py:2326] Using ray runtime env (env vars redacted): {'env_vars': {'ALL_PROXY': '***', 'EP_SUPPRESS_NCCL_CHECK': '***', 'FLASHINFER_DISABLE_VERSION_CHECK': '***', 'HF_HOME': '***', 'HTTPS_PROXY': '***', 'HTTP_PROXY': '***', 'LD_LIBRARY_PATH': '***', 'MKL_NUM_THREADS': '***', 'OMP_NUM_THREADS': '***', 'OPENBLAS_NUM_THREADS': '***', 'PATH': '***', 'PYTHONPATH': '***', 'RAY_EXPERIMENTAL_NOSET_ASCEND_RT_VISIBLE_DEVICES': '***', 'RAY_EXPERIMENTAL_NOSET_CUDA_VISIBLE_DEVICES': '***', 'RAY_EXPERIMENTAL_NOSET_HABANA_VISIBLE_MODULES': '***', 'RAY_EXPERIMENTAL_NOSET_NEURON_RT_VISIBLE_CORES': '***', 'RAY_EXPERIMENTAL_NOSET_ONEAPI_DEVICE_SELECTOR': '***', 'RAY_EXPERIMENTAL_NOSET_ROCR_VISIBLE_DEVICES': '***', 'RAY_EXPERIMENTAL_NOSET_TPU_VISIBLE_CHIPS': '***', 'VLLM_PORT': '***', 'all_proxy': '***', 'http_proxy': '***', 'https_proxy': '***'}}
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:43 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=16384.
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:43 [vllm.py:1412] Resolved Engram configuration: EngramConfig(cpu_offload=True, embedding_across_dp=False, dp_shared_memory=False, use_thp=False)
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) WARNING 11-27 14:38:43 [vllm.py:1703] Enforce eager set, disabling torch.compile, CUDAGraphs, and JIT kernel warmup. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none and --kernel_config.enable_jit_warmup=False
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:43 [vllm.py:818] Auto-enabling VLLM_USE_BREAKABLE_CUDAGRAPH=1. Set VLLM_USE_BREAKABLE_CUDAGRAPH=0 to opt out.
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:43 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:43 [vllm.py:1929] Cudagraph is disabled under eager mode
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:43 [compilation.py:317] Enabled custom fusions: norm_quant, act_quant, allreduce_rms
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) WARNING 11-27 14:38:43 [system_utils.py:153] We must use the `spawn` multiprocessing start method. Overriding VLLM_WORKER_MULTIPROC_METHOD to 'spawn'. See https://docs.vllm.ai/en/latest/usage/troubleshooting.html#python-multiprocessing for more information. Reasons: In a Ray actor and can only be spawned; CUDA is initialized
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:38:44 [base.py:280] Multi-modal warmup completed in 0.528s
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:38:53 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='/data/nvme3/lab/teachers/deepseek-v4.1-flash-1017', speculative_config=SpeculativeConfig(method='extract_hidden_states', model=None, num_spec_tokens=1), tokenizer='/data/nvme3/lab/teachers/deepseek-v4.1-flash-1017', skip_tokenizer_init=False, tokenizer_mode=deepseek_v41, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=12288, download_dir=None, load_format=auto, tensor_parallel_size=4, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=deepseek_v4_fp8, quantization_config=None, enforce_eager=True, aux_output_config=AuxOutputConfig(enable_return_routed_experts=False, max_bytes=None), kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, custom_histogram_buckets=None, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=/data/nvme3/lab/teachers/deepseek-v4.1-flash-1017, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['+quant_fp8', 'all', '+quant_fp8'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'cudagraph_decoder_replay': True, 'decoder_replay_cudagraph_capture_sizes': [], 'decoder_replay_trim_threshold': 768, 'compile_sizes': [], 'compile_ranges_endpoints': [204, 16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'fuse_allreduce_rms': True, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=False, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:53,299] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV3ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:53,300] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.model'] present in this vLLM build; skipping HYV4FlashForCausalLM.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:53,300] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.vl_model'] present in this vLLM build; skipping HYV4FlashVLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:53,300] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV4ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:53,300] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4.nvidia.vl_model'] present in this vLLM build; skipping HYV4VLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:38:53,300] vllm_runtime_patch.py:822 INFO apply_eagle3_mixin: Qwen3OmniMoeForConditionalGeneration already supports EAGLE3, skipping.
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:38:54,319] utils.py:209 INFO [mooncake_master stderr] I1127 14:38:54.319388 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:39:04,320] utils.py:209 INFO [mooncake_master stderr] I1127 14:39:04.319886 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,497] vllm_runtime_patch.py:555 INFO apply_speculative_model_type_whitelist: worker process — deferring VllmConfig rebuild until VL text-config construction.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,497] vllm_runtime_patch.py:561 INFO apply_speculative_model_type_whitelist: patched SpeculativeConfig._verify_args for ['glm_moe_dsa', 'hy_v3', 'hy_v4', 'hy_v4_flash', 'qwen3_omni_moe_text'].
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,671] vllm_runtime_patch.py:970 INFO apply_vit_rotary_emb_fix: routed ApplyRotaryEmb.forward_cuda -> forward_native
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,797] vllm_runtime_patch.py:1043 INFO apply_qwen3_omni_thinker_aux: patched Qwen3MoeLLMModel.forward with aux capture
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,798] vllm_runtime_patch.py:942 INFO apply_qwen3_mtp: registered Qwen3MTPForCausalLM + spec detection + mtp-skip Qwen3 target loader.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,994] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV3ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,994] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.model'] present in this vLLM build; skipping HYV4FlashForCausalLM.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,994] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.vl_model'] present in this vLLM build; skipping HYV4FlashVLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,995] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV4ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,995] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4.nvidia.vl_model'] present in this vLLM build; skipping HYV4VLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:07,995] vllm_runtime_patch.py:822 INFO apply_eagle3_mixin: Qwen3OmniMoeForConditionalGeneration already supports EAGLE3, skipping.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,463] vllm_runtime_patch.py:555 INFO apply_speculative_model_type_whitelist: worker process — deferring VllmConfig rebuild until VL text-config construction.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,463] vllm_runtime_patch.py:561 INFO apply_speculative_model_type_whitelist: patched SpeculativeConfig._verify_args for ['glm_moe_dsa', 'hy_v3', 'hy_v4', 'hy_v4_flash', 'qwen3_omni_moe_text'].
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,637] vllm_runtime_patch.py:970 INFO apply_vit_rotary_emb_fix: routed ApplyRotaryEmb.forward_cuda -> forward_native
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,762] vllm_runtime_patch.py:1043 INFO apply_qwen3_omni_thinker_aux: patched Qwen3MoeLLMModel.forward with aux capture
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,763] vllm_runtime_patch.py:942 INFO apply_qwen3_mtp: registered Qwen3MTPForCausalLM + spec detection + mtp-skip Qwen3 target loader.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,835] vllm_runtime_patch.py:555 INFO apply_speculative_model_type_whitelist: worker process — deferring VllmConfig rebuild until VL text-config construction.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,835] vllm_runtime_patch.py:561 INFO apply_speculative_model_type_whitelist: patched SpeculativeConfig._verify_args for ['glm_moe_dsa', 'hy_v3', 'hy_v4', 'hy_v4_flash', 'qwen3_omni_moe_text'].
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,955] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV3ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,955] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.model'] present in this vLLM build; skipping HYV4FlashForCausalLM.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,955] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.vl_model'] present in this vLLM build; skipping HYV4FlashVLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,956] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV4ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,956] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4.nvidia.vl_model'] present in this vLLM build; skipping HYV4VLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:08,956] vllm_runtime_patch.py:822 INFO apply_eagle3_mixin: Qwen3OmniMoeForConditionalGeneration already supports EAGLE3, skipping.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,008] vllm_runtime_patch.py:970 INFO apply_vit_rotary_emb_fix: routed ApplyRotaryEmb.forward_cuda -> forward_native
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,132] vllm_runtime_patch.py:1043 INFO apply_qwen3_omni_thinker_aux: patched Qwen3MoeLLMModel.forward with aux capture
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,134] vllm_runtime_patch.py:942 INFO apply_qwen3_mtp: registered Qwen3MTPForCausalLM + spec detection + mtp-skip Qwen3 target loader.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,175] vllm_runtime_patch.py:555 INFO apply_speculative_model_type_whitelist: worker process — deferring VllmConfig rebuild until VL text-config construction.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,176] vllm_runtime_patch.py:561 INFO apply_speculative_model_type_whitelist: patched SpeculativeConfig._verify_args for ['glm_moe_dsa', 'hy_v3', 'hy_v4', 'hy_v4_flash', 'qwen3_omni_moe_text'].
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,324] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV3ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,324] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.model'] present in this vLLM build; skipping HYV4FlashForCausalLM.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,324] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.vl_model'] present in this vLLM build; skipping HYV4FlashVLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,325] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV4ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,325] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4.nvidia.vl_model'] present in this vLLM build; skipping HYV4VLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,325] vllm_runtime_patch.py:822 INFO apply_eagle3_mixin: Qwen3OmniMoeForConditionalGeneration already supports EAGLE3, skipping.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,350] vllm_runtime_patch.py:970 INFO apply_vit_rotary_emb_fix: routed ApplyRotaryEmb.forward_cuda -> forward_native
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,476] vllm_runtime_patch.py:1043 INFO apply_qwen3_omni_thinker_aux: patched Qwen3MoeLLMModel.forward with aux capture
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,477] vllm_runtime_patch.py:942 INFO apply_qwen3_mtp: registered Qwen3MTPForCausalLM + spec detection + mtp-skip Qwen3 target loader.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,670] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV3ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,670] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.model'] present in this vLLM build; skipping HYV4FlashForCausalLM.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,670] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4_flash.nvidia.vl_model'] present in this vLLM build; skipping HYV4FlashVLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,670] vllm_runtime_patch.py:859 INFO apply_eagle3_mixin: registered EAGLE3-enhanced HYV4ForCausalLM (angelspec.inference.engine.vllm_runtime_patch).
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,670] vllm_runtime_patch.py:810 INFO apply_eagle3_mixin: none of ['vllm.models.hy_v4.nvidia.vl_model'] present in this vLLM build; skipping HYV4VLForConditionalGeneration.
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:39:09,670] vllm_runtime_patch.py:822 INFO apply_eagle3_mixin: Qwen3OmniMoeForConditionalGeneration already supports EAGLE3, skipping.
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:39:14,320] utils.py:209 INFO [mooncake_master stderr] I1127 14:39:14.320274 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:23,197] dflash_trainer.py:428 INFO [Rank 0] draft post-attention norms and MoEs initialized from target layers [28, 32, 36]: shared expert, router and routed experts [[1, 4, 5, 14, 18, 24, 27, 28, 35, 36, 39, 40, 41, 43, 44, 51, 53, 58, 66, 68, 73, 74, 76, 79, 81, 82, 84, 86, 87, 90, 100, 101, 102, 103, 109, 110, 111, 112, 116, 118, 119, 123, 124, 127, 133, 135, 136, 139, 142, 143, 144, 148, 150, 153, 159, 164, 165, 167, 169, 170, 175, 177, 187, 188, 192, 198, 202, 206, 207, 209, 211, 212, 213, 215, 217, 219, 222, 223, 226, 228, 229, 232, 233, 237, 238, 239, 242, 245, 246, 248, 253, 254, 257, 260, 267, 275, 276, 278, 279, 282, 292, 298, 301, 309, 310, 313, 315, 316, 321, 325, 326, 328, 329, 337, 339, 341, 343, 344, 349, 351, 352, 355, 364, 365, 366, 372, 375, 381], [2, 4, 5, 11, 14, 16, 22, 28, 29, 31, 34, 37, 38, 42, 45, 48, 49, 50, 56, 57, 60, 61, 66, 69, 71, 73, 74, 75, 77, 79, 84, 86, 87, 88, 89, 92, 96, 101, 102, 104, 106, 107, 111, 112, 113, 114, 116, 117, 119, 122, 128, 131, 134, 136, 138, 140, 142, 147, 153, 157, 158, 162, 166, 168, 172, 175, 176, 179, 185, 188, 194, 196, 198, 200, 205, 207, 209, 213, 216, 217, 219, 223, 227, 228, 238, 249, 251, 253, 255, 256, 257, 258, 259, 265, 266, 267, 271, 277, 291, 296, 298, 301, 304, 306, 307, 315, 316, 325, 326, 327, 329, 334, 339, 340, 342, 346, 352, 354, 358, 359, 361, 363, 364, 366, 375, 376, 378, 382], [0, 2, 4, 8, 9, 10, 11, 19, 21, 22, 23, 24, 25, 31, 32, 34, 35, 38, 46, 47, 49, 56, 59, 62, 63, 66, 67, 68, 72, 80, 81, 82, 84, 86, 89, 96, 101, 106, 115, 122, 124, 128, 129, 130, 133, 134, 137, 138, 141, 143, 147, 150, 153, 154, 158, 159, 160, 167, 168, 172, 175, 176, 177, 178, 181, 183, 185, 187, 188, 189, 191, 194, 195, 197, 198, 211, 212, 213, 214, 215, 231, 234, 235, 236, 240, 241, 244, 248, 249, 250, 259, 262, 267, 269, 270, 278, 280, 282, 287, 291, 292, 298, 300, 302, 306, 309, 313, 316, 320, 322, 329, 330, 331, 340, 341, 347, 348, 350, 353, 356, 357, 359, 360, 368, 371, 376, 379, 381]]
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:23,240] dflash_trainer.py:403 INFO [Rank 0] draft mHC mixes initialized from target layers [28, 32, 36]
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:39:24,320] utils.py:209 INFO [mooncake_master stderr] I1127 14:39:24.320690 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:24,575] dflash_trainer.py:536 INFO [Rank 0] draft init from /data/nvme3/dfly2/ft/init/release_train_layout: loaded 94 tensors (0 left at init, 0 ignored)
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:24,733] dflash_trainer.py:568 INFO [Rank 0] attentive correction: loaded from draft_init_path
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:24,735] dflash_trainer.py:778 INFO DFlash gradient checkpointing on: 3 decoder layers, non-reentrant
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:24,738] dflash_trainer.py:787 INFO [Rank 0] DFlash draft model: 14,400,493,410 trainable, 661,913,600 frozen (embedding) parameters
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:24,739] fsdp.py:247 INFO Using FULL_SHARD strategy (FSDP, sharded parameters)
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:24,739] fsdp.py:258 INFO FSDP MixedPrecision Policy: param_dtype=torch.bfloat16, reduce_dtype=torch.float32
+[36m(TrainerActor pid=2469661)[0m [2026-11-27 14:39:25,022] fsdp.py:283 INFO FSDP units: 13 (including the root)
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:39:24,739] dflash_trainer.py:787 INFO [Rank 3] DFlash draft model: 14,400,493,410 trainable, 661,913,600 frozen (embedding) parameters[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:39:24,741] fsdp.py:247 INFO Using FULL_SHARD strategy (FSDP, sharded parameters)[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:39:24,741] fsdp.py:258 INFO FSDP MixedPrecision Policy: param_dtype=torch.bfloat16, reduce_dtype=torch.float32[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:30,511] fsdp.py:283 INFO FSDP units: 13 (including the root)[32m [repeated 3x across cluster][0m
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:39:34,321] utils.py:209 INFO [mooncake_master stderr] I1127 14:39:34.321142 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:39,801] logging.py:116 INFO [Muon] 54 matrix params on Newton-Schulz (ns_steps=5, momentum=0.95, nesterov=True); 40 params on AdamW. weight_decay: muon=0.1, adamw=0.01. 9 >2-D params per expert, on local shards. 3 params per attention head.
+[36m(TrainerActor pid=2469538)[0m /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+[36m(TrainerActor pid=2469538)[0m   return func(*args, **kwargs)
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:39:44,322] utils.py:209 INFO [mooncake_master stderr] I1127 14:39:44.321636 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:44,865] dflash_trainer.py:950 INFO [Rank 0] TargetLMHead loaded from /data/nvme3/lab/teachers/deepseek-v4.1-flash-1017 (load_norm=True, norm=yes)
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:44,866] dflash_trainer.py:975 INFO [Rank 0] TargetLMHead initialized and synced
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:45,601] dflash_trainer.py:1045 INFO [Rank 0] DSV41TargetReuse indexers (target layers [28, 32, 36], top-512) attached
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:45,603] dflash_trainer.py:1094 INFO [Rank 0] DSV41TargetReuse KV (target layers [28, 32, 36]) attached
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:39:45,603] dflash_trainer.py:908 INFO [Rank 0] DFlash model initialized with FSDP2
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:38:53 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=100.70.87.9 (local), world_size=4, local_world_size=4
+[36m(VllmEngine pid=2469667)[0m (Worker pid=2471190) INFO 11-27 14:39:08 [parallel_state.py:1906] world_size=4 rank=3 local_rank=3 distributed_init_method=file:///tmp/vllm_dist_52dd1b8f948b4fc7acec33f29ca9ea09 backend=nccl
+[36m(VllmEngine pid=2469667)[0m (Worker pid=2471189) INFO 11-27 14:39:09 [parallel_state.py:1906] world_size=4 rank=2 local_rank=2 distributed_init_method=file:///tmp/vllm_dist_52dd1b8f948b4fc7acec33f29ca9ea09 backend=nccl
+[36m(VllmEngine pid=2469667)[0m (Worker pid=2471187) INFO 11-27 14:39:09 [parallel_state.py:1906] world_size=4 rank=0 local_rank=0 distributed_init_method=file:///tmp/vllm_dist_52dd1b8f948b4fc7acec33f29ca9ea09 backend=nccl
+[36m(VllmEngine pid=2469667)[0m (Worker pid=2471188) INFO 11-27 14:39:09 [parallel_state.py:1906] world_size=4 rank=1 local_rank=1 distributed_init_method=file:///tmp/vllm_dist_52dd1b8f948b4fc7acec33f29ca9ea09 backend=nccl
+[36m(VllmEngine pid=2469667)[0m (Worker pid=2471187) INFO 11-27 14:39:09 [pynccl.py:148] vLLM is using nccl==2.30.7
+[36m(VllmEngine pid=2469667)[0m (Worker pid=2471187) INFO 11-27 14:39:12 [cuda_communicator.py:353] Using ['FLASHINFER', 'SYMM_MEM', 'PYNCCL'] all-reduce backends (in dispatch order) for group 'tp:0' out of potential backends: ['FLASHINFER_PCIE_IPC', 'FLASHINFER', 'NCCL_SYMM_MEM', 'QUICK_REDUCE', 'AITER_CUSTOM', 'CUSTOM', 'SYMM_MEM', 'PYNCCL'].
+[36m(VllmEngine pid=2469667)[0m (Worker pid=2471187) INFO 11-27 14:39:12 [cuda_communicator.py:353] Using ['PYNCCL'] all-reduce backends (in dispatch order) for group 'ep:0' out of potential backends: ['FLASHINFER_PCIE_IPC', 'FLASHINFER', 'NCCL_SYMM_MEM', 'QUICK_REDUCE', 'AITER_CUSTOM', 'CUSTOM', 'SYMM_MEM', 'PYNCCL'].
+[36m(VllmEngine pid=2469667)[0m (Worker pid=2471187) INFO 11-27 14:39:12 [parallel_state.py:2350] rank 0 in world size 4 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 0, EPLB rank N/A
+[36m(VllmEngine pid=2469667)[0m (Worker pid=2471187) INFO 11-27 14:39:12 [gpu_worker.py:518] Using V2 Model Runner
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:14 [model_runner.py:392] Loading model from scratch...
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:14 [cuda.py:565] Using backend AttentionBackendEnum.FLASH_ATTN for vit attention
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:14 [mm_encoder_attention.py:372] Using AttentionBackendEnum.FLASH_ATTN for MMEncoderAttention.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:14 [quant_config.py:84] DeepSeek V4 expert_dtype resolved to 'fp4'
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:14 [__init__.py:982] Using HummingMxfp8LinearKernel for MXFP8 GEMM
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:14 [attention.py:161] Using DeepSeek's fp8_ds_mla KV cache format.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:14 [fused_humming_moe.py:122] Using indexed gemm for humming moe
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:14 [mxfp4.py:806] Using 'HUMMING' Mxfp4 MoE backend.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:39:25 [engram.py:1021] Engram table offloaded to pinned host memory: 96002514 rows x 256, 23.60 GiB per rank
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:26 [engram.py:1021] Engram table offloaded to pinned host memory: 96000564 rows x 256, 23.60 GiB per rank
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:26 [attention.py:1308] Using FP8 indexer cache for Lightning Indexer.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:39:28 [engram.py:1021] Engram table offloaded to pinned host memory: 96001914 rows x 256, 23.60 GiB per rank
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:39:28 [engram.py:1021] Engram table offloaded to pinned host memory: 96001176 rows x 256, 23.60 GiB per rank
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:39:39 [engram.py:1021] Engram table offloaded to pinned host memory: 96005118 rows x 256, 23.60 GiB per rank
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:39:42 [engram.py:472] Built engram token map (129280 -> 99092 ids) for layers (1, 14)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:42 [engram.py:1021] Engram table offloaded to pinned host memory: 96003054 rows x 256, 23.60 GiB per rank
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:39:42 [engram.py:1021] Engram table offloaded to pinned host memory: 96004548 rows x 256, 23.60 GiB per rank
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:39:44 [engram.py:472] Built engram token map (129280 -> 99092 ids) for layers (1, 14)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:44 [engram.py:472] Built engram token map (129280 -> 99092 ids) for layers (1, 14)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) WARNING 11-27 14:39:44 [compilation.py:1348] Op 'quant_fp8' not present in model, enabling with '+quant_fp8' has no effect
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:44 [base_loader.py:82] Initializing model took 30.738890 seconds
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:39:44 [weight_utils.py:1108] Filesystem type for checkpoints: XFS. Checkpoint size: 475.25 GiB. Available RAM: 1655.88 GiB.
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(VllmEngine pid=2469667)[0m 
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:39:54,322] utils.py:209 INFO [mooncake_master stderr] I1127 14:39:54.321903 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:39:44,866] dflash_trainer.py:975 INFO [Rank 3] TargetLMHead initialized and synced[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:39:45,601] dflash_trainer.py:1045 INFO [Rank 3] DSV41TargetReuse indexers (target layers [28, 32, 36], top-512) attached[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:39:45,603] dflash_trainer.py:1094 INFO [Rank 3] DSV41TargetReuse KV (target layers [28, 32, 36]) attached[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:39:45,603] dflash_trainer.py:908 INFO [Rank 3] DFlash model initialized with FSDP2[32m [repeated 3x across cluster][0m
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:04,322] utils.py:209 INFO [mooncake_master stderr] I1127 14:40:04.322248 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:14,323] utils.py:209 INFO [mooncake_master stderr] I1127 14:40:14.322741 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:24,323] utils.py:209 INFO [mooncake_master stderr] I1127 14:40:24.323343 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:34,324] utils.py:209 INFO [mooncake_master stderr] I1127 14:40:34.323770 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:39:46 [engram.py:1021] Engram table offloaded to pinned host memory: 96003962 rows x 256, 23.60 GiB per rank
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:39:48 [engram.py:472] Built engram token map (129280 -> 99092 ids) for layers (1, 14)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:12 [default_loader.py:501] Loading weights took 27.01 seconds
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:12 [__init__.py:982] Using EmulationMxfp8LinearKernel for MXFP8 GEMM
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:12 [mxfp4.py:2223] Using MoEPrepareAndFinalizeNoDPEPModular
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:12 [mxfp4.py:2224] Using HummingIndexedExperts
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:40:22 [eagle3_utils.py:27] Using Eagle3 auxiliary layers from config: (20, 28, 32, 36, 40)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:40:23 [model_runner.py:424] Model loading took 79.01 GiB memory and 70.129298 seconds
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:26 [eagle3_utils.py:27] Using Eagle3 auxiliary layers from config: (20, 28, 32, 36, 40)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:26 [base_loader.py:82] Initializing model took 0.002568 seconds
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:26 [default_loader.py:501] Loading weights took 1823786.79 seconds
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) WARNING 11-27 14:40:27 [speculator.py:243] Draft model ExtractHiddenStatesModel does not support external multimodal embeddings. Embeddings from the target model will not be passed to the drafter; using text-only draft inputs instead.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:40:27 [eagle3_utils.py:27] Using Eagle3 auxiliary layers from config: (20, 28, 32, 36, 40)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:28 [model_runner.py:424] Model loading took 79.01 GiB memory and 74.467065 seconds
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:28 [topk_topp_sampler.py:124] Using FlashInfer for top-p & top-k sampling.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) WARNING 11-27 14:40:28 [torch_utils.py:283] OMP_NUM_THREADS=8 is set; leaving Torch threads at 8 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:40:28 [model_runner.py:424] Model loading took 79.01 GiB memory and 75.279590 seconds
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:40:34 [eagle3_utils.py:27] Using Eagle3 auxiliary layers from config: (20, 28, 32, 36, 40)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:40:35 [model_runner.py:424] Model loading took 79.01 GiB memory and 82.343745 seconds
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) WARNING 11-27 14:40:35 [torch_utils.py:283] OMP_NUM_THREADS=8 is set; leaving Torch threads at 8 for serving. Multi-threaded torch CPU ops during serving can degrade performance through spin-wait contention and cgroup CPU-quota throttling.[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:44,324] utils.py:209 INFO [mooncake_master stderr] I1127 14:40:44.324265 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 0 B | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 0 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.00/0.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.00/0.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:51,331] utils.py:209 INFO [mooncake_master stderr] I1127 14:40:51.330751 2469527 master_service.cpp:7193] Storage root directory or cluster ID is not set. persisting data is disabled.
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:51,336] utils.py:209 INFO [mooncake_master stderr] I1127 14:40:51.336162 2469527 master_service.cpp:905] client_id=9458672645135622307-1458622663654138546, action=mount_segment, segment_name=100.70.87.9:13341
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:51,340] utils.py:209 INFO [mooncake_master stderr] W1127 14:40:51.340276 2469527 segment.cpp:228] segment_name=100.70.87.9:13341, warn=segment_already_exists
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:51,340] utils.py:209 INFO [mooncake_master stderr] W1127 14:40:51.340292 2469527 segment.cpp:305] segment_name=100.70.87.9:13341, warn=segment_already_exists
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:40:51,313] store.py:128 INFO Set MC_TCP_BIND_ADDRESS=100.70.87.9 for transfer engine
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:40:51,313] store.py:132 INFO Connecting to Mooncake master at 100.70.87.9:51172, metadata server at http://100.70.87.9:8347/metadata
+[36m(VllmEngine pid=2469667)[0m WARNING: Logging before InitGoogleLogging() is written to STDERR
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.327332 2471187 client_metric.cpp:102] Client metrics enabled (default enabled)
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.327355 2471187 client_metric.cpp:103] Client bandwidth summary enabled via MC_STORE_CLIENT_METRIC_BANDWIDTH
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.328773 2471187 client_service.cpp:423] client_id=9458672645135622307-1458622663654138546
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.328786 2471187 client_service.cpp:425] client_id=9458672645135622307-1458622663654138546, host_id=100.70.87.9
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.328789 2471187 client_service.cpp:437] Client metrics enabled but reporting disabled (interval=0)
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.330886 2471187 client_service.cpp:1077] Storage root directory is not set. persisting data is disabled.
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.330930 2471187 transfer_engine_impl.cpp:1046] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.330943 2471187 transfer_engine_impl.cpp:116] Transfer Engine parseHostNameWithPort. server_name: 100.70.87.9 port: 13341
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.330963 2471187 transfer_engine_impl.cpp:183] Transfer Engine RPC using new RPC mapping, listening on 100.70.87.9:15626
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.331861 2471187 client_service.cpp:872] Transfer engine auto discovery is disabled for protocol: tcp
+[36m(VllmEngine pid=2469667)[0m E1127 14:40:51.332065 2471187 transfer_metadata_plugin.cpp:292] GET http://100.70.87.9:8347/metadata?key=mooncake%2Fram%2F100.70.87.9%3A13341 http=404 body: metadata not found
+[36m(VllmEngine pid=2469667)[0m W1127 14:40:51.332070 2471187 transfer_metadata.cpp:1115] Failed to retrieve segment descriptor, name 100.70.87.9:13341
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.332371 2471187 tcp_transport.cpp:391] TcpTransport: listen on port 15291
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.332885 2471187 real_client.cpp:851] Successfully created client on port 13341 after 1 attempt(s)
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.335229 2471187 real_client.cpp:884] Registering local memory: 17179869184 bytes
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.335808 2471187 real_client.cpp:1026] Mounting segment: 274877906944 bytes, 274877906944 of 274877906944
+[36m(VllmEngine pid=2469667)[0m I1127 14:40:51.335819 2471187 registered_pinned_memory.cpp:98] Store segment pinned memory is disabled, max_bytes=0
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:40:51,339] store.py:324 INFO Hard pin enabled for batch_put_from
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:40:52,988] buffers.py:238 INFO Initialized host buffer pool: 4 x 0.9GB
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:40:52,991] store.py:170 INFO Async put manager created (pool_size=4)
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:40:52,992] store.py:178 INFO DtoH copy stream created on cuda:0
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:40:52,992] store.py:182 INFO Mooncake Store client initialized (protocol=tcp, device=(auto-discovery), gpu_direct=False, pool_size=4)
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:40:54,325] utils.py:209 INFO [mooncake_master stderr] I1127 14:40:54.324811 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 256.00 GB (0.0%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=0.30/0.30, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=0.30/0.30), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) WARNING 11-27 14:40:35 [utils.py:338] KV connector cache layout NHD does not satisfy every supported set; valid layouts: ['BLHNC', 'BLNHC']. Using BLHNC instead.
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:40:35 [utils.py:347] Using BLHNC KV cache layout.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:37 [encoder_runner.py:131] Encoder cache will be initialized with a budget of 16384 tokens, and profiled with 16 image items of the maximum feature size.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:39 [deep_gemm.py:198] deep_gemm not found in site-packages, trying vendored vllm.third_party.deep_gemm
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:39 [deep_gemm.py:225] DeepGEMM PDL enabled on vllm.third_party.deep_gemm.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:51 [gpu_worker.py:759] Available KV cache memory: 32.19 GiB
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:40:51 [kv_cache_utils.py:2327] GPU KV cache size: 42,078 tokens, Maximum concurrency for 12,288 tokens per request: 3.42x
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:40:51 [kv_cache_utils.py:853] kv cache group sizes (32, 32, 32, 32, 32, 32, 32, 64, 8, 64)
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:40:51 [kv_cache_utils.py:854] kv lcm block sizes 64
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:51 [factory.py:62] Creating v1 connector with name: MooncakeHiddenStatesConnector and engine_id: c07ed937-e973-49d1-ad43-70f043156907
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) WARNING 11-27 14:40:51 [base.py:214] Initializing KVConnectorBase_V1. This API is experimental and subject to change in the future as we iterate the design.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:40:51 [factory.py:62] Creating v1 connector with name: MooncakeHiddenStatesConnector and engine_id: c07ed937-e973-49d1-ad43-70f043156907
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) WARNING 11-27 14:40:51 [base.py:214] Initializing KVConnectorBase_V1. This API is experimental and subject to change in the future as we iterate the design.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:40:51 [factory.py:62] Creating v1 connector with name: MooncakeHiddenStatesConnector and engine_id: c07ed937-e973-49d1-ad43-70f043156907
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:40:51 [factory.py:62] Creating v1 connector with name: MooncakeHiddenStatesConnector and engine_id: c07ed937-e973-49d1-ad43-70f043156907
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) WARNING 11-27 14:40:51 [base.py:214] Initializing KVConnectorBase_V1. This API is experimental and subject to change in the future as we iterate the design.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) WARNING 11-27 14:40:51 [base.py:214] Initializing KVConnectorBase_V1. This API is experimental and subject to change in the future as we iterate the design.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:51 [indexer.py:1034] DSA indexer decode path: use_flattening=False supports_varlen=False (next_n=2, use_fp4_cache=False)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:51 [speculator.py:318] Attention backend(s) CACHE_ONLY_ATTN cannot update draft decode metadata in place; falling back to rebuilding attention metadata eagerly.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:53 [kernel_warmup.py:98] Warming up ll_bf16 router GEMM kernels for shapes: ((5120, 384),).
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:55 [flashinfer_sparse_mla_warmup.py:267] Warming up DeepSeek V4 sparse MLA attention for mixed tokens=16.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:40:55 [flashinfer_sparse_mla_warmup.py:267] Warming up DeepSeek V4 sparse MLA attention for mixed tokens=16.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:40:55 [flashinfer_sparse_mla_warmup.py:267] Warming up DeepSeek V4 sparse MLA attention for mixed tokens=16.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:40:55 [flashinfer_sparse_mla_warmup.py:267] Warming up DeepSeek V4 sparse MLA attention for mixed tokens=16.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:55 [flashinfer_all_reduce.py:236] Initialized FlashInfer Allreduce norm fusion workspace with backend=mnnvl
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:40:59 [cache.py:361] Using fp8_ds_mla data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:40:59 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:40:59 [cache.py:361] Using fp8_ds_mla data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:40:59 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:59 [cache.py:361] Using fp8_ds_mla data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:59 [vllm.py:1412] Resolved Engram configuration: EngramConfig(cpu_offload=True, embedding_across_dp=False, dp_shared_memory=False, use_thp=False)
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) WARNING 11-27 14:40:59 [vllm.py:1703] Enforce eager set, disabling torch.compile, CUDAGraphs, and JIT kernel warmup. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none and --kernel_config.enable_jit_warmup=False
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:59 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:59 [vllm.py:1929] Cudagraph is disabled under eager mode
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:59 [compilation.py:317] Enabled custom fusions: norm_quant, act_quant, allreduce_rms
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:59 [kernel_warmup.py:460] Using FlashInfer autotune cache file: /data/nvme3/shona-cpt/cache/vllm/flashinfer_autotune_cache/0.7.0.post1/90a/6f1a7372bf93f1ecb49e282787ed08478871c2af415d7ec283bd7a0f2e056c3c/autotune_configs_dp0_rank0.json
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:40:59 [cache.py:361] Using fp8_ds_mla data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:40:59 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:40:59 [kernel_warmup.py:367] Running FlashInfer autotune with 16384 tokens and token buckets (1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 768, 1024, 1280, 1536, 1792, 2048, 2560, 3072, 3584, 4096, 8192, 16384).[36m(VllmEngine pid=2469667)[0m 2026-11-27 14:40:59,406 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(VllmEngine pid=2469667)[0m 2026-11-27 14:40:59,406 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(VllmEngine pid=2469667)[0m 2026-11-27 14:40:59,406 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(VllmEngine pid=2469667)[0m 2026-11-27 14:40:59,406 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[36m(VllmEngine pid=2469667)[0m 2026-11-27 14:40:59,884 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(VllmEngine pid=2469667)[0m 2026-11-27 14:40:59,884 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(VllmEngine pid=2469667)[0m 2026-11-27 14:40:59,884 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[36m(VllmEngine pid=2469667)[0m 2026-11-27 14:40:59,885 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[2026-11-27 14:41:01,979] train_entry.py:1311 INFO All 4 training actors and 1 inference engines initialized
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:41:01,974] vllm_engine.py:676 INFO VllmEngine rank 0: initialized extract_hidden_states mode with layers=[20, 28, 32, 36, 40]
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:41:01,976] vllm_engine.py:383 INFO VllmEngine rank 0: initialized from /data/nvme3/lab/teachers/deepseek-v4.1-flash-1017 (tp_size=4, aux_layers=[20, 28, 32, 36, 40], hidden_size=5120)
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:02,115] store.py:128 INFO Set MC_TCP_BIND_ADDRESS=100.70.87.9 for transfer engine
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:02,118] store.py:132 INFO Connecting to Mooncake master at 100.70.87.9:51172, metadata server at http://100.70.87.9:8347/metadata
+[36m(TrainerActor pid=2469538)[0m WARNING: Logging before InitGoogleLogging() is written to STDERR
+[36m(TrainerActor pid=2469538)[0m I1127 14:41:02.132817 2469538 client_metric.cpp:102] Client metrics enabled (default enabled)
+[36m(TrainerActor pid=2469538)[0m I1127 14:41:02.132843 2469538 client_metric.cpp:103] Client bandwidth summary enabled via MC_STORE_CLIENT_METRIC_BANDWIDTH
+[36m(TrainerActor pid=2469661)[0m I1127 14:41:02.131812 2469661 client_service.cpp:423] client_id=4486864413269931075-10211052060464331180
+[36m(TrainerActor pid=2469661)[0m I1127 14:41:02.131824 2469661 client_service.cpp:425] client_id=4486864413269931075-10211052060464331180, host_id=100.70.87.9
+[36m(TrainerActor pid=2469661)[0m I1127 14:41:02.131827 2469661 client_service.cpp:437] Client metrics enabled but reporting disabled (interval=0)
+[36m(TrainerActor pid=2469661)[0m I1127 14:41:02.134532 2469661 client_service.cpp:1077] Storage root directory is not set. persisting data is disabled.
+[36m(TrainerActor pid=2469661)[0m I1127 14:41:02.134572 2469661 transfer_engine_impl.cpp:1046] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)
+[36m(TrainerActor pid=2469661)[0m I1127 14:41:02.134583 2469661 transfer_engine_impl.cpp:116] Transfer Engine parseHostNameWithPort. server_name: 100.70.87.9 port: 12748
+[36m(TrainerActor pid=2469661)[0m I1127 14:41:02.134603 2469661 transfer_engine_impl.cpp:183] Transfer Engine RPC using new RPC mapping, listening on 100.70.87.9:16397
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:02,134] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:02.134078 2469529 master_service.cpp:7193] Storage root directory or cluster ID is not set. persisting data is disabled.
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:02,135] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:02.135501 2469530 master_service.cpp:7193] Storage root directory or cluster ID is not set. persisting data is disabled.
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:02,139] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:02.138868 2469531 master_service.cpp:7193] Storage root directory or cluster ID is not set. persisting data is disabled.
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:02,140] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:02.140372 2469532 master_service.cpp:7193] Storage root directory or cluster ID is not set. persisting data is disabled.
+[36m(TrainerActor pid=2469538)[0m I1127 14:41:02.134146 2469538 client_service.cpp:423] client_id=4053642784631685574-11843064063272818053
+[36m(TrainerActor pid=2469538)[0m I1127 14:41:02.134158 2469538 client_service.cpp:425] client_id=4053642784631685574-11843064063272818053, host_id=100.70.87.9
+[36m(TrainerActor pid=2469538)[0m I1127 14:41:02.136603 2469538 client_service.cpp:872] Transfer engine auto discovery is disabled for protocol: tcp
+[36m(TrainerActor pid=2469538)[0m E1127 14:41:02.136787 2469538 transfer_metadata_plugin.cpp:292] GET http://100.70.87.9:8347/metadata?key=mooncake%2Fram%2F100.70.87.9%3A13473 http=404 body: metadata not found
+[36m(TrainerActor pid=2469538)[0m W1127 14:41:02.136792 2469538 transfer_metadata.cpp:1115] Failed to retrieve segment descriptor, name 100.70.87.9:13473
+[36m(TrainerActor pid=2469538)[0m I1127 14:41:02.137087 2469538 tcp_transport.cpp:391] TcpTransport: listen on port 16371
+[36m(TrainerActor pid=2469538)[0m I1127 14:41:02.137732 2469538 real_client.cpp:851] Successfully created client on port 13473 after 1 attempt(s)
+[36m(TrainerActor pid=2469538)[0m I1127 14:41:02.139933 2469538 real_client.cpp:884] Registering local memory: 17179869184 bytes
+[36m(TrainerActor pid=2469538)[0m I1127 14:41:02.140226 2469538 real_client.cpp:1088] Global segment size is 0, skip mounting segment
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:02,141] store.py:324 INFO Hard pin enabled for batch_put_from
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:02,141] store.py:178 INFO DtoH copy stream created on cuda:0
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:02,141] store.py:182 INFO Mooncake Store client initialized (protocol=tcp, device=(auto-discovery), gpu_direct=False, pool_size=0)
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:02,141] trainer.py:251 INFO [Rank 0] DraftMooncakeStore initialized
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:02,142] trainer.py:415 INFO [Rank 0] Prefetched packing data fetcher initialized (prefetch_depth(steps)=2, rows_per_step=1, max_resident≈2 rows, hidden≈0.00GB CPU staging, target=0)
+[36m(TrainerActor pid=2469664)[0m I1127 14:41:02.136474 2469664 client_service.cpp:423] client_id=1533376597157189575-11959757253301148050
+[36m(TrainerActor pid=2469664)[0m I1127 14:41:02.136495 2469664 client_service.cpp:425] client_id=1533376597157189575-11959757253301148050, host_id=100.70.87.9
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.138634 2469662 client_service.cpp:423] client_id=15943912264918709165-4429379206374450877
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.138648 2469662 client_service.cpp:425] client_id=15943912264918709165-4429379206374450877, host_id=100.70.87.9
+[2026-11-27 14:41:02,184] train_entry.py:116 INFO Initialization timing:
+  Create controller                                    4.31s
+  Parse draft model config                             0.01s
+  Driver-side init                                     8.26s
+  Dataset loading                                      8.27s  (blocked 0.00s)
+  Auto-calculate training steps                        0.00s
+  Allocate actors + dispatch init                     13.55s
+  Actor initialization                               156.71s  (blocked 143.17s)
+  Setup async training                                 0.20s
+  ─────────────────────────────────────────────────────────
+  Total                                              169.51s
+[2026-11-27 14:41:02,194] loop.py:376 INFO Starting: num_steps=3, num_epochs=2, steps_per_epoch=2, global_batch_size=4, accumulation_steps=1, dp_size=4, per_dp_rank_batch_size=1
+
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:59 [kernel_warmup.py:367] Running FlashInfer autotune with 16384 tokens and token buckets (1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 768, 1024, 1280, 1536, 1792, 2048, 2560, 3072, 3584, 4096, 8192, 16384).
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:40:59 [kernel_warmup.py:367] Running FlashInfer autotune with 16384 tokens and token buckets (1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 768, 1024, 1280, 1536, 1792, 2048, 2560, 3072, 3584, 4096, 8192, 16384).
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:40:59 [kernel_warmup.py:367] Running FlashInfer autotune with 16384 tokens and token buckets (1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 768, 1024, 1280, 1536, 1792, 2048, 2560, 3072, 3584, 4096, 8192, 16384).
+[36m(VllmEngine pid=2469667)[0m (Worker_TP1 pid=2471188) INFO 11-27 14:40:59 [gpu_worker.py:1034] Free memory on device (137.8/139.8 GiB) on startup. Desired GPU memory utilization is (0.85, 118.83 GiB). Actual usage is 81.56 GiB for consumed memory (weights + non-torch), 5.08 GiB for peak activation, and 0.0 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=34404349952` (32.04 GiB) to fit into requested memory, or `--kv-cache-memory=54770137088` (51.01 GiB) to fully utilize gpu memory. Current kv cache memory in use is 32.19 GiB.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP2 pid=2471189) INFO 11-27 14:40:59 [gpu_worker.py:1034] Free memory on device (137.8/139.8 GiB) on startup. Desired GPU memory utilization is (0.85, 118.83 GiB). Actual usage is 81.56 GiB for consumed memory (weights + non-torch), 5.08 GiB for peak activation, and 0.0 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=34404349952` (32.04 GiB) to fit into requested memory, or `--kv-cache-memory=54770137088` (51.01 GiB) to fully utilize gpu memory. Current kv cache memory in use is 32.19 GiB.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP3 pid=2471190) INFO 11-27 14:40:59 [gpu_worker.py:1034] Free memory on device (137.8/139.8 GiB) on startup. Desired GPU memory utilization is (0.85, 118.83 GiB). Actual usage is 81.56 GiB for consumed memory (weights + non-torch), 5.08 GiB for peak activation, and 0.0 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=34404349952` (32.04 GiB) to fit into requested memory, or `--kv-cache-memory=54770137088` (51.01 GiB) to fully utilize gpu memory. Current kv cache memory in use is 32.19 GiB.
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:40:59 [gpu_worker.py:1034] Free memory on device (137.28/139.8 GiB) on startup. Desired GPU memory utilization is (0.85, 118.83 GiB). Actual usage is 81.56 GiB for consumed memory (weights + non-torch), 5.08 GiB for peak activation, and 0.0 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=34404349952` (32.04 GiB) to fit into requested memory, or `--kv-cache-memory=54216947712` (50.49 GiB) to fully utilize gpu memory. Current kv cache memory in use is 32.19 GiB.
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:41:00 [core.py:402] init engine (profile, create kv cache, warmup model) took 24.82 s
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:41:01 [factory.py:62] Creating v1 connector with name: MooncakeHiddenStatesConnector and engine_id: c07ed937-e973-49d1-ad43-70f043156907
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) WARNING 11-27 14:41:01 [base.py:214] Initializing KVConnectorBase_V1. This API is experimental and subject to change in the future as we iterate the design.
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:41:01 [vllm.py:1412] Resolved Engram configuration: EngramConfig(cpu_offload=True, embedding_across_dp=False, dp_shared_memory=False, use_thp=False)
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) WARNING 11-27 14:41:01 [vllm.py:1703] Enforce eager set, disabling torch.compile, CUDAGraphs, and JIT kernel warmup. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none and --kernel_config.enable_jit_warmup=False
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:41:01 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'], fused_add_rms_norm=['vllm_c', 'native'], gelu_and_mul_sparse=['triton', 'native'])
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:41:01 [vllm.py:1929] Cudagraph is disabled under eager mode
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:41:01 [compilation.py:317] Enabled custom fusions: norm_quant, act_quant, allreduce_rms
+
+Training:   0%|          | 0/3 [00:00<?, ?step/s][36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:02,192] training_controller.py:506 INFO Prepared dataset (40 samples, seed 42+0)
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:02,196] training_controller.py:1062 INFO _try_dispatch_packed: pool_size=0 < need_rows=4, waiting
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:02,180] trainer.py:486 INFO [Rank 0] Eval data fetcher initialized with batch_size=1
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:04,208] training_controller.py:1062 INFO _try_dispatch_packed: pool_size=0 < need_rows=4, waiting
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:04,325] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:04.325220 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 0 B / 256.00 GB (0.0%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 0 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:06,216] training_controller.py:1062 INFO _try_dispatch_packed: pool_size=0 < need_rows=4, waiting
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:08,223] training_controller.py:1062 INFO _try_dispatch_packed: pool_size=0 < need_rows=4, waiting
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:41:02,117] store.py:128 INFO Set MC_TCP_BIND_ADDRESS=100.70.87.9 for transfer engine[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:41:02,119] store.py:132 INFO Connecting to Mooncake master at 100.70.87.9:51172, metadata server at http://100.70.87.9:8347/metadata[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m WARNING: Logging before InitGoogleLogging() is written to STDERR[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.137233 2469662 client_metric.cpp:102] Client metrics enabled (default enabled)[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.137254 2469662 client_metric.cpp:103] Client bandwidth summary enabled via MC_STORE_CLIENT_METRIC_BANDWIDTH[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.138652 2469662 client_service.cpp:437] Client metrics enabled but reporting disabled (interval=0)[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.140479 2469662 client_service.cpp:1077] Storage root directory is not set. persisting data is disabled.[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.140524 2469662 transfer_engine_impl.cpp:1046] Metrics reporting is disabled (set MC_TE_METRIC=1 to enable)[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.140535 2469662 transfer_engine_impl.cpp:116] Transfer Engine parseHostNameWithPort. server_name: 100.70.87.9 port: 14171[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.140556 2469662 transfer_engine_impl.cpp:183] Transfer Engine RPC using new RPC mapping, listening on 100.70.87.9:15125[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.141498 2469662 client_service.cpp:872] Transfer engine auto discovery is disabled for protocol: tcp[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m E1127 14:41:02.142079 2469662 transfer_metadata_plugin.cpp:292] GET http://100.70.87.9:8347/metadata?key=mooncake%2Fram%2F100.70.87.9%3A14171 http=404 body: metadata not found[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m W1127 14:41:02.142084 2469662 transfer_metadata.cpp:1115] Failed to retrieve segment descriptor, name 100.70.87.9:14171[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.142637 2469662 tcp_transport.cpp:391] TcpTransport: listen on port 16302[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.143209 2469662 real_client.cpp:851] Successfully created client on port 14171 after 1 attempt(s)[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.145510 2469662 real_client.cpp:884] Registering local memory: 17179869184 bytes[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m I1127 14:41:02.145912 2469662 real_client.cpp:1088] Global segment size is 0, skip mounting segment[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:41:02,146] store.py:324 INFO Hard pin enabled for batch_put_from[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:41:02,146] store.py:178 INFO DtoH copy stream created on cuda:3[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469661)[0m [2026-11-27 14:41:02,148] store.py:182 INFO Mooncake Store client initialized (protocol=tcp, device=(auto-discovery), gpu_direct=False, pool_size=0)[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469661)[0m [2026-11-27 14:41:02,148] trainer.py:251 INFO [Rank 2] DraftMooncakeStore initialized[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469661)[0m [2026-11-27 14:41:02,150] trainer.py:415 INFO [Rank 2] Prefetched packing data fetcher initialized (prefetch_depth(steps)=2, rows_per_step=1, max_resident≈2 rows, hidden≈0.00GB CPU staging, target=2)[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:41:02,182] trainer.py:486 INFO [Rank 3] Eval data fetcher initialized with batch_size=1[32m [repeated 3x across cluster][0m
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:10,226] training_controller.py:1062 INFO _try_dispatch_packed: pool_size=0 < need_rows=4, waiting
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:12,229] training_controller.py:1062 INFO _try_dispatch_packed: pool_size=0 < need_rows=4, waiting
+[36m(AsyncInferenceManager pid=2475856)[0m [2026-11-27 14:41:12,782] inference_manager.py:344 INFO Flow control enabled: max_pool_size=128 samples
+[36m(AsyncInferenceManager pid=2475856)[0m [2026-11-27 14:41:12,782] inference_manager.py:348 INFO Byte flow control enabled: max_pool_bytes=256.0 GiB
+[36m(AsyncInferenceManager pid=2475856)[0m [2026-11-27 14:41:12,791] inference_manager.py:357 INFO AsyncInferenceManager starting (1 engines, max_concurrent=1)
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:14,245] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=4 cannot fill 4 rows (max_seq=12288, lengths=[911, 559, 819, 5566]...), waiting for supply
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:14,326] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:14.325690 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 560.59 MB / 256.00 GB (0.2%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 15 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.50/0.00/0.50, Item=1.50/1.50), PutEnd:(Req=0.40/0.00/0.40, Item=1.20/1.20), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:16,254] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=8 cannot fill 4 rows (max_seq=12288, lengths=[911, 559, 819, 5566, 3624]...), waiting for supply
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:24,326] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:24.326252 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 1.85 GB / 256.00 GB (0.7%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 48 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=1.10/0.00/1.10, Item=3.30/3.30), PutEnd:(Req=1.20/0.00/1.20, Item=3.60/3.60), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:34,326] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:34.326668 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 1.85 GB / 256.00 GB (0.7%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 48 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:44,327] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:44.327049 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 1.85 GB / 256.00 GB (0.7%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 48 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:51,675] training_controller.py:1062 INFO _try_dispatch_packed: pool_size=0 < need_rows=4, waiting
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:54,113] dflash.py:1404 INFO [mtp fusion] slot0: 512/512 blocks fused; RMS of the fusion 2.313, of the anchor embeddings 0.071, of the gate 0.0763
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:41:54,328] utils.py:209 INFO [mooncake_master stderr] I1127 14:41:54.327739 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 1.23 GB / 256.00 GB (0.5%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 24 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=4.80/4.80, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.80/0.00/0.80, Item=2.40/2.40), PutEnd:(Req=0.80/0.00/0.80, Item=2.40/2.40), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=1.60/0.00/1.60, Item=4.80/4.80), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:54,476] dsv41_target.py:298 INFO target reuse: index scores from the torch fallback
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:54,598] dflash.py:1001 INFO [target index] layer 28 top-512 at anchor-1 (+ context_local_window=128): 476 candidates per block over 2345 visible context tokens; 83.6% of blocks with more visible tokens than a single top-k
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:54,598] dflash.py:1001 INFO [target index] layer 32 top-512 at anchor-1 (+ context_local_window=128): 476 candidates per block over 2345 visible context tokens; 83.6% of blocks with more visible tokens than a single top-k
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:54,599] dflash.py:1001 INFO [target index] layer 36 top-512 at anchor-1 (+ context_local_window=128): 476 candidates per block over 2345 visible context tokens; 83.6% of blocks with more visible tokens than a single top-k
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:54,601] dflash.py:1018 INFO [target index] share of candidates two target layers both pick, over cut blocks: 28/32=0.78 28/36=0.71 32/36=0.80
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:54,611] dflash.py:1069 INFO [target kv] draft layers read target layers [28, 32, 36]' MLA latents as their context KV; latent / k_pe RMS per target layer: 28=0.695/0.775 32=0.675/0.804 36=0.680/0.801
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:55,997] dflash_trainer.py:1517 INFO [mem] backward#0 pre: allocated=46.11 reserved=61.47 peak_alloc=55.64 peak_reserved=61.47 driver_free=76.41/139.80 GiB
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:57,416] dflash_trainer.py:1517 INFO [mem] backward#0 post: allocated=42.64 reserved=75.72 peak_alloc=61.85 peak_reserved=75.72 driver_free=62.09/139.80 GiB
+[2026-11-27 14:41:58,961] loop.py:581 INFO TIMING step=1: step=7.279s data=2.083s compute=5.190s [fwd=2.240s bwd=1.432s opt=1.518s] dispatch=49.474s fill=93.4% eff_tok/s=1,577
+
+Training:  33%|███▎      | 1/3 [00:56<01:53, 56.77s/step, loss=1.748, acc=0.601, acc_len=1.70, thru=4.1, acc_len_tgt=1.75, I=4.2, T=0.5, wait=49.5s, pool=24, epoch=1/2][36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:58,952] dflash_trainer.py:2122 INFO COMPUTE_BREAKDOWN step=0: forward=2239.7ms backward=1431.5ms mem_alloc=35.93GiB mem_rsv=75.72GiB mem_peak=61.85GiB
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:41:58,952] trainer.py:888 INFO step 0: packing 1 rows, seq_tokens=11479 fill=93.4% (slots 12288), supervised_tokens=9185
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:41:59,049] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:42:00,381] dflash_trainer.py:1517 INFO [mem] backward#1 pre: allocated=46.14 reserved=75.72 peak_alloc=61.85 peak_reserved=75.72 driver_free=61.84/139.80 GiB
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:41:54,507] dsv41_target.py:298 INFO target reuse: index scores from the torch fallback[32m [repeated 3x across cluster][0m
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:42:00,720] dflash_trainer.py:1517 INFO [mem] backward#1 post: allocated=42.64 reserved=75.80 peak_alloc=61.85 peak_reserved=75.80 driver_free=61.76/139.80 GiB
+[2026-11-27 14:42:01,432] loop.py:581 INFO TIMING step=2: step=2.378s data=1.136s compute=1.236s [fwd=0.245s bwd=0.358s opt=0.632s] dispatch=0.078s fill=87.0% eff_tok/s=4,499
+
+Training:  67%|██████▋   | 2/3 [00:59<00:24, 24.83s/step, loss=1.560, acc=0.637, acc_len=1.89, thru=2.9, acc_len_tgt=1.97, I=4.2, T=1.7, wait=0.1s, pool=10, epoch=1/2] [36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:01,438] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:42:01,424] dflash_trainer.py:2122 INFO COMPUTE_BREAKDOWN step=1: forward=245.0ms backward=358.3ms mem_alloc=35.93GiB mem_rsv=75.80GiB mem_peak=61.85GiB
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:03,448] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:42:04,328] utils.py:209 INFO [mooncake_master stderr] I1127 14:42:04.328245 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 734.69 MB / 256.00 GB (0.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 30 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=4.20/4.20, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=1.60/0.00/1.60, Item=4.80/4.80), PutEnd:(Req=1.60/0.00/1.60, Item=4.80/4.80), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=1.40/0.00/1.40, Item=4.20/4.20), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:42:01,424] trainer.py:888 INFO step 1: packing 1 rows, seq_tokens=8884 fill=72.3% (slots 12288), supervised_tokens=8495[32m [repeated 7x across cluster][0m
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:05,454] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:07,462] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:09,476] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:11,478] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:13,484] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:42:14,329] utils.py:209 INFO [mooncake_master stderr] I1127 14:42:14.328775 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 734.69 MB / 256.00 GB (0.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 30 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:15,486] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:17,486] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:19,502] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:21,513] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:23,514] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:42:24,329] utils.py:209 INFO [mooncake_master stderr] I1127 14:42:24.329282 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 734.69 MB / 256.00 GB (0.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 30 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:25,529] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:27,531] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=10 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[2026-11-27 14:42:29,052] loop.py:456 INFO Epoch 1 completed (2 steps, 30 samples consumed). Total steps: 2/3
+[2026-11-27 14:42:29,053] loop.py:497 INFO Dataset exhausted, reloading (epoch 2)...
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:29,054] training_controller.py:506 INFO Prepared dataset (40 samples, seed 42+1)
+[36m(AsyncTrainingController pid=2468360)[0m [2026-11-27 14:42:29,543] training_controller.py:1074 INFO _try_dispatch_packed: pool_size=14 cannot fill 4 rows (max_seq=12288, lengths=[4948, 2762, 462, 418, 1021]...), waiting for supply
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:42:32,832] dflash_trainer.py:1517 INFO [mem] backward#2 pre: allocated=46.14 reserved=75.80 peak_alloc=61.85 peak_reserved=75.80 driver_free=61.76/139.80 GiB
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:42:33,181] dflash_trainer.py:1517 INFO [mem] backward#2 post: allocated=42.64 reserved=75.80 peak_alloc=61.85 peak_reserved=75.80 driver_free=61.76/139.80 GiB
+[2026-11-27 14:42:33,886] loop.py:581 INFO TIMING step=3: step=2.512s data=1.285s compute=1.223s [fwd=0.228s bwd=0.360s opt=0.634s] dispatch=29.927s fill=90.6% eff_tok/s=4,430
+
+Training: 100%|██████████| 3/3 [01:31<00:00, 28.31s/step, loss=1.734, acc=0.606, acc_len=1.71, thru=5.5, acc_len_tgt=1.75, I=5.7, T=1.6, wait=29.9s, pool=14, epoch=2/2][2026-11-27 14:42:33,889] loop.py:669 INFO Saving checkpoint at step 3...
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:42:33,878] dflash_trainer.py:2122 INFO COMPUTE_BREAKDOWN step=2: forward=228.4ms backward=360.4ms mem_alloc=35.93GiB mem_rsv=75.80GiB mem_peak=61.85GiB
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:42:33,878] trainer.py:888 INFO step 2: packing 1 rows, seq_tokens=11127 fill=90.6% (slots 12288), supervised_tokens=9946
+[36m(TrainerActor pid=2469538)[0m /usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+[36m(TrainerActor pid=2469538)[0m   return func(*args, **kwargs)
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:42:34,330] utils.py:209 INFO [mooncake_master stderr] I1127 14:42:34.329824 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 1.88 GB / 256.00 GB (0.7%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 54 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=6.00/6.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=2.80/0.00/2.80, Item=8.40/8.40), PutEnd:(Req=2.80/0.00/2.80, Item=8.40/8.40), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=2.00/0.00/2.00, Item=6.00/6.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:42:44,330] utils.py:209 INFO [mooncake_master stderr] I1127 14:42:44.330304 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=1.20/0.00/1.20, Item=3.60/3.60), PutEnd:(Req=1.20/0.00/1.20, Item=3.60/3.60), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469662)[0m [2026-11-27 14:42:33,878] trainer.py:888 INFO step 2: packing 1 rows, seq_tokens=8392 fill=68.3% (slots 12288), supervised_tokens=8195[32m [repeated 3x across cluster][0m
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:42:54,331] utils.py:209 INFO [mooncake_master stderr] I1127 14:42:54.330752 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:43:04,332] utils.py:209 INFO [mooncake_master stderr] I1127 14:43:04.331341 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:43:14,332] utils.py:209 INFO [mooncake_master stderr] I1127 14:43:14.331862 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:43:24,332] utils.py:209 INFO [mooncake_master stderr] I1127 14:43:24.332103 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:43:34,332] utils.py:209 INFO [mooncake_master stderr] I1127 14:43:34.332532 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+
+Training: 100%|██████████| 3/3 [02:36<00:00, 52.21s/step, loss=1.734, acc=0.606, acc_len=1.71, thru=5.5, acc_len_tgt=1.75, I=5.7, T=1.6, wait=29.9s, pool=14, epoch=2/2]
+[2026-11-27 14:43:38,814] loop.py:747 INFO Exporting final draft model (HF format) to /data/nvme3/dfly2/ft/runs/smoke_train/dfly2_dsv41_flash/hf_final...
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:43:38,803] checkpoint.py:849 INFO Saved checkpoint to /data/nvme3/dfly2/ft/runs/smoke_train/dfly2_dsv41_flash/checkpoints/iter_0000004
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:43:44,333] utils.py:209 INFO [mooncake_master stderr] I1127 14:43:44.332990 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:43:54,333] utils.py:209 INFO [mooncake_master stderr] I1127 14:43:54.333432 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:44:04,333] utils.py:209 INFO [mooncake_master stderr] I1127 14:44:04.333638 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:44:14,334] utils.py:209 INFO [mooncake_master stderr] I1127 14:44:14.333920 2469513 master_admin_service.cpp:301] Master Admin Metrics: role=leader, state=serving, service_ready=true, master={Mem Storage: 3.22 GB / 256.00 GB (1.3%) | NVMe-oF SSD: 0 B / 0 B | SSD Storage: 0 B / 0 B | Keys: 90 (soft-pinned: 0) | Clients: 1 | Requests (Success/Total per sec): PutStart=0.00/0.00, PutEnd=0.00/0.00, PutRevoke=0.00/0.00, Get=0.00/0.00, Exist=0.00/0.00, Del=0.00/0.00, DelAll=0.00/0.00, Ping=1.00/1.00, CopyStart=0.00/0.00, CopyEnd=0.00/0.00, CopyRevoke=0.00/0.00, MoveStart=0.00/0.00, MoveEnd=0.00/0.00, MoveRevoke=0.00/0.00, EvictDiskReplica=0.00/0.00 | Batch Requests (per sec, Req=Success/PartialSuccess/Total, Item=Success/Total): PutStart:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutEnd:(Req=0.00/0.00/0.00, Item=0.00/0.00), PutRevoke:(Req=0.00/0.00/0.00, Item=0.00/0.00), Get:(Req=0.00/0.00/0.00, Item=0.00/0.00), ExistKey:(Req=0.00/0.00/0.00, Item=0.00/0.00), QueryIp:(Req=0.00/0.00/0.00, Item=0.00/0.00), Clear:(Req=0.00/0.00/0.00, Item=0.00/0.00), CreateMoveTask:(Req=0.00/0.00), CreateCopyTask:(Req=0.00/0.00), QueryTask:(Req=0.00/0.00), FetchTasks:(Req=1.00/1.00), MarkTaskToComplete:(Req=0.00/0.00) | Eviction: Success/Attempts=0/0, AllocFail=0, PartialAlloc=0, keys=0, size=0 B | Mem Eviction: Success/Attempts=0/0, keys=0, size=0 B | NoF Eviction: Success/Attempts=0/0, keys=0, size=0 B | Discard: Released/Total=0/0, StagingSize=0 B | Promotion: in_flight=0, admitted=0, completed=0, failed=0, cancelled=0, expired=0, bytes=0 B, rejected(freq/wm/cap)=0/0/0 | Snapshots: Success=0, Fail=0}, ha={HA Metrics Summary: last_seq=0, applied_seq=0, lag=0, pending=0, mutation_queue=0, batch_commits=0, sync_commits=0, skipped=0, checksum_fail=0, etcd_fail=0, watch_disconn=0, state=0}
+[36m(TrainerActor pid=2469538)[0m [2026-11-27 14:44:16,344] trainer.py:1041 INFO [Rank 0] Saved draft model to /data/nvme3/dfly2/ft/runs/smoke_train/dfly2_dsv41_flash/hf_final
+[2026-11-27 14:44:17,603] loop.py:753 INFO Training completed: 3 steps in 354.3s | avg inference=0.2 entries/s | avg training=0.1 entries/s
+[2026-11-27 14:44:17,619] loop.py:256 INFO Shutting down 1 inference engine(s)...
+[36m(AsyncInferenceManager pid=2475856)[0m [2026-11-27 14:44:17,616] inference_manager.py:381 INFO AsyncInferenceManager stopped
+[36m(VllmEngine pid=2469667)[0m I1127 14:44:21.075078 2471187 real_client.cpp:628] Cleaning up DistributedObjectStore instance
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:21.077885 2471187 transfer_metadata_plugin.cpp:340] PUT http://100.70.87.9:8347/metadata?key=mooncake%2Fram%2F100.70.87.9%3A13341 curl: Failed initialization err: 
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:21.079632 2471187 transfer_metadata.cpp:603] Failed to register segment descriptor, name 100.70.87.9:13341 protocol tcp
+[36m(VllmEngine pid=2469667)[0m W1127 14:44:21.081135 2471187 real_client.cpp:1370] Failed to unregister client local buffer on tear down: INVALID_PARAMS
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:22.516254 2471187 transfer_metadata_plugin.cpp:340] PUT http://100.70.87.9:8347/metadata?key=mooncake%2Fram%2F100.70.87.9%3A13341 curl: Failed initialization err: 
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:22.516335 2471187 transfer_metadata.cpp:603] Failed to register segment descriptor, name 100.70.87.9:13341 protocol tcp
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:22.516361 2471187 client_service.cpp:3458] Failed to unregister transfer buffer with transfer engine ret is -200
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:22.516371 2471187 client_service.cpp:500] Failed to unmount segment in destructor: INTERNAL_ERROR
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:22.518201 2471187 transfer_metadata_plugin.cpp:375] DELETE http://100.70.87.9:8347/metadata?key=mooncake%2Frpc_meta%2F100.70.87.9%3A13341 curl: Failed initialization err: 
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:22.518222 2471187 transfer_metadata.cpp:1481] Failed to remove location of 100.70.87.9:13341
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:22.519767 2471187 transfer_metadata_plugin.cpp:375] DELETE http://100.70.87.9:8347/metadata?key=mooncake%2Fram%2F100.70.87.9%3A13341 curl: Failed initialization err: 
+[36m(VllmEngine pid=2469667)[0m E1127 14:44:22.519789 2471187 transfer_metadata.cpp:626] Failed to unregister segment descriptor, name 100.70.87.9:13341
+[36m(VllmEngine pid=2469667)[0m [2026-11-27 14:44:23,167] vllm_engine.py:1254 INFO VllmEngine rank 0: shutdown complete
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:44:23,274] utils.py:209 INFO [mooncake_master stderr] I1127 14:44:23.273664 2468754 master.cpp:1683] Shutdown signal received, exiting gracefully
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:44:23,275] utils.py:209 INFO [mooncake_master stderr] I1127 14:44:23.274778 2469508 master_service.cpp:2619] Task cleanup thread stopped
+[36m(MooncakeMaster pid=2468390)[0m [2026-11-27 14:44:23,415] utils.py:209 INFO [mooncake_master stderr] I1127 14:44:23.415679 2468754 http_metadata_server.cpp:137] HTTP metadata server stopped
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:44:17 [core_client.py:770] [shutdown] MPClient: start timeout=default
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:44:17 [core_client.py:772] [shutdown] MPClient: stopping engine manager
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:44:17 [utils.py:628] [shutdown] Process manager: send sigterm to process EngineCore
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:44:17 [core.py:1454] [shutdown] EngineCore: trigger received signal=SIGTERM
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:44:17 [core.py:1635] [shutdown] EngineCore: start mode=abort timeout=0s
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:44:17 [core.py:1666] [shutdown] EngineCore: request processing complete; starting resource teardown
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:44:17 [core.py:1499] [shutdown] EngineCore: exiting busy loop
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) INFO 11-27 14:44:17 [multiproc_executor.py:479] [shutdown] Executor: waiting for worker exit count=4
+[36m(VllmEngine pid=2469667)[0m (Worker_TP0 pid=2471187) INFO 11-27 14:44:17 [multiproc_executor.py:843] Parent process exited, terminating worker queues
+[36m(VllmEngine pid=2469667)[0m (EngineCore pid=2470890) WARNING 11-27 14:44:22 [multiproc_executor.py:491] [shutdown] Executor: workers still running after grace period; sending SIGTERM count=4
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) WARNING 11-27 14:44:22 [utils.py:648] [shutdown] Process manager: force killing remaining processes count=1
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) WARNING 11-27 14:44:22 [utils.py:653] [shutdown] Process manager: force killing remaining process EngineCore pid 2470890
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) WARNING 11-27 14:44:22 [system_utils.py:225] [shutdown] force killing sub process VLLM::Worker_TP pid 2471187
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) WARNING 11-27 14:44:22 [system_utils.py:225] [shutdown] force killing sub process VLLM::Worker_TP pid 2471188
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) WARNING 11-27 14:44:22 [system_utils.py:225] [shutdown] force killing sub process VLLM::Worker_TP pid 2471189
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) WARNING 11-27 14:44:22 [system_utils.py:225] [shutdown] force killing sub process VLLM::Worker_TP pid 2471190
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:44:22 [core_client.py:774] [shutdown] MPClient: engine manager stopped
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:44:22 [core_client.py:775] [shutdown] MPClient: cleaning up background resources
+[36m(VllmEngine pid=2469667)[0m (MainProcess pid=2469667) INFO 11-27 14:44:22 [core_client.py:777] [shutdown] MPClient: complete

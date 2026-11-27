@@ -1,0 +1,2 @@
+[vllm.general_plugins]
+angelspec_eagle3 = angelspec.inference.engine.vllm_runtime_patch:apply_all

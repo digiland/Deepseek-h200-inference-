@@ -1,0 +1,20 @@
+[2026-11-27T05:46:34+00:00] === dfly2-n3-greedy-std (MODE=dfly2 NSPEC=3 REJ=standard)
+dfly2-n3-greedy-std-think T=0.6 top_p=0.95: prompts=160 out_tokens=39159 draft_steps=17120 accepted=22026 accept_len=2.287 (accepted per step 1.287) per-position: p0=0.644 p1=0.398 p2=0.245
+dfly2-n3-greedy-std-think T=0.0 top_p=1.0: prompts=80 out_tokens=19258 draft_steps=8331 accepted=10918 accept_len=2.311 (accepted per step 1.311) per-position: p0=0.654 p1=0.404 p2=0.253
+[2026-11-27T05:53:22+00:00] === dfly2-n3-prob-std (MODE=dfly2 NSPEC=3 REJ=standard)
+dfly2-n3-prob-std-think T=0.6 top_p=0.95: prompts=160 out_tokens=39467 draft_steps=16805 accepted=22640 accept_len=2.347 (accepted per step 1.347) per-position: p0=0.663 p1=0.419 p2=0.266
+dfly2-n3-prob-std-think T=0.0 top_p=1.0: prompts=80 out_tokens=19326 draft_steps=8276 accepted=11058 accept_len=2.336 (accepted per step 1.336) per-position: p0=0.658 p1=0.418 p2=0.261
+[2026-11-27T05:59:29+00:00] === dspark3-prob-block (MODE=dspark NSPEC=3 REJ=block)
+dspark3-prob-block-think T=0.6 top_p=0.95: prompts=160 out_tokens=39105 draft_steps=15759 accepted=23345 accept_len=2.481 (accepted per step 1.481) per-position: p0=0.716 p1=0.472 p2=0.293
+dspark3-prob-block-think T=0.0 top_p=1.0: prompts=80 out_tokens=19459 draft_steps=7912 accepted=11555 accept_len=2.460 (accepted per step 1.460) per-position: p0=0.713 p1=0.464 p2=0.284
+[2026-11-27T06:06:16+00:00] probes done
+[2026-11-27T06:14:08+00:00] === dfly2-n4-prob-std (MODE=dfly2 NSPEC=4 REJ=standard)
+dfly2-n4-prob-std-think T=0.6 top_p=0.95: prompts=160 out_tokens=39274 draft_steps=15719 accepted=23592 accept_len=2.501 (accepted per step 1.501) per-position: p0=0.662 p1=0.416 p2=0.256 p3=0.167
+dfly2-n4-prob-std-think T=0.0 top_p=1.0: prompts=80 out_tokens=19352 draft_steps=7880 accepted=11493 accept_len=2.459 (accepted per step 1.459) per-position: p0=0.654 p1=0.405 p2=0.245 p3=0.155
+[2026-11-27T06:21:36+00:00] === dfly2-n5-prob-std (MODE=dfly2 NSPEC=5 REJ=standard)
+dfly2-n5-prob-std-think T=0.6 top_p=0.95: prompts=160 out_tokens=39284 draft_steps=15404 accepted=23954 accept_len=2.555 (accepted per step 1.555) per-position: p0=0.657 p1=0.402 p2=0.242 p3=0.153 p4=0.101
+dfly2-n5-prob-std-think T=0.0 top_p=1.0: prompts=80 out_tokens=19227 draft_steps=7601 accepted=11642 accept_len=2.532 (accepted per step 1.532) per-position: p0=0.647 p1=0.396 p2=0.238 p3=0.149 p4=0.101
+[2026-11-27T06:28:09+00:00] === dfly2-n3-prob-topp95 (MODE=dfly2 NSPEC=3 REJ=standard)
+dfly2-n3-prob-topp95-think T=0.6 top_p=0.95: prompts=160 out_tokens=39234 draft_steps=16647 accepted=22577 accept_len=2.356 (accepted per step 1.356) per-position: p0=0.667 p1=0.424 p2=0.266
+dfly2-n3-prob-topp95-think T=0.0 top_p=1.0: prompts=80 out_tokens=19275 draft_steps=8189 accepted=11079 accept_len=2.353 (accepted per step 1.353) per-position: p0=0.667 p1=0.421 p2=0.265
+[2026-11-27T06:34:25+00:00] probes done

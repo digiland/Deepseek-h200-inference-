@@ -1,0 +1,7 @@
+reference built; missing=0 unexpected=0
+steps=20 requests=533 slots=2665
+cosine block KV (vLLM cache vs AngelSpec latent): mean 0.99981 min 0.99978
+cosine backbone hidden: mean 0.99976 min 0.99600
+cosine corrected hidden: mean 0.99923 min 0.96946
+top-1 agreement per slot: 0.9535
+GATE2 PASS

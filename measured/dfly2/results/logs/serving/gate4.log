@@ -1,0 +1,50 @@
+[2026-11-26T22:07:44+00:00] === dfly2-n5-std (MODE=dfly2 NSPEC=5 REJ=standard)
+server failed for dfly2-n5-std
+[2026-11-26T22:09:51+00:00] === dfly2-n3-std (MODE=dfly2 NSPEC=3 REJ=standard)
+dfly2-n3-std-t0-short: prompts=80 out_tokens=18706 draft_steps=7222 accepted=11482 accept_len=2.590 (accepted per step 1.590) per-position: p0=0.724 p1=0.509 p2=0.357
+  quality dfly2-n3-std: 48/50 correct
+[2026-11-26T22:16:03+00:00] bench dfly2-n3-std sharegpt c=20 n=400
+  dfly2-n3-std sharegpt conc=20   out=  1777.6 tok/s  ttft50=   177 ms  tpot50= 10.4 ms  per_user= 96.1 tok/s  accept=2.32  hit=0.0%
+[2026-11-26T22:17:11+00:00] bench dfly2-n3-std sharegpt c=40 n=640
+  dfly2-n3-std sharegpt conc=40   out=  2651.0 tok/s  ttft50=   238 ms  tpot50= 13.9 ms  per_user= 71.8 tok/s  accept=2.31  hit=1.9%
+[2026-11-26T22:18:24+00:00] bench dfly2-n3-std sharegpt c=80 n=1280
+  dfly2-n3-std sharegpt conc=80   out=  3725.2 tok/s  ttft50=   346 ms  tpot50= 19.8 ms  per_user= 50.6 tok/s  accept=2.32  hit=1.6%
+[2026-11-26T22:20:46+00:00] === dspark3-block (MODE=dspark NSPEC=3 REJ=block)
+dspark3-block-t0-short: prompts=80 out_tokens=18303 draft_steps=7110 accepted=11197 accept_len=2.575 (accepted per step 1.575) per-position: p0=0.734 p1=0.500 p2=0.340
+  quality dspark3-block: 48/50 correct
+[2026-11-26T22:26:38+00:00] bench dspark3-block sharegpt c=20 n=400
+  dspark3-block sharegpt conc=20   out=  2013.1 tok/s  ttft50=   166 ms  tpot50=  9.1 ms  per_user=109.7 tok/s  accept=2.49  hit=0.0%
+[2026-11-26T22:27:44+00:00] bench dspark3-block sharegpt c=40 n=640
+  dspark3-block sharegpt conc=40   out=  2957.5 tok/s  ttft50=   229 ms  tpot50= 12.3 ms  per_user= 81.4 tok/s  accept=2.48  hit=1.9%
+[2026-11-26T22:28:50+00:00] bench dspark3-block sharegpt c=80 n=1280
+  dspark3-block sharegpt conc=80   out=  3658.3 tok/s  ttft50=   324 ms  tpot50= 17.5 ms  per_user= 57.0 tok/s  accept=2.50  hit=1.6%
+[2026-11-26T22:31:01+00:00] gate4 done
+[2026-11-26T22:31:15+00:00] === dfly2-n5-std (MODE=dfly2 NSPEC=5 REJ=standard)
+dfly2-n5-std-t0-short: prompts=80 out_tokens=18434 draft_steps=6207 accepted=12264 accept_len=2.976 (accepted per step 1.976) per-position: p0=0.715 p1=0.497 p2=0.344 p3=0.243 p4=0.177
+  quality dfly2-n5-std: 49/50 correct
+[2026-11-26T22:37:58+00:00] bench dfly2-n5-std sharegpt c=20 n=400
+  dfly2-n5-std sharegpt conc=20   out=  1672.1 tok/s  ttft50=   206 ms  tpot50= 11.0 ms  per_user= 90.7 tok/s  accept=2.52  hit=0.0%
+[2026-11-26T22:39:15+00:00] bench dfly2-n5-std sharegpt c=40 n=640
+  dfly2-n5-std sharegpt conc=40   out=  2379.2 tok/s  ttft50=   275 ms  tpot50= 15.4 ms  per_user= 64.7 tok/s  accept=2.48  hit=1.9%
+[2026-11-26T22:40:37+00:00] bench dfly2-n5-std sharegpt c=80 n=1280
+  dfly2-n5-std sharegpt conc=80   out=  3363.2 tok/s  ttft50=   392 ms  tpot50= 22.0 ms  per_user= 45.5 tok/s  accept=2.51  hit=1.6%
+[2026-11-26T22:42:51+00:00] === dfly2-n3-block (MODE=dfly2 NSPEC=3 REJ=block)
+dfly2-n3-block-t0-short: prompts=80 out_tokens=18435 draft_steps=7091 accepted=11334 accept_len=2.598 (accepted per step 1.598) per-position: p0=0.723 p1=0.514 p2=0.361
+  quality dfly2-n3-block: 49/50 correct
+[2026-11-26T22:48:53+00:00] bench dfly2-n3-block sharegpt c=20 n=400
+  dfly2-n3-block sharegpt conc=20   out=  1811.6 tok/s  ttft50=   165 ms  tpot50= 10.2 ms  per_user= 98.1 tok/s  accept=2.34  hit=0.0%
+[2026-11-26T22:49:59+00:00] bench dfly2-n3-block sharegpt c=40 n=640
+  dfly2-n3-block sharegpt conc=40   out=  2666.0 tok/s  ttft50=   241 ms  tpot50= 13.8 ms  per_user= 72.6 tok/s  accept=2.32  hit=1.9%
+[2026-11-26T22:51:12+00:00] bench dfly2-n3-block sharegpt c=80 n=1280
+  dfly2-n3-block sharegpt conc=80   out=  3781.5 tok/s  ttft50=   339 ms  tpot50= 19.4 ms  per_user= 51.6 tok/s  accept=2.33  hit=1.6%
+[2026-11-26T22:53:26+00:00] === dfly2-n5-block (MODE=dfly2 NSPEC=5 REJ=block)
+dfly2-n5-block-t0-short: prompts=80 out_tokens=18475 draft_steps=6307 accepted=12216 accept_len=2.937 (accepted per step 1.937) per-position: p0=0.707 p1=0.486 p2=0.334 p3=0.240 p4=0.170
+  quality dfly2-n5-block: 48/50 correct
+[2026-11-26T22:59:49+00:00] bench dfly2-n5-block sharegpt c=20 n=400
+Terminated
+WARN: bench failed for dfly2-n5-block sharegpt c=20
+[2026-11-26T23:00:20+00:00] bench dfly2-n5-block sharegpt c=40 n=640
+  dfly2-n5-block sharegpt conc=40   out=  2412.1 tok/s  ttft50=   274 ms  tpot50= 15.2 ms  per_user= 65.8 tok/s  accept=2.53  hit=0.9%
+[2026-11-26T23:01:44+00:00] bench dfly2-n5-block sharegpt c=80 n=1280
+  dfly2-n5-block sharegpt conc=80   out=  3398.5 tok/s  ttft50=   388 ms  tpot50= 21.7 ms  per_user= 46.1 tok/s  accept=2.54  hit=1.4%
+[2026-11-26T23:04:22+00:00] gate4 done

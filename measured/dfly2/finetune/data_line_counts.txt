@@ -1,0 +1,6 @@
+    20000 replies_v1.jsonl
+       40 smoke_replies.jsonl
+       40 smoke_train.jsonl
+    37456 train_prompts.jsonl
+    20000 train_v1.jsonl
+    77536 total

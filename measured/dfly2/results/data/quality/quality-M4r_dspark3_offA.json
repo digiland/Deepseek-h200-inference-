@@ -1,0 +1,306 @@
+{
+ "tag": "M4r_dspark3_offA",
+ "accuracy": 0.96,
+ "rows": [
+  {
+   "q": "What is 60 * 54? Reply with the number only.",
+   "want": 3240,
+   "answer": "3240|",
+   "correct": true
+  },
+  {
+   "q": "What is 41 * 33 + 494? Reply with the number only.",
+   "want": 1847,
+   "answer": "1847|",
+   "correct": true
+  },
+  {
+   "q": "What is 85 * 48? Reply with the number only.",
+   "want": 4080,
+   "answer": "4080|",
+   "correct": true
+  },
+  {
+   "q": "What is 82 * 47 + 492? Reply with the number only.",
+   "want": 4346,
+   "answer": "4346|",
+   "correct": true
+  },
+  {
+   "q": "What is 85 * 13? Reply with the number only.",
+   "want": 1105,
+   "answer": "1105|",
+   "correct": true
+  },
+  {
+   "q": "What is 43 * 96 + 959? Reply with the number only.",
+   "want": 5087,
+   "answer": "5087|",
+   "correct": true
+  },
+  {
+   "q": "What is 14 * 68? Reply with the number only.",
+   "want": 952,
+   "answer": "952|",
+   "correct": true
+  },
+  {
+   "q": "What is 31 * 31 + 840? Reply with the number only.",
+   "want": 1801,
+   "answer": "1801|",
+   "correct": true
+  },
+  {
+   "q": "What is 52 * 33? Reply with the number only.",
+   "want": 1716,
+   "answer": "1716|",
+   "correct": true
+  },
+  {
+   "q": "What is 44 * 95 + 807? Reply with the number only.",
+   "want": 4987,
+   "answer": "4987|",
+   "correct": true
+  },
+  {
+   "q": "What is 91 * 86? Reply with the number only.",
+   "want": 7826,
+   "answer": "7826|",
+   "correct": true
+  },
+  {
+   "q": "What is 19 * 27 + 903? Reply with the number only.",
+   "want": 1416,
+   "answer": "1416|",
+   "correct": true
+  },
+  {
+   "q": "What is 87 * 16? Reply with the number only.",
+   "want": 1392,
+   "answer": "1392|",
+   "correct": true
+  },
+  {
+   "q": "What is 67 * 48 + 961? Reply with the number only.",
+   "want": 4177,
+   "answer": "4177|",
+   "correct": true
+  },
+  {
+   "q": "What is 39 * 21? Reply with the number only.",
+   "want": 819,
+   "answer": "819|",
+   "correct": true
+  },
+  {
+   "q": "What is 58 * 72 + 228? Reply with the number only.",
+   "want": 4404,
+   "answer": "4404|",
+   "correct": true
+  },
+  {
+   "q": "What is 83 * 97? Reply with the number only.",
+   "want": 8051,
+   "answer": "8051|",
+   "correct": true
+  },
+  {
+   "q": "What is 14 * 27 + 201? Reply with the number only.",
+   "want": 579,
+   "answer": "579|",
+   "correct": true
+  },
+  {
+   "q": "What is 30 * 34? Reply with the number only.",
+   "want": 1020,
+   "answer": "1020|",
+   "correct": true
+  },
+  {
+   "q": "What is 18 * 46 + 425? Reply with the number only.",
+   "want": 1253,
+   "answer": "1253|",
+   "correct": true
+  },
+  {
+   "q": "What is 40 * 91? Reply with the number only.",
+   "want": 3640,
+   "answer": "3640|",
+   "correct": true
+  },
+  {
+   "q": "What is 15 * 89 + 691? Reply with the number only.",
+   "want": 2026,
+   "answer": "2041|",
+   "correct": false
+  },
+  {
+   "q": "What is 35 * 67? Reply with the number only.",
+   "want": 2345,
+   "answer": "2345|",
+   "correct": true
+  },
+  {
+   "q": "What is 19 * 50 + 509? Reply with the number only.",
+   "want": 1459,
+   "answer": "1459|",
+   "correct": true
+  },
+  {
+   "q": "What is 30 * 25? Reply with the number only.",
+   "want": 750,
+   "answer": "750|",
+   "correct": true
+  },
+  {
+   "q": "What is 97 * 23 + 516? Reply with the number only.",
+   "want": 2747,
+   "answer": "2747|",
+   "correct": true
+  },
+  {
+   "q": "What is 14 * 96? Reply with the number only.",
+   "want": 1344,
+   "answer": "1344|",
+   "correct": true
+  },
+  {
+   "q": "What is 96 * 75 + 980? Reply with the number only.",
+   "want": 8180,
+   "answer": "8180|",
+   "correct": true
+  },
+  {
+   "q": "What is 62 * 41? Reply with the number only.",
+   "want": 2542,
+   "answer": "2542|",
+   "correct": true
+  },
+  {
+   "q": "What is 14 * 22 + 238? Reply with the number only.",
+   "want": 546,
+   "answer": "546|",
+   "correct": true
+  },
+  {
+   "q": "What is 21 * 70? Reply with the number only.",
+   "want": 1470,
+   "answer": "1470|",
+   "correct": true
+  },
+  {
+   "q": "What is 63 * 66 + 645? Reply with the number only.",
+   "want": 4803,
+   "answer": "48123|",
+   "correct": false
+  },
+  {
+   "q": "What is 47 * 81? Reply with the number only.",
+   "want": 3807,
+   "answer": "3807|",
+   "correct": true
+  },
+  {
+   "q": "What is 15 * 13 + 770? Reply with the number only.",
+   "want": 965,
+   "answer": "965|",
+   "correct": true
+  },
+  {
+   "q": "What is 71 * 53? Reply with the number only.",
+   "want": 3763,
+   "answer": "3763|",
+   "correct": true
+  },
+  {
+   "q": "What is 34 * 29 + 926? Reply with the number only.",
+   "want": 1912,
+   "answer": "1912|",
+   "correct": true
+  },
+  {
+   "q": "What is 20 * 17? Reply with the number only.",
+   "want": 340,
+   "answer": "340|",
+   "correct": true
+  },
+  {
+   "q": "What is 99 * 25 + 776? Reply with the number only.",
+   "want": 3251,
+   "answer": "3251|",
+   "correct": true
+  },
+  {
+   "q": "What is 28 * 64? Reply with the number only.",
+   "want": 1792,
+   "answer": "1792|",
+   "correct": true
+  },
+  {
+   "q": "What is 95 * 22 + 723? Reply with the number only.",
+   "want": 2813,
+   "answer": "2813|",
+   "correct": true
+  },
+  {
+   "q": "What is 79 * 65? Reply with the number only.",
+   "want": 5135,
+   "answer": "5135|",
+   "correct": true
+  },
+  {
+   "q": "What is 88 * 24 + 347? Reply with the number only.",
+   "want": 2459,
+   "answer": "2459|",
+   "correct": true
+  },
+  {
+   "q": "What is 40 * 67? Reply with the number only.",
+   "want": 2680,
+   "answer": "2680|",
+   "correct": true
+  },
+  {
+   "q": "What is 58 * 70 + 796? Reply with the number only.",
+   "want": 4856,
+   "answer": "4856|",
+   "correct": true
+  },
+  {
+   "q": "What is 64 * 69? Reply with the number only.",
+   "want": 4416,
+   "answer": "4416|",
+   "correct": true
+  },
+  {
+   "q": "What is 22 * 97 + 382? Reply with the number only.",
+   "want": 2516,
+   "answer": "2516|",
+   "correct": true
+  },
+  {
+   "q": "What is 81 * 39? Reply with the number only.",
+   "want": 3159,
+   "answer": "3159|",
+   "correct": true
+  },
+  {
+   "q": "What is 99 * 43 + 383? Reply with the number only.",
+   "want": 4640,
+   "answer": "4640|",
+   "correct": true
+  },
+  {
+   "q": "What is 60 * 53? Reply with the number only.",
+   "want": 3180,
+   "answer": "3180|",
+   "correct": true
+  },
+  {
+   "q": "What is 91 * 60 + 906? Reply with the number only.",
+   "want": 6366,
+   "answer": "6366|",
+   "correct": true
+  }
+ ]
+}

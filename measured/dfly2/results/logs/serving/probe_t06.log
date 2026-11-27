@@ -1,0 +1,15 @@
+[2026-11-27T05:13:10+00:00] === dfly2-n3-greedy-std (MODE=dfly2 NSPEC=3 REJ=standard)
+dfly2-n3-greedy-std T=0.6 top_p=0.95: prompts=160 out_tokens=37660 draft_steps=14800 accepted=22877 accept_len=2.546 (accepted per step 1.546) per-position: p0=0.715 p1=0.493 p2=0.338
+dfly2-n3-greedy-std T=0.0 top_p=1.0: prompts=80 out_tokens=18495 draft_steps=7122 accepted=11385 accept_len=2.599 (accepted per step 1.599) per-position: p0=0.725 p1=0.507 p2=0.366
+[2026-11-27T05:21:09+00:00] === dfly2-n3-prob-std (MODE=dfly2 NSPEC=3 REJ=standard)
+dfly2-n3-prob-std T=0.6 top_p=0.95: prompts=160 out_tokens=37564 draft_steps=14948 accepted=22627 accept_len=2.514 (accepted per step 1.514) per-position: p0=0.708 p1=0.478 p2=0.328
+dfly2-n3-prob-std T=0.0 top_p=1.0: prompts=80 out_tokens=18474 draft_steps=7049 accepted=11428 accept_len=2.621 (accepted per step 1.621) per-position: p0=0.734 p1=0.520 p2=0.368
+[2026-11-27T05:27:30+00:00] === dspark3-prob-block (MODE=dspark NSPEC=3 REJ=block)
+dspark3-prob-block T=0.6 top_p=0.95: prompts=160 out_tokens=37094 draft_steps=14619 accepted=22495 accept_len=2.539 (accepted per step 1.539) per-position: p0=0.727 p1=0.490 p2=0.322
+dspark3-prob-block T=0.0 top_p=1.0: prompts=80 out_tokens=18451 draft_steps=7167 accepted=11302 accept_len=2.577 (accepted per step 1.577) per-position: p0=0.733 p1=0.505 p2=0.339
+[2026-11-27T05:34:00+00:00] === dspark3-greedy-std (MODE=dspark NSPEC=3 REJ=standard)
+dspark3-greedy-std T=0.6 top_p=0.95: prompts=160 out_tokens=37638 draft_steps=14991 accepted=22639 accept_len=2.510 (accepted per step 1.510) per-position: p0=0.715 p1=0.479 p2=0.316
+dspark3-greedy-std T=0.0 top_p=1.0: prompts=80 out_tokens=18492 draft_steps=7167 accepted=11330 accept_len=2.581 (accepted per step 1.581) per-position: p0=0.735 p1=0.502 p2=0.343
+/data/nvme3/dfly2/tools/run_probe.sh: line 42: 0: command not found
+/data/nvme3/dfly2/tools/run_probe.sh: line 44: syntax error near unexpected token `done'
+/data/nvme3/dfly2/tools/run_probe.sh: line 44: `done'

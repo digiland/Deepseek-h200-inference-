@@ -1,0 +1,44 @@
+================ 2026-11-27T17:40:45+00:00 eval start, held-out prompts /data/nvme3/dfly2/ft/data/sharegpt_heldout.json
+================ 2026-11-27T17:40:45+00:00 eval=E1_dspark3_ho (2 x TP4) dspark n=3 rej=block model=none
+server 8180 up 2026-11-27T17:48:00+00:00
+server 8181 up 2026-11-27T17:55:46+00:00
+  quality E1_dspark3_hoA: 49/50 correct
+E1_dspark3_ho T=0.6 top_p=0.95: prompts=160 out_tokens=39794 draft_steps=15799 accepted=23991 accept_len=2.519 (accepted per step 1.519) per-position: p0=0.730 p1=0.486 p2=0.303
+[2026-11-27T17:56:22+00:00] bench E1_dspark3_hoA sharegpt c=20 n=400
+[2026-11-27T17:56:22+00:00] bench E1_dspark3_hoB sharegpt c=20 n=400
+  E1_dspark3_hoB sharegpt conc=20   out=  2004.1 tok/s  ttft50=   166 ms  tpot50=  9.2 ms  per_user=108.8 tok/s  accept=2.48  hit=0.0%
+  E1_dspark3_hoA sharegpt conc=20   out=  1991.1 tok/s  ttft50=   174 ms  tpot50=  9.1 ms  per_user=110.0 tok/s  accept=2.46  hit=1.9%
+[2026-11-27T17:57:27+00:00] bench E1_dspark3_hoB sharegpt c=40 n=640
+[2026-11-27T17:57:27+00:00] bench E1_dspark3_hoA sharegpt c=40 n=640
+  E1_dspark3_hoA sharegpt conc=40   out=  2963.5 tok/s  ttft50=   234 ms  tpot50= 12.2 ms  per_user= 81.7 tok/s  accept=2.49  hit=3.7%
+  E1_dspark3_hoB sharegpt conc=40   out=  2949.1 tok/s  ttft50=   228 ms  tpot50= 12.3 ms  per_user= 81.2 tok/s  accept=2.45  hit=3.3%
+[2026-11-27T17:58:35+00:00] bench E1_dspark3_hoB sharegpt c=80 n=1280
+[2026-11-27T17:58:35+00:00] bench E1_dspark3_hoA sharegpt c=80 n=1280
+  E1_dspark3_hoB sharegpt conc=80   out=  4126.5 tok/s  ttft50=   324 ms  tpot50= 17.7 ms  per_user= 56.6 tok/s  accept=2.48  hit=7.9%
+  E1_dspark3_hoA sharegpt conc=80   out=  4071.2 tok/s  ttft50=   329 ms  tpot50= 17.8 ms  per_user= 56.1 tok/s  accept=2.47  hit=7.7%
+[2026-11-27T18:00:07+00:00] bench E1_dspark3_hoB sharegpt c=100 n=1600
+[2026-11-27T18:00:07+00:00] bench E1_dspark3_hoA sharegpt c=100 n=1600
+  E1_dspark3_hoA sharegpt conc=100  out=  4632.9 tok/s  ttft50=   362 ms  tpot50= 19.7 ms  per_user= 50.8 tok/s  accept=2.48  hit=16.8%
+  E1_dspark3_hoB sharegpt conc=100  out=  4656.4 tok/s  ttft50=   361 ms  tpot50= 19.6 ms  per_user= 51.1 tok/s  accept=2.47  hit=15.6%
+================ 2026-11-27T18:02:35+00:00 eval=E2_dfly3rel_ho (2 x TP4) dfly2 n=3 rej=standard model=/data/nvme3/dfly2/served/DS-V4.1-Flash-DFly2-B6
+server 8180 up 2026-11-27T18:09:20+00:00
+server 8181 up 2026-11-27T18:14:51+00:00
+  quality E2_dfly3rel_hoA: 49/50 correct
+E2_dfly3rel_ho T=0.6 top_p=0.95: prompts=160 out_tokens=39661 draft_steps=16826 accepted=22818 accept_len=2.356 (accepted per step 1.356) per-position: p0=0.666 p1=0.424 p2=0.266
+[2026-11-27T18:15:30+00:00] bench E2_dfly3rel_hoA sharegpt c=20 n=400
+[2026-11-27T18:15:30+00:00] bench E2_dfly3rel_hoB sharegpt c=20 n=400
+  E2_dfly3rel_hoB sharegpt conc=20   out=  1785.0 tok/s  ttft50=   174 ms  tpot50= 10.3 ms  per_user= 97.4 tok/s  accept=2.31  hit=0.0%
+  E2_dfly3rel_hoA sharegpt conc=20   out=  1780.0 tok/s  ttft50=   179 ms  tpot50= 10.3 ms  per_user= 97.1 tok/s  accept=2.31  hit=1.9%
+[2026-11-27T18:16:40+00:00] bench E2_dfly3rel_hoA sharegpt c=40 n=640
+[2026-11-27T18:16:40+00:00] bench E2_dfly3rel_hoB sharegpt c=40 n=640
+  E2_dfly3rel_hoB sharegpt conc=40   out=  2672.1 tok/s  ttft50=   231 ms  tpot50= 13.7 ms  per_user= 72.9 tok/s  accept=2.29  hit=3.3%
+  E2_dfly3rel_hoA sharegpt conc=40   out=  2672.5 tok/s  ttft50=   230 ms  tpot50= 13.8 ms  per_user= 72.4 tok/s  accept=2.32  hit=3.7%
+[2026-11-27T18:17:54+00:00] bench E2_dfly3rel_hoB sharegpt c=80 n=1280
+[2026-11-27T18:17:54+00:00] bench E2_dfly3rel_hoA sharegpt c=80 n=1280
+  E2_dfly3rel_hoA sharegpt conc=80   out=  3725.7 tok/s  ttft50=   331 ms  tpot50= 19.8 ms  per_user= 50.6 tok/s  accept=2.31  hit=7.7%
+  E2_dfly3rel_hoB sharegpt conc=80   out=  3727.3 tok/s  ttft50=   333 ms  tpot50= 19.7 ms  per_user= 50.8 tok/s  accept=2.31  hit=7.9%
+[2026-11-27T18:19:33+00:00] bench E2_dfly3rel_hoB sharegpt c=100 n=1600
+[2026-11-27T18:19:33+00:00] bench E2_dfly3rel_hoA sharegpt c=100 n=1600
+  E2_dfly3rel_hoA sharegpt conc=100  out=  4232.6 tok/s  ttft50=   361 ms  tpot50= 21.8 ms  per_user= 46.0 tok/s  accept=2.32  hit=16.8%
+  E2_dfly3rel_hoB sharegpt conc=100  out=  4223.8 tok/s  ttft50=   355 ms  tpot50= 21.8 ms  per_user= 45.9 tok/s  accept=2.30  hit=15.6%
+================ 2026-11-27T18:22:00+00:00 eval=E3_dfly3ft_ho (2 x TP4) dfly2 n=3 rej=standard model=/data/nvme3/dfly2/ft/served/DFly2-ft-v1

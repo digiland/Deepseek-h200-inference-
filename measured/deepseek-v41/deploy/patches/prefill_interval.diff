@@ -1,0 +1,23 @@
+--- /data/nvme3/shona-cpt/enroot/data/vllm/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/core.py	2026-10-18 03:08:32.000000000 +0000
++++ /data/nvme3/lab/teachers/patches/prefill_interval/core.py	2026-11-24 00:48:54.112248352 +0000
+@@ -651,8 +651,18 @@
+ 
+     def _should_throttle_prefills(self) -> bool:
+         """Whether to defer new prefills this step (DP prefill balancing).
+-        Overridden by the DP engine core; never throttles otherwise."""
+-        return False
++        Overridden by the DP engine core; never throttles otherwise.
++
++        patched (teachers/patches/prefill_interval): with V41_PREFILL_INTERVAL=N > 1,
++        admit new prefill work only on every N-th step, so steps that leave the full
++        CUDA graph (mixed prefill + decode) happen N times less often with more
++        tokens each. The scheduler still overrides this when the rank is saturated."""
++        import os as _os
++        n = int(_os.environ.get("V41_PREFILL_INTERVAL", "1"))
++        if n <= 1:
++            return False
++        self._v41_step = getattr(self, "_v41_step", 0) + 1
++        return self._v41_step % n != 0
+ 
+     def step(self) -> tuple[dict[int, EngineCoreOutputs], bool]:
+         """Schedule, execute, and make output.

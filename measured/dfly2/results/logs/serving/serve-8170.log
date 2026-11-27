@@ -1,0 +1,44 @@
+MODE=dfly2 NSPEC=5 REJ=standard SPEC={"method":"dspark","model":"/data/nvme3/dfly2/served/DS-V4.1-Flash-DFly2-B6","num_speculative_tokens":5,"draft_sample_method":"probabilistic","rejection_sample_method":"standard"}
+/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/openai/api_server.py:24: DeprecationWarning: `vllm.entrypoints.openai.api_server` is deprecated and will likely beunsupported in a future version. Use the corresponding function from `vllm.entrypoints.launchers` instead.
+  warnings.warn(
+/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/openai/api_server.py:51: DeprecationWarning: The `python -m vllm.entrypoints.openai.api_server` command is deprecated and may be removed in a future release. Please use `vllm server` instead.
+  warnings.warn(
+(APIServer pid=1176536) INFO 11-26 18:17:36 [api_utils.py:347] 
+(APIServer pid=1176536) INFO 11-26 18:17:36 [api_utils.py:347]        █     █     █▄   ▄█
+(APIServer pid=1176536) INFO 11-26 18:17:36 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.32.0
+(APIServer pid=1176536) INFO 11-26 18:17:36 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /data/nvme3/lab/teachers/deepseek-v4.1-flash-1017
+(APIServer pid=1176536) INFO 11-26 18:17:36 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=1176536) INFO 11-26 18:17:36 [api_utils.py:347] 
+(APIServer pid=1176536) INFO 11-26 18:17:36 [api_utils.py:286] non-default args: {'enable_auto_tool_choice': True, 'tool_call_parser': 'deepseek_v41', 'host': '127.0.0.1', 'port': 8170, 'model': '/data/nvme3/lab/teachers/deepseek-v4.1-flash-1017', 'max_model_len': 131072, 'served_model_name': ['deepseek-ai/DeepSeek-V4.1-Flash-1017'], 'reasoning_parser': 'deepseek_v41', 'tensor_parallel_size': 4, 'mm_encoder_tp_mode': 'data', 'max_num_seqs': 256, 'max_cudagraph_capture_size': 2048, 'speculative_config': {'method': 'dspark', 'model': '/data/nvme3/dfly2/served/DS-V4.1-Flash-DFly2-B6', 'num_speculative_tokens': 5, 'draft_sample_method': 'probabilistic', 'rejection_sample_method': 'standard'}, 'engram_config': EngramConfig(cpu_offload=True, embedding_across_dp=False, dp_shared_memory=None, use_thp=False), 'kernel_config': KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=[], fused_add_rms_norm=[], gelu_and_mul_sparse=[]), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/openai/api_server.py", line 59, in <module>
+    main()
+  File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/launchers/api_server/entry.py", line 232, in main
+    uvloop.run(run_server(args))
+  File "/usr/local/lib/python3.12/dist-packages/uvloop/__init__.py", line 96, in run
+    return __asyncio.run(
+           ^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1515, in uvloop.loop.Loop.run_until_complete
+  File "/usr/local/lib/python3.12/dist-packages/uvloop/__init__.py", line 48, in wrapper
+    return await main
+           ^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/launchers/api_server/entry.py", line 176, in run_server
+    listen_address, sock = setup_server(args, reuse_port=False)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/launchers/launcher.py", line 398, in setup_server
+    sock = create_server_socket(sock_addr, reuse_port=reuse_port)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/vllm/entrypoints/launchers/launcher.py", line 348, in create_server_socket
+    sock.bind(addr)
+OSError: [Errno 98] Address already in use

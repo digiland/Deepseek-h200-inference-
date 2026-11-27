@@ -1,0 +1,162 @@
+================ 2026-11-27T06:35:49+00:00 matrix start, max GPU mem 0 MiB
+================ 2026-11-27T06:35:49+00:00 matrix=M1_dspark3_think (2 x TP4) dspark n=3 rej=block think=default
+server 8180 up 2026-11-27T06:41:05+00:00
+server 8181 up 2026-11-27T06:48:05+00:00
+  quality M1_dspark3_thinkA: 49/50 correct
+[2026-11-27T06:48:06+00:00] bench M1_dspark3_thinkB sharegpt c=20 n=400
+[2026-11-27T06:48:06+00:00] bench M1_dspark3_thinkA sharegpt c=20 n=400
+  M1_dspark3_thinkB sharegpt conc=20   out=  1973.6 tok/s  ttft50=   165 ms  tpot50=  9.2 ms  per_user=108.2 tok/s  accept=2.46  hit=0.3%
+  M1_dspark3_thinkA sharegpt conc=20   out=  1997.5 tok/s  ttft50=   173 ms  tpot50=  9.1 ms  per_user=109.7 tok/s  accept=2.47  hit=0.7%
+[2026-11-27T06:49:12+00:00] bench M1_dspark3_thinkA sharegpt c=40 n=640
+[2026-11-27T06:49:12+00:00] bench M1_dspark3_thinkB sharegpt c=40 n=640
+  M1_dspark3_thinkB sharegpt conc=40   out=  2966.1 tok/s  ttft50=   220 ms  tpot50= 12.3 ms  per_user= 81.2 tok/s  accept=2.49  hit=1.2%
+  M1_dspark3_thinkA sharegpt conc=40   out=  2962.7 tok/s  ttft50=   227 ms  tpot50= 12.3 ms  per_user= 81.4 tok/s  accept=2.48  hit=1.0%
+[2026-11-27T06:50:23+00:00] bench M1_dspark3_thinkA sharegpt c=80 n=1280
+[2026-11-27T06:50:23+00:00] bench M1_dspark3_thinkB sharegpt c=80 n=1280
+  M1_dspark3_thinkA sharegpt conc=80   out=  4125.8 tok/s  ttft50=   322 ms  tpot50= 17.6 ms  per_user= 56.9 tok/s  accept=2.49  hit=3.9%
+  M1_dspark3_thinkB sharegpt conc=80   out=  4033.7 tok/s  ttft50=   333 ms  tpot50= 18.0 ms  per_user= 55.4 tok/s  accept=2.48  hit=3.2%
+[2026-11-27T06:51:59+00:00] bench M1_dspark3_thinkA sharegpt c=100 n=1600
+[2026-11-27T06:51:59+00:00] bench M1_dspark3_thinkB sharegpt c=100 n=1600
+  M1_dspark3_thinkA sharegpt conc=100  out=  4616.0 tok/s  ttft50=   352 ms  tpot50= 19.7 ms  per_user= 50.8 tok/s  accept=2.48  hit=3.7%
+  M1_dspark3_thinkB sharegpt conc=100  out=  4567.7 tok/s  ttft50=   357 ms  tpot50= 19.8 ms  per_user= 50.4 tok/s  accept=2.48  hit=4.0%
+================ 2026-11-27T06:54:30+00:00 matrix=M2_dfly3_think (2 x TP4) dfly2 n=3 rej=standard think=default
+server 8180 up 2026-11-27T07:00:15+00:00
+server 8181 up 2026-11-27T07:05:16+00:00
+  quality M2_dfly3_thinkA: 49/50 correct
+[2026-11-27T07:05:17+00:00] bench M2_dfly3_thinkB sharegpt c=20 n=400
+[2026-11-27T07:05:17+00:00] bench M2_dfly3_thinkA sharegpt c=20 n=400
+  M2_dfly3_thinkA sharegpt conc=20   out=  1774.4 tok/s  ttft50=   180 ms  tpot50= 10.4 ms  per_user= 96.1 tok/s  accept=2.30  hit=0.7%
+  M2_dfly3_thinkB sharegpt conc=20   out=  1765.5 tok/s  ttft50=   173 ms  tpot50= 10.5 ms  per_user= 95.2 tok/s  accept=2.30  hit=0.3%
+[2026-11-27T07:06:27+00:00] bench M2_dfly3_thinkB sharegpt c=40 n=640
+[2026-11-27T07:06:27+00:00] bench M2_dfly3_thinkA sharegpt c=40 n=640
+  M2_dfly3_thinkB sharegpt conc=40   out=  2646.6 tok/s  ttft50=   236 ms  tpot50= 13.9 ms  per_user= 71.7 tok/s  accept=2.31  hit=1.2%
+  M2_dfly3_thinkA sharegpt conc=40   out=  2665.8 tok/s  ttft50=   232 ms  tpot50= 13.9 ms  per_user= 72.1 tok/s  accept=2.32  hit=1.0%
+[2026-11-27T07:07:43+00:00] bench M2_dfly3_thinkA sharegpt c=80 n=1280
+[2026-11-27T07:07:43+00:00] bench M2_dfly3_thinkB sharegpt c=80 n=1280
+  M2_dfly3_thinkA sharegpt conc=80   out=  3741.1 tok/s  ttft50=   339 ms  tpot50= 19.6 ms  per_user= 51.1 tok/s  accept=2.32  hit=3.9%
+  M2_dfly3_thinkB sharegpt conc=80   out=  3716.2 tok/s  ttft50=   336 ms  tpot50= 19.7 ms  per_user= 50.7 tok/s  accept=2.31  hit=3.2%
+[2026-11-27T07:09:22+00:00] bench M2_dfly3_thinkA sharegpt c=100 n=1600
+[2026-11-27T07:09:22+00:00] bench M2_dfly3_thinkB sharegpt c=100 n=1600
+  M2_dfly3_thinkB sharegpt conc=100  out=  4173.9 tok/s  ttft50=   372 ms  tpot50= 22.1 ms  per_user= 45.3 tok/s  accept=2.31  hit=4.0%
+  M2_dfly3_thinkA sharegpt conc=100  out=  4204.4 tok/s  ttft50=   366 ms  tpot50= 21.8 ms  per_user= 45.8 tok/s  accept=2.32  hit=3.7%
+================ 2026-11-27T07:11:52+00:00 matrix=M3_dfly4_think (2 x TP4) dfly2 n=4 rej=standard think=default
+server 8180 up 2026-11-27T07:17:07+00:00
+server 8181 up 2026-11-27T07:21:53+00:00
+  quality M3_dfly4_thinkA: 49/50 correct
+[2026-11-27T07:21:54+00:00] bench M3_dfly4_thinkB sharegpt c=20 n=400
+[2026-11-27T07:21:54+00:00] bench M3_dfly4_thinkA sharegpt c=20 n=400
+  M3_dfly4_thinkB sharegpt conc=20   out=  1706.8 tok/s  ttft50=   175 ms  tpot50= 10.8 ms  per_user= 92.9 tok/s  accept=2.43  hit=0.3%
+  M3_dfly4_thinkA sharegpt conc=20   out=  1708.7 tok/s  ttft50=   193 ms  tpot50= 10.8 ms  per_user= 92.7 tok/s  accept=2.42  hit=0.7%
+[2026-11-27T07:23:05+00:00] bench M3_dfly4_thinkB sharegpt c=40 n=640
+[2026-11-27T07:23:05+00:00] bench M3_dfly4_thinkA sharegpt c=40 n=640
+  M3_dfly4_thinkB sharegpt conc=40   out=  2564.7 tok/s  ttft50=   255 ms  tpot50= 14.2 ms  per_user= 70.4 tok/s  accept=2.44  hit=1.2%
+  M3_dfly4_thinkA sharegpt conc=40   out=  2580.9 tok/s  ttft50=   254 ms  tpot50= 14.3 ms  per_user= 70.0 tok/s  accept=2.46  hit=1.0%
+[2026-11-27T07:24:25+00:00] bench M3_dfly4_thinkA sharegpt c=80 n=1280
+[2026-11-27T07:24:25+00:00] bench M3_dfly4_thinkB sharegpt c=80 n=1280
+  M3_dfly4_thinkA sharegpt conc=80   out=  3561.7 tok/s  ttft50=   352 ms  tpot50= 20.6 ms  per_user= 48.5 tok/s  accept=2.45  hit=3.9%
+  M3_dfly4_thinkB sharegpt conc=80   out=  3560.0 tok/s  ttft50=   353 ms  tpot50= 20.6 ms  per_user= 48.6 tok/s  accept=2.45  hit=3.2%
+[2026-11-27T07:26:13+00:00] bench M3_dfly4_thinkA sharegpt c=100 n=1600
+[2026-11-27T07:26:13+00:00] bench M3_dfly4_thinkB sharegpt c=100 n=1600
+  M3_dfly4_thinkB sharegpt conc=100  out=  3952.9 tok/s  ttft50=   400 ms  tpot50= 23.2 ms  per_user= 43.1 tok/s  accept=2.44  hit=4.0%
+  M3_dfly4_thinkA sharegpt conc=100  out=  3978.4 tok/s  ttft50=   397 ms  tpot50= 23.2 ms  per_user= 43.1 tok/s  accept=2.44  hit=3.7%
+================ 2026-11-27T07:28:54+00:00 matrix=M4_dspark3_off (2 x TP4) dspark n=3 rej=block think=off
+server 8180 up 2026-11-27T07:34:09+00:00
+server 8181 up 2026-11-27T07:39:25+00:00
+  quality M4_dspark3_offA: 48/50 correct
+[2026-11-27T07:39:26+00:00] bench M4_dspark3_offB sharegpt c=20 n=400
+[2026-11-27T07:39:26+00:00] bench M4_dspark3_offA sharegpt c=20 n=400
+  M4_dspark3_offB sharegpt conc=20   out=  1985.6 tok/s  ttft50=   167 ms  tpot50=  9.1 ms  per_user=109.4 tok/s  accept=2.47  hit=0.3%
+  M4_dspark3_offA sharegpt conc=20   out=  1987.9 tok/s  ttft50=   171 ms  tpot50=  9.2 ms  per_user=109.0 tok/s  accept=2.46  hit=0.7%
+[2026-11-27T07:40:29+00:00] bench M4_dspark3_offA sharegpt c=40 n=640
+[2026-11-27T07:40:29+00:00] bench M4_dspark3_offB sharegpt c=40 n=640
+  M4_dspark3_offB sharegpt conc=40   out=  2957.4 tok/s  ttft50=   219 ms  tpot50= 12.3 ms  per_user= 81.2 tok/s  accept=2.49  hit=1.2%
+  M4_dspark3_offA sharegpt conc=40   out=  2978.8 tok/s  ttft50=   226 ms  tpot50= 12.2 ms  per_user= 82.1 tok/s  accept=2.50  hit=1.0%
+[2026-11-27T07:41:37+00:00] bench M4_dspark3_offB sharegpt c=80 n=1280
+[2026-11-27T07:41:37+00:00] bench M4_dspark3_offA sharegpt c=80 n=1280
+  M4_dspark3_offB sharegpt conc=80   out=  4171.4 tok/s  ttft50=   313 ms  tpot50= 17.3 ms  per_user= 57.7 tok/s  accept=2.55  hit=1.1%
+  M4_dspark3_offA sharegpt conc=80   out=  4185.2 tok/s  ttft50=   320 ms  tpot50= 17.0 ms  per_user= 58.7 tok/s  accept=2.55  hit=0.8%
+[2026-11-27T07:43:03+00:00] bench M4_dspark3_offA sharegpt c=100 n=1600
+[2026-11-27T07:43:03+00:00] bench M4_dspark3_offB sharegpt c=100 n=1600
+  M4_dspark3_offB sharegpt conc=100  out=  4658.9 tok/s  ttft50=   366 ms  tpot50= 19.4 ms  per_user= 51.7 tok/s  accept=2.55  hit=2.7%
+  M4_dspark3_offA sharegpt conc=100  out=  4731.1 tok/s  ttft50=   353 ms  tpot50= 19.1 ms  per_user= 52.3 tok/s  accept=2.54  hit=2.0%
+================ 2026-11-27T07:45:23+00:00 matrix=M5_dfly3_off (2 x TP4) dfly2 n=3 rej=standard think=off
+server 8180 up 2026-11-27T07:50:24+00:00
+server 8181 up 2026-11-27T07:55:24+00:00
+  quality M5_dfly3_offA: 49/50 correct
+[2026-11-27T07:55:25+00:00] bench M5_dfly3_offB sharegpt c=20 n=400
+[2026-11-27T07:55:25+00:00] bench M5_dfly3_offA sharegpt c=20 n=400
+  M5_dfly3_offB sharegpt conc=20   out=  1852.7 tok/s  ttft50=   181 ms  tpot50=  9.8 ms  per_user=102.3 tok/s  accept=2.51  hit=0.3%
+  M5_dfly3_offA sharegpt conc=20   out=  1880.5 tok/s  ttft50=   184 ms  tpot50=  9.6 ms  per_user=103.8 tok/s  accept=2.55  hit=0.8%
+[2026-11-27T07:56:33+00:00] bench M5_dfly3_offA sharegpt c=40 n=640
+[2026-11-27T07:56:33+00:00] bench M5_dfly3_offB sharegpt c=40 n=640
+  M5_dfly3_offA sharegpt conc=40   out=  2783.3 tok/s  ttft50=   246 ms  tpot50= 12.9 ms  per_user= 77.4 tok/s  accept=2.53  hit=1.1%
+  M5_dfly3_offB sharegpt conc=40   out=  2814.4 tok/s  ttft50=   239 ms  tpot50= 12.8 ms  per_user= 78.0 tok/s  accept=2.54  hit=1.2%
+[2026-11-27T07:57:45+00:00] bench M5_dfly3_offA sharegpt c=80 n=1280
+[2026-11-27T07:57:45+00:00] bench M5_dfly3_offB sharegpt c=80 n=1280
+  M5_dfly3_offB sharegpt conc=80   out=  3997.6 tok/s  ttft50=   327 ms  tpot50= 18.1 ms  per_user= 55.3 tok/s  accept=2.53  hit=3.4%
+  M5_dfly3_offA sharegpt conc=80   out=  3980.1 tok/s  ttft50=   325 ms  tpot50= 18.1 ms  per_user= 55.4 tok/s  accept=2.53  hit=4.0%
+[2026-11-27T07:59:21+00:00] bench M5_dfly3_offA sharegpt c=100 n=1600
+[2026-11-27T07:59:21+00:00] bench M5_dfly3_offB sharegpt c=100 n=1600
+  M5_dfly3_offB sharegpt conc=100  out=  4496.4 tok/s  ttft50=   361 ms  tpot50= 20.1 ms  per_user= 49.9 tok/s  accept=2.53  hit=4.2%
+  M5_dfly3_offA sharegpt conc=100  out=  4508.5 tok/s  ttft50=   367 ms  tpot50= 20.1 ms  per_user= 49.6 tok/s  accept=2.53  hit=3.9%
+================ 2026-11-27T08:01:54+00:00 matrix=M6_dspark3_tp8 (1 x TP8) dspark n=3 rej=block think=default
+server 8182 up 2026-11-27T08:07:24+00:00
+  quality M6_dspark3_tp8: 49/50 correct
+[2026-11-27T08:07:26+00:00] bench M6_dspark3_tp8 sharegpt c=40 n=640
+  M6_dspark3_tp8 sharegpt conc=40   out=  3472.4 tok/s  ttft50=   202 ms  tpot50= 10.4 ms  per_user= 96.2 tok/s  accept=2.49  hit=0.0%
+[2026-11-27T08:08:25+00:00] bench M6_dspark3_tp8 sharegpt c=80 n=1280
+  M6_dspark3_tp8 sharegpt conc=80   out=  4888.8 tok/s  ttft50=   278 ms  tpot50= 14.9 ms  per_user= 67.3 tok/s  accept=2.48  hit=0.4%
+[2026-11-27T08:09:49+00:00] bench M6_dspark3_tp8 sharegpt c=160 n=2560
+  M6_dspark3_tp8 sharegpt conc=160  out=  6522.2 tok/s  ttft50=   405 ms  tpot50= 22.2 ms  per_user= 45.1 tok/s  accept=2.48  hit=4.3%
+[2026-11-27T08:11:48+00:00] bench M6_dspark3_tp8 sharegpt c=200 n=3200
+  M6_dspark3_tp8 sharegpt conc=200  out=  7026.1 tok/s  ttft50=   490 ms  tpot50= 25.8 ms  per_user= 38.7 tok/s  accept=2.49  hit=7.9%
+================ 2026-11-27T08:14:28+00:00 matrix=M7_dfly3_tp8 (1 x TP8) dfly2 n=3 rej=standard think=default
+server 8182 up 2026-11-27T08:19:14+00:00
+  quality M7_dfly3_tp8: 48/50 correct
+[2026-11-27T08:19:15+00:00] bench M7_dfly3_tp8 sharegpt c=40 n=640
+  M7_dfly3_tp8 sharegpt conc=40   out=  3106.3 tok/s  ttft50=   207 ms  tpot50= 11.6 ms  per_user= 86.0 tok/s  accept=2.32  hit=0.0%
+[2026-11-27T08:20:21+00:00] bench M7_dfly3_tp8 sharegpt c=80 n=1280
+  M7_dfly3_tp8 sharegpt conc=80   out=  4466.8 tok/s  ttft50=   281 ms  tpot50= 16.4 ms  per_user= 60.8 tok/s  accept=2.31  hit=0.4%
+[2026-11-27T08:21:52+00:00] bench M7_dfly3_tp8 sharegpt c=160 n=2560
+  M7_dfly3_tp8 sharegpt conc=160  out=  5888.2 tok/s  ttft50=   421 ms  tpot50= 25.0 ms  per_user= 40.0 tok/s  accept=2.31  hit=4.3%
+[2026-11-27T08:23:59+00:00] bench M7_dfly3_tp8 sharegpt c=200 n=3200
+  M7_dfly3_tp8 sharegpt conc=200  out=  6463.8 tok/s  ttft50=   478 ms  tpot50= 28.6 ms  per_user= 35.0 tok/s  accept=2.32  hit=7.9%
+================ 2026-11-27T08:26:54+00:00 matrix=M8_dspark3_high (2 x TP4) dspark n=3 rej=block think=default
+server 8180 up 2026-11-27T08:32:40+00:00
+server 8181 up 2026-11-27T08:37:55+00:00
+  quality M8_dspark3_highA: 49/50 correct
+[2026-11-27T08:37:56+00:00] bench M8_dspark3_highB sharegpt c=256 n=4096
+[2026-11-27T08:37:56+00:00] bench M8_dspark3_highA sharegpt c=256 n=4096
+  M8_dspark3_highB sharegpt conc=256  out=  6687.1 tok/s  ttft50=   621 ms  tpot50= 34.8 ms  per_user= 28.7 tok/s  accept=2.47  hit=1.8%
+  M8_dspark3_highA sharegpt conc=256  out=  6740.2 tok/s  ttft50=   617 ms  tpot50= 34.5 ms  per_user= 29.0 tok/s  accept=2.48  hit=1.5%
+================ 2026-11-27T08:41:31+00:00 matrix=M9_dfly3_high (2 x TP4) dfly2 n=3 rej=standard think=default
+server 8180 up 2026-11-27T08:46:32+00:00
+server 8181 up 2026-11-27T08:51:02+00:00
+  quality M9_dfly3_highA: 49/50 correct
+[2026-11-27T08:51:03+00:00] bench M9_dfly3_highB sharegpt c=256 n=4096
+[2026-11-27T08:51:03+00:00] bench M9_dfly3_highA sharegpt c=256 n=4096
+  M9_dfly3_highA sharegpt conc=256  out=  6177.2 tok/s  ttft50=   634 ms  tpot50= 38.2 ms  per_user= 26.2 tok/s  accept=2.32  hit=1.5%
+  M9_dfly3_highB sharegpt conc=256  out=  6141.0 tok/s  ttft50=   643 ms  tpot50= 38.5 ms  per_user= 26.0 tok/s  accept=2.31  hit=1.8%
+================ 2026-11-27T08:54:59+00:00 matrix done
+================ 2026-11-27T08:55:05+00:00 redo start (M4 at all loads: first run sent the thinking flag client-side only)
+================ 2026-11-27T08:55:05+00:00 matrix=M4r_dspark3_off (2 x TP4) dspark n=3 rej=block think=off
+server 8180 up 2026-11-27T09:00:20+00:00
+server 8181 up 2026-11-27T09:05:20+00:00
+  quality M4r_dspark3_offA: 48/50 correct
+[2026-11-27T09:05:22+00:00] bench M4r_dspark3_offA sharegpt c=20 n=400
+[2026-11-27T09:05:22+00:00] bench M4r_dspark3_offB sharegpt c=20 n=400
+  M4r_dspark3_offB sharegpt conc=20   out=  1954.4 tok/s  ttft50=   171 ms  tpot50=  9.2 ms  per_user=108.4 tok/s  accept=2.52  hit=0.3%
+  M4r_dspark3_offA sharegpt conc=20   out=  1979.4 tok/s  ttft50=   170 ms  tpot50=  9.2 ms  per_user=108.7 tok/s  accept=2.55  hit=0.8%
+[2026-11-27T09:06:25+00:00] bench M4r_dspark3_offB sharegpt c=40 n=640
+[2026-11-27T09:06:25+00:00] bench M4r_dspark3_offA sharegpt c=40 n=640
+  M4r_dspark3_offB sharegpt conc=40   out=  2959.7 tok/s  ttft50=   228 ms  tpot50= 12.2 ms  per_user= 82.1 tok/s  accept=2.56  hit=1.2%
+  M4r_dspark3_offA sharegpt conc=40   out=  2953.0 tok/s  ttft50=   229 ms  tpot50= 12.2 ms  per_user= 82.2 tok/s  accept=2.55  hit=1.1%
+[2026-11-27T09:07:36+00:00] bench M4r_dspark3_offA sharegpt c=80 n=1280
+[2026-11-27T09:07:36+00:00] bench M4r_dspark3_offB sharegpt c=80 n=1280
+  M4r_dspark3_offA sharegpt conc=80   out=  4213.7 tok/s  ttft50=   311 ms  tpot50= 17.1 ms  per_user= 58.6 tok/s  accept=2.55  hit=4.0%
+  M4r_dspark3_offB sharegpt conc=80   out=  4163.0 tok/s  ttft50=   319 ms  tpot50= 17.3 ms  per_user= 57.7 tok/s  accept=2.55  hit=3.4%
+[2026-11-27T09:09:07+00:00] bench M4r_dspark3_offB sharegpt c=100 n=1600
+[2026-11-27T09:09:07+00:00] bench M4r_dspark3_offA sharegpt c=100 n=1600
+  M4r_dspark3_offB sharegpt conc=100  out=  4703.5 tok/s  ttft50=   355 ms  tpot50= 19.1 ms  per_user= 52.4 tok/s  accept=2.54  hit=4.2%
+  M4r_dspark3_offA sharegpt conc=100  out=  4709.4 tok/s  ttft50=   353 ms  tpot50= 19.2 ms  per_user= 52.0 tok/s  accept=2.54  hit=3.9%
+================ 2026-11-27T09:11:37+00:00 redo done
